@@ -53,11 +53,14 @@
     <div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useRef, useCallback } = React;
-        const { motion, AnimatePresence } = window.Motion;
+        const MotionLib = window.Motion || window.motion || window.framerMotion || {};
+        const motion = (MotionLib.motion || MotionLib.default) || ((props) => React.createElement('div', props));
+        const AnimatePresence = MotionLib.AnimatePresence || (({ children }) => React.createElement(React.Fragment, null, children));
 
         const Icon = ({ name, size = 20, className = "" }) => {
-            const L = (window.lucide || {})[name] || (window.lucide || {}).Circle;
-            return L ? <L size={size} className={className} /> : null;
+            const lucide = window.lucide || {};
+            const L = lucide[name] || lucide.Circle;
+            return L ? React.createElement(L, { size, className }) : null;
         };
 
         const MOCK_SUMMARIES = {
@@ -517,8 +520,13 @@
 
         const rootEl = document.getElementById('root');
         if (rootEl) {
-            const root = ReactDOM.createRoot(rootEl);
-            root.render(<App />);
+            try {
+                const root = ReactDOM.createRoot(rootEl);
+                root.render(<App />);
+            } catch (err) {
+                rootEl.innerHTML = '<div style="padding:2rem;color:#fff;font-family:system-ui;max-width:600px;margin:0 auto;"><h1>Ranjan Dasgupta</h1><p>ranjan.adsgupta.com</p><p style="color:#00f2ff;"><a href="https://www.linkedin.com/in/ranjandsgpt/" style="color:inherit;">LinkedIn</a></p><pre style="background:rgba(255,255,255,0.1);padding:1rem;border-radius:8px;font-size:12px;overflow:auto;">' + (err && err.message ? err.message : String(err)) + '</pre></div>';
+                if (typeof console !== 'undefined') console.error(err);
+            }
         }
     </script>
 </body>
