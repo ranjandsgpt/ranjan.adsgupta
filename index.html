@@ -12,12 +12,14 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #000000;
+      --bg: #050505;
       --bg-elevated: #0a0a0a;
       --text: #ffffff;
       --text-muted: rgba(255, 255, 255, 0.6);
       --accent: #3b82f6;
-      --neon: #00f5d4;
+      --primary: #00f2ff;
+      --secondary: #7000ff;
+      --neon: #00f2ff;
       --neon-pink: #f72585;
       --neon-violet: #7b2cbf;
       --border: rgba(255, 255, 255, 0.08);
@@ -47,16 +49,45 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 1.5rem;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(5, 5, 5, 0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 245, 212, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
+    .nav-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 242, 255, 0.1);
+      border: 1px solid rgba(0, 242, 255, 0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-icon svg { width: 20px; height: 20px; color: var(--primary); }
     .nav-brand {
-      font-family: var(--font-mono);
-      font-weight: 600;
-      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-brand .nav-name {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.875rem;
       letter-spacing: 0.05em;
-      color: var(--neon);
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .nav-brand .nav-tagline {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(0, 242, 255, 0.85);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.1rem;
     }
     .nav-links {
       display: flex;
@@ -70,21 +101,53 @@
       font-weight: 500;
       transition: color 0.2s, text-shadow 0.2s;
     }
-    .nav-links a:hover { color: var(--neon); text-shadow: 0 0 20px rgba(0, 245, 212, 0.5); }
+    .nav-links a:hover { color: var(--primary); text-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
     .nav-cta {
       display: inline-flex;
       align-items: center;
       padding: 0.5rem 1rem;
       background: transparent;
-      color: var(--neon);
+      color: var(--primary);
       font-size: 0.875rem;
       font-weight: 600;
       text-decoration: none;
-      border: 1px solid var(--neon);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 0.5rem;
-      transition: box-shadow 0.2s, background 0.2s;
+      transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
     }
-    .nav-cta:hover { box-shadow: 0 0 24px rgba(0, 245, 212, 0.35); background: rgba(0, 245, 212, 0.08); }
+    .nav-cta:hover { box-shadow: 0 0 24px rgba(0, 242, 255, 0.25); background: rgba(0, 242, 255, 0.08); border-color: var(--primary); }
+    .nav-devtools {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-terminal {
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn-terminal:hover {
+      background: rgba(0, 242, 255, 0.2);
+      border-color: rgba(0, 242, 255, 0.5);
+      color: var(--primary);
+    }
+    .btn-terminal svg { width: 20px; height: 20px; }
+
+    /* Neural particle canvas (rotating universe) */
+    .neural-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.5;
+    }
 
     /* Signal Space Hero - 2030 explorable */
     .signal-hero {
@@ -96,23 +159,23 @@
       justify-content: center;
       padding: 6rem 1rem 4rem;
       overflow: hidden;
+      z-index: 1;
     }
     .signal-hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 50% at 50% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 245, 212, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 30% at 20% 60%, rgba(247, 37, 133, 0.06) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% 20%, rgba(112, 0, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 242, 255, 0.05) 0%, transparent 50%);
       pointer-events: none;
     }
     .signal-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       animation: gridPulse 8s ease-in-out infinite;
     }
@@ -129,10 +192,40 @@
       font-family: var(--font-mono);
       font-size: 0.6875rem;
       font-weight: 600;
-      letter-spacing: 0.2em;
-      color: var(--neon);
+      letter-spacing: 0.5em;
+      color: var(--primary);
       margin-bottom: 1rem;
       text-transform: uppercase;
+    }
+    .signal-hero-name {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(4rem, 18vw, 12rem);
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #fff;
+      text-shadow: 0 0 60px rgba(0, 242, 255, 0.15);
+      margin: 0 auto 1.5rem;
+      transition: font-weight 0.3s ease;
+    }
+    .signal-hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .signal-hero-divider .line {
+      width: 48px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .signal-hero-divider .text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
     }
     .signal-title {
       font-family: var(--font-mono);
@@ -141,7 +234,7 @@
       letter-spacing: 0.02em;
       line-height: 1.15;
       color: #fff;
-      text-shadow: 0 0 40px rgba(0, 245, 212, 0.2);
+      text-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
       max-width: 18ch;
       margin: 0 auto 0.75rem;
     }
@@ -162,11 +255,11 @@
       transition: text-shadow 0.2s, color 0.2s;
     }
     .signal-theme span:hover {
-      text-shadow: 0 0 16px rgba(0, 245, 212, 0.6);
+      text-shadow: 0 0 16px rgba(0, 242, 255, 0.6);
     }
     body[data-storyline="product"] .signal-grid { background-image: linear-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1px, transparent 1px); }
     body[data-storyline="ads"] .signal-grid { background-image: linear-gradient(rgba(247, 37, 133, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 37, 133, 0.06) 1px, transparent 1px); }
-    body[data-storyline="tech"] .signal-grid { background-image: linear-gradient(rgba(0, 245, 212, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 212, 0.06) 1px, transparent 1px); }
+    body[data-storyline="tech"] .signal-grid { background-image: linear-gradient(rgba(0, 242, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.06) 1px, transparent 1px); }
     body[data-storyline="ai"] .signal-grid { background-image: linear-gradient(rgba(123, 44, 191, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(123, 44, 191, 0.08) 1px, transparent 1px); }
     .orbit-wrap {
       position: relative;
@@ -313,17 +406,32 @@
     /* Footer */
     footer {
       border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 2rem 1.5rem;
+      padding: 3rem 1.5rem 2rem;
       text-align: center;
       position: relative;
       z-index: 2;
+    }
+    .footer-headline {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .footer-tagline {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      max-width: 42ch;
+      margin: 0 auto 0;
+      line-height: 1.6;
     }
     footer p {
       font-size: 0.8125rem;
       color: var(--text-muted);
     }
     footer a {
-      color: var(--neon);
+      color: var(--primary);
       text-decoration: none;
     }
     footer a:hover { text-decoration: underline; }
@@ -340,24 +448,25 @@
       bottom: 1.5rem;
       right: 1.5rem;
       z-index: 100;
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #38bdf8;
-      font-size: 1.25rem;
+      width: 44px;
+      height: 44px;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      color: #fff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
     .dev-trigger:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 28px rgba(56, 189, 248, 0.25);
+      background: rgba(0, 242, 255, 0.2);
+      border-color: rgba(0, 242, 255, 0.5);
+      color: var(--primary);
     }
+    .dev-trigger svg { width: 20px; height: 20px; }
     .dev-console {
       position: fixed;
       inset: 0;
@@ -839,28 +948,32 @@
     }
     .unified-widget-chat input::placeholder { color: rgba(255, 255, 255, 0.35); }
 
-    /* Draggable chatbot trigger */
+    /* Draggable chatbot trigger – terminal-style (Gemini) */
     .chatbot-trigger {
       position: fixed;
       right: 1.5rem;
       bottom: 5rem;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(123, 44, 191, 0.9), rgba(0, 245, 212, 0.8));
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      width: 44px;
+      height: 44px;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
       color: #fff;
-      font-size: 1.5rem;
       cursor: grab;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 300;
-      box-shadow: 0 4px 24px rgba(123, 44, 191, 0.4);
-      transition: transform 0.2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .chatbot-trigger:hover {
+      background: rgba(0, 242, 255, 0.2);
+      border-color: rgba(0, 242, 255, 0.5);
+      color: var(--primary);
     }
     .chatbot-trigger:active { cursor: grabbing; }
-    .chatbot-trigger:hover { transform: scale(1.08); }
+    .chatbot-trigger svg { width: 20px; height: 20px; flex-shrink: 0; }
 
     /* Mobile: sticky video player */
     .mobile-video-sticky {
@@ -913,21 +1026,41 @@
   </style>
 </head>
 <body>
+  <canvas class="neural-canvas" id="neuralCanvas" aria-hidden="true"></canvas>
+
   <nav class="nav">
-    <span class="nav-brand">RANJAN.DASGUPTA</span>
+    <div class="nav-brand-wrap">
+      <div class="nav-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><path d="M9 9h6v6H9z"/><path d="M9 4v4M15 4v4M9 16v4M15 16v4M4 9h4M4 15h4M16 9h4M16 15h4"/></svg>
+      </div>
+      <div class="nav-brand">
+        <span class="nav-name">Ranjan Dasgupta</span>
+        <span class="nav-tagline">AdTech Architect // V3.5</span>
+      </div>
+    </div>
     <div class="nav-links">
       <a href="#" data-story="experience">Experience</a>
       <a href="#" data-story="focus">Focus</a>
       <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
-    <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener noreferrer">AdsGupta →</a>
+    <div class="nav-devtools">
+      <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener noreferrer">AdsGupta →</a>
+      <button type="button" class="btn-terminal" id="navDevTrigger" title="Developer console" aria-label="Open developer console">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </button>
+    </div>
   </nav>
 
   <header class="signal-hero">
     <div class="signal-grid" aria-hidden="true"></div>
     <div class="signal-title-wrap">
-      <p class="signal-badge" id="signalBadge">2030 · AdTech · AI · Programmatic</p>
-      <h1 class="signal-title">Signal space</h1>
+      <p class="signal-badge" id="signalBadge">Building $200M+ Scale</p>
+      <h1 class="signal-hero-name" id="signalHeroName">DASGUPTA</h1>
+      <div class="signal-hero-divider">
+        <span class="line"></span>
+        <span class="text">Web, App, CTV & Agentic AI</span>
+        <span class="line"></span>
+      </div>
       <p class="signal-sub">Explore nodes to discover experience, focus, and projects. Each path leads somewhere.</p>
       <p class="signal-theme" id="signalTheme">
         <span data-theme="product">Product</span> · <span data-theme="ads">Ads</span> · <span data-theme="tech">Tech</span> · <span data-theme="ai">AI</span>
@@ -967,11 +1100,15 @@
   </div>
 
   <footer>
-    <p>Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
-    <p style="margin-top: 0.5rem;">&copy; 2025</p>
+    <h2 class="footer-headline">Solving the Invisible Problems.</h2>
+    <p class="footer-tagline">Turning complex ecosystems into predictable, revenue-compounding machines. Focused on identity, AI, and multi-screen unification.</p>
+    <p style="margin-top: 1.5rem;">Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
+    <p style="margin-top: 0.5rem;">&copy; 2030</p>
   </footer>
 
-  <button type="button" class="dev-trigger" id="devTrigger" title="Developer console" aria-label="Open developer console">⌘</button>
+  <button type="button" class="dev-trigger" id="devTrigger" title="Developer console" aria-label="Open developer console">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+  </button>
 
   <div class="dev-console" id="devConsole" role="dialog" aria-label="Developer console">
     <div class="dev-console-panel">
@@ -1101,7 +1238,9 @@
     </div>
   </div>
 
-  <button type="button" class="chatbot-trigger" id="chatbotTrigger" title="Open widget" aria-label="Chatbot">💬</button>
+  <button type="button" class="chatbot-trigger" id="chatbotTrigger" title="Open widget (Monetization AI)" aria-label="Open widget">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+  </button>
 
   <div class="mobile-video-sticky" id="mobileVideoSticky">
     <button type="button" class="video-close" id="mobileVideoClose" aria-label="Close video">×</button>
@@ -1112,6 +1251,76 @@
     (function () {
       var PREBID_TIMEOUT = 1000;
       var FAILSAFE_TIMEOUT = 3300;
+
+      (function neuralCanvas() {
+        var canvas = document.getElementById('neuralCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var mouse = { x: 0, y: 0, active: false };
+        var particles = [];
+        var particleCount = 100;
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        function Particle() {
+          this.reset = function () {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 1.5 + 0.5;
+          };
+          this.reset();
+        }
+        for (var i = 0; i < particleCount; i++) particles.push(new Particle());
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (mouse.active) {
+              var dx = mouse.x - p.x, dy = mouse.y - p.y;
+              var dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 200) {
+                p.vx += dx * 0.0001;
+                p.vy += dy * 0.0001;
+              }
+            }
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            ctx.fillStyle = 'rgba(0, 242, 255, 0.4)';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.strokeStyle = 'rgba(0, 242, 255, 0.05)';
+          ctx.lineWidth = 0.5;
+          for (var i = 0; i < particles.length; i++) {
+            for (var j = i + 1; j < particles.length; j++) {
+              var dx = particles[i].x - particles[j].x;
+              var dy = particles[i].y - particles[j].y;
+              if (dx * dx + dy * dy < 10000) {
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', resize);
+        document.addEventListener('mousemove', function (e) {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+          mouse.active = true;
+        });
+        document.addEventListener('mouseleave', function () { mouse.active = false; });
+        resize();
+        animate();
+      })();
 
       var demoTopics = {
         'programmatic': { summary: 'Programmatic ad serving automates the buying and selling of ad inventory via real-time auctions, reducing friction and increasing yield.', prompt: 'Summarize: Programmatic 101 for publishers' },
@@ -1155,6 +1364,19 @@
         document.body.setAttribute('data-storyline', theme);
         document.getElementById('signalBadge').textContent = '2030 · ' + (storylineLabels[theme] || 'AdTech · AI · Programmatic');
       });
+
+      (function scrollWeight() {
+        var el = document.getElementById('signalHeroName');
+        if (!el) return;
+        function onScroll() {
+          var total = document.documentElement.scrollHeight - window.innerHeight;
+          var progress = total > 0 ? window.pageYOffset / total : 0;
+          var w = Math.round(100 + progress * 8);
+          el.style.fontWeight = Math.min(800, Math.max(100, w));
+        }
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+      })();
 
       function refreshDemoView(topic) {
         var data = demoTopics[topic] || demoTopics['programmatic'];
@@ -1350,16 +1572,19 @@
       }
 
       var trigger = document.getElementById('devTrigger');
+      var navDevTrigger = document.getElementById('navDevTrigger');
       var consoleEl = document.getElementById('devConsole');
       var closeBtn = document.getElementById('devConsoleClose');
       var tabs = document.querySelectorAll('.dev-console-tab');
       var copyBtn = document.getElementById('adtagCopy');
       var formInputs = document.querySelectorAll('#adtagGptPath, #adtagDivId, #adtagSizes, #adtagPrebidPlacement, #adtagAmazonPubId');
 
-      trigger.addEventListener('click', function () {
+      function openDevConsole() {
         consoleEl.classList.add('is-open');
         updateAdTagOutput();
-      });
+      }
+      if (trigger) trigger.addEventListener('click', openDevConsole);
+      if (navDevTrigger) navDevTrigger.addEventListener('click', openDevConsole);
 
       closeBtn.addEventListener('click', function () {
         consoleEl.classList.remove('is-open');
