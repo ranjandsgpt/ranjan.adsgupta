@@ -1,533 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranjan Dasgupta | ranjan.adsgupta.com — Signal Nexus 2030</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-    <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #030304;
-            --surface: #0a0a0c;
-            --primary: #00f2ff;
-            --secondary: #7000ff;
-            --accent: #ff00aa;
-            --muted: rgba(255,255,255,0.4);
-        }
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-        }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .keyword { cursor: pointer; border-bottom: 1px dashed var(--primary); color: var(--primary); }
-        .keyword:hover { opacity: 0.9; }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0,242,255,0.2); }
-            50% { box-shadow: 0 0 40px rgba(0,242,255,0.4); }
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        .animate-float { animation: float 4s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .animate-spin-slow { animation: spin-slow 25s linear infinite; }
-        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
-        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Ranjan Dasgupta — AdTech & AI Advertising. Building platforms at scale.">
+  <title>Ranjan Dasgupta | ranjan.adsgupta.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #000000;
+      --bg-elevated: #0a0a0a;
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --accent: #3b82f6;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-sans: 'Space Grotesk', system-ui, sans-serif;
+      --font-display: 'Exo 2', 'Space Grotesk', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .hero-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 20ch;
+      margin-bottom: 1.25rem;
+    }
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 42ch;
+      margin-bottom: 2rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.9; }
+
+    /* Sections */
+    section {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: rgba(255, 255, 255, 0.15); }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-top: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Timeline / Experience */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .timeline-date {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .timeline-role {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-company { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .timeline-desc { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const { useState, useEffect, useRef, useCallback } = React;
-        const MotionLib = window.Motion || window.motion || window.framerMotion || {};
-        const motion = (MotionLib.motion || MotionLib.default) || ((props) => React.createElement('div', props));
-        const AnimatePresence = MotionLib.AnimatePresence || (({ children }) => React.createElement(React.Fragment, null, children));
+  <nav class="nav">
+    <span class="nav-brand">Ranjan Dasgupta</span>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+    <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener noreferrer">AdsGupta →</a>
+  </nav>
 
-        const Icon = ({ name, size = 20, className = "" }) => {
-            const lucide = window.lucide || {};
-            const L = lucide[name] || lucide.Circle;
-            return L ? React.createElement(L, { size, className }) : null;
-        };
+  <header class="hero">
+    <p class="hero-badge">AdTech · AI · Programmatic</p>
+    <h1 class="hero-title">Building AdTech platforms at scale.</h1>
+    <p class="hero-desc">Product lead for Web & CTV Exchange. 200M+ revenue scale. InMobi, Glance, Google.</p>
+    <a href="#experience" class="hero-cta">View experience</a>
+  </header>
 
-        const MOCK_SUMMARIES = {
-            'Programmatic Ad Serving': { summary: 'Programmatic ad serving automates the buying and selling of ad inventory across publishers and advertisers. Ranjan has deep experience in DFP, AdX, DV360, and ecosystem design.', prompts: ['What is SPO?', 'Yield optimization tips', 'Identity in cookieless world'], adCopy: 'Reach 200M+ users — InMobi Exchange' },
-            'SPO & Pricing Callouts': { summary: 'Supply Path Optimization (SPO) reduces waste and improves CPM by choosing the most efficient path to inventory. Pricing callouts help bidders make better decisions.', prompts: ['SPO best practices', 'Pricing signals', 'Auction dynamics'], adCopy: 'Optimize your path — Glance Programmatic' },
-            '200M+ Revenue': { summary: 'At scale, programmatic revenue crosses hundreds of millions when unified across Web, App, and CTV. Ranjan has driven such scale at Glance and InMobi.', prompts: ['Scale monetization', 'Unified stacks', 'CTV revenue'], adCopy: 'Unified monetization — adsgupta.com' },
-            'default': { summary: 'Context-aware summarization will be powered by Gemini. Click any highlighted term to see summary, prompts, and ads here.', prompts: ['Learn more', 'Related articles', 'Deploy widget'], adCopy: 'Ad slot — GPT Ad integration' },
-        };
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2025 — Present</span>
+        <div>
+          <div class="timeline-role">Product, Web & CTV Exchange</div>
+          <div class="timeline-company">InMobi</div>
+          <p class="timeline-desc">New initiatives for exchange and convergence.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2020 — 2025</span>
+        <div>
+          <div class="timeline-role">Product Growth, Programmatic</div>
+          <div class="timeline-company">Glance</div>
+          <p class="timeline-desc">Scaled programmatic and monetization.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2019 — 2020</span>
+        <div>
+          <div class="timeline-role">Product Strategy, Omni-Channel</div>
+          <div class="timeline-company">Automatad</div>
+          <p class="timeline-desc">Monetization strategy and execution.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2015 — 2019</span>
+        <div>
+          <div class="timeline-role">Technical Specialist</div>
+          <div class="timeline-company">Google</div>
+          <p class="timeline-desc">DFP, AdX, DV360, SA360 for global publishers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const NexusCanvas = () => {
-            const ref = useRef(null);
-            useEffect(() => {
-                const canvas = ref.current;
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                let frame;
-                const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-                window.addEventListener('resize', resize);
-                resize();
-                const dots = Array.from({ length: 80 }, () => ({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.3,
-                    vy: (Math.random() - 0.5) * 0.3,
-                    r: Math.random() * 1.5 + 0.5,
-                }));
-                const loop = () => {
-                    ctx.fillStyle = 'rgba(3,3,4,0.15)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillStyle = 'rgba(0,242,255,0.35)';
-                    dots.forEach(p => {
-                        p.x += p.vx; p.y += p.vy;
-                        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
-                    });
-                    frame = requestAnimationFrame(loop);
-                };
-                loop();
-                return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', resize); };
-            }, []);
-            return <canvas ref={ref} />;
-        };
+  <section id="about">
+    <h2 class="section-title">Focus</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Programmatic & Exchange</h3>
+        <p>Web, App, and CTV monetization. SPO, yield, and unified stacks.</p>
+        <span class="card-meta">InMobi · Glance</span>
+      </div>
+      <div class="card">
+        <h3>AI & Advertising</h3>
+        <p>Agentic AI, contextual intelligence, and future-focused ad products.</p>
+        <span class="card-meta">AdsGupta</span>
+      </div>
+      <div class="card">
+        <h3>Scale & Strategy</h3>
+        <p>200M+ revenue scale. Product strategy and ecosystem design.</p>
+        <span class="card-meta">Bengaluru</span>
+      </div>
+    </div>
+  </section>
 
-        const NEXUS_MODES = {
-            product: { title: 'Product', subtitle: 'Web, CTV & AI products', nodes: ['InMobi Exchange', 'Glance Monetization', 'Unified Stacks'] },
-            ads: { title: 'AdTech', subtitle: '200M+ revenue scale', nodes: ['Programmatic', 'SPO & Yield', 'Identity'] },
-            tech: { title: 'Tech', subtitle: 'Platforms & systems', nodes: ['DFP • AdX', 'DV360 • SA360', 'Agentic AI'] },
-            sales: { title: 'Growth', subtitle: 'Monetization & strategy', nodes: ['OEM partnerships', 'Revenue scaling', 'Ecosystem design'] },
-        };
-
-        const MonetizationLab = ({ isOpen, onClose }) => {
-            const [tab, setTab] = useState('demo');
-            const [widgetContent, setWidgetContent] = useState(MOCK_SUMMARIES['default']);
-            const [chatMessages, setChatMessages] = useState([]);
-            const [chatInput, setChatInput] = useState('');
-            const [prototypeUrl, setPrototypeUrl] = useState('https://example.com');
-            const [adToggles, setAdToggles] = useState({ header: true, infeed: true, chatbot: true, video: false });
-
-            const updateWidget = useCallback((key) => {
-                const data = MOCK_SUMMARIES[key] || MOCK_SUMMARIES['default'];
-                setWidgetContent(data);
-            }, []);
-
-            const articleText = 'The current state of Programmatic Ad Serving requires solving for auction inefficiencies. By integrating SPO & Pricing Callouts, we turn siloed stacks into predictable, revenue-compounding machines. This scale handles over 200M+ Revenue across Web and App ecosystems.';
-
-            const recommended = [
-                { id: 'r1', title: 'Ecosystem of Programmatic Ad Serving', snippet: 'Working principle at both publisher and advertiser ends.', ...MOCK_SUMMARIES['Programmatic Ad Serving'] },
-                { id: 'r2', title: "What's next in Programmatic Advertising?", snippet: 'Future of programmatic and identity.', ...MOCK_SUMMARIES['SPO & Pricing Callouts'] },
-                { id: 'r3', title: 'Scale monetization across Web & CTV', snippet: 'Unified stacks and 200M+ revenue.', ...MOCK_SUMMARIES['200M+ Revenue'] },
-            ];
-
-            const generateScript = () => `<!-- Monetization Widget v3.2 - adsgupta.com -->
-<script src="https://cdn.adsgupta.com/widget/v3.2.js" data-site-id="YOUR_SITE_ID" data-theme="nexus"><` + `/script>
-<script>
-  window.ADSGUPTA_WIDGET_CONFIG = {
-    keywords: ["programmatic", "SPO", "yield", "CTV"],
-    summarizer: "gemini",
-    ads: "gpt"
-  };
-<` + `/script>`;
-
-            if (!isOpen) return null;
-
-            return (
-                <AnimatePresence>
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex justify-end">
-                        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: 'spring', damping: 28, stiffness: 200 }}
-                            className="relative w-full md:w-[85%] max-w-5xl h-full bg-[#08080a] border-l border-white/10 flex flex-col shadow-2xl overflow-hidden"
-                        >
-                            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-                                <div>
-                                    <h2 className="text-lg font-bold text-white">Monetization Lab <span className="text-cyan-400 font-mono">v3.2</span></h2>
-                                    <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-0.5">Demo • Prototype • Generate</p>
-                                </div>
-                                <button onClick={onClose} className="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                                    <Icon name="X" className="w-5 h-5 text-white/60" />
-                                </button>
-                            </div>
-                            <div className="flex border-b border-white/5">
-                                {['demo', 'prototype', 'generate'].map(t => (
-                                    <button
-                                        key={t}
-                                        onClick={() => setTab(t)}
-                                        className={`flex-1 py-3 text-xs font-mono uppercase tracking-wider transition-all ${tab === t ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/40 hover:text-white/70'}`}
-                                    >
-                                        {t}
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div className="flex-1 overflow-y-auto no-scrollbar p-4 md:p-6">
-                                {tab === 'demo' && (
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                        <div className="lg:col-span-2 space-y-4">
-                                            <div className="glass rounded-xl p-4 md:p-6">
-                                                <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-2">Article / Demo view</p>
-                                                <p className="text-sm text-white/80 leading-relaxed">
-                                                    {articleText.split(/(Programmatic Ad Serving|SPO & Pricing Callouts|200M\+ Revenue)/g).map((part, i) =>
-                                                        ['Programmatic Ad Serving', 'SPO & Pricing Callouts', '200M+ Revenue'].includes(part)
-                                                            ? <span key={i} className="keyword" onClick={() => updateWidget(part)}>{part}</span>
-                                                            : <span key={i}>{part}</span>
-                                                    )}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-3">Recommended (click to refresh widget)</p>
-                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                                    {recommended.map(r => (
-                                                        <div
-                                                            key={r.id}
-                                                            className="glass rounded-lg p-3 cursor-pointer hover:border-cyan-500/30 border border-transparent transition-colors"
-                                                            onClick={() => { setWidgetContent({ summary: r.summary, prompts: r.prompts, adCopy: r.adCopy }); }}
-                                                        >
-                                                            <p className="text-xs font-semibold text-white truncate">{r.title}</p>
-                                                            <p className="text-[10px] text-white/50 mt-1">{r.snippet}</p>
-                                                            <div className="flex flex-wrap gap-1 mt-2">
-                                                                {(r.prompts || []).slice(0, 2).map((p, i) => (
-                                                                    <span key={i} className="text-[9px] font-mono px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded" onClick={(ev) => { ev.stopPropagation(); setWidgetContent({ summary: r.summary, prompts: r.prompts, adCopy: r.adCopy }); }}>{p}</span>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="lg:col-span-1">
-                                            <div className="glass rounded-xl p-4 sticky top-4">
-                                                <p className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest mb-2">Widget (in-place refresh)</p>
-                                                <div className="space-y-3">
-                                                    <div>
-                                                        <p className="text-[10px] text-white/40 uppercase mb-1">Summary (Gemini)</p>
-                                                        <p className="text-xs text-white/80 leading-relaxed">{widgetContent.summary}</p>
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-[10px] text-white/40 uppercase mb-1">Prompts</p>
-                                                        <div className="flex flex-wrap gap-2">
-                                                            {(widgetContent.prompts || []).map((p, i) => (
-                                                                <span key={i} className="text-[10px] font-mono px-2 py-1 bg-white/5 border border-white/10 rounded text-cyan-400">{p}</span>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                    <div className="pt-2 border-t border-white/10">
-                                                        <p className="text-[10px] text-white/40 uppercase mb-1">Ad (GPT)</p>
-                                                        <div className="min-h-[80px] flex items-center justify-center bg-black/40 rounded-lg border border-white/10 text-[10px] text-white/40">
-                                                            {widgetContent.adCopy}
-                                                        </div>
-                                                    </div>
-                                                    <div className="pt-2 border-t border-white/10">
-                                                        <p className="text-[10px] text-white/40 uppercase mb-1">Chat</p>
-                                                        <input
-                                                            type="text"
-                                                            value={chatInput}
-                                                            onChange={(e) => setChatInput(e.target.value)}
-                                                            onKeyDown={(e) => { if (e.key === 'Enter') { setChatMessages(m => [...m, { role: 'user', text: chatInput }]); setChatInput(''); } }}
-                                                            placeholder="Type here..."
-                                                            className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs placeholder-white/30"
-                                                        />
-                                                        {chatMessages.length > 0 && (
-                                                            <div className="mt-2 space-y-1">
-                                                                {chatMessages.slice(-3).map((m, i) => (
-                                                                    <p key={i} className="text-[10px] text-cyan-400/90">{m.text}</p>
-                                                                ))}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {tab === 'prototype' && (
-                                    <div className="space-y-6">
-                                        <div className="flex flex-wrap gap-4 items-end">
-                                            <div className="flex-1 min-w-[200px]">
-                                                <label className="block text-[10px] font-mono text-white/40 uppercase mb-1">Page URL</label>
-                                                <input
-                                                    type="url"
-                                                    value={prototypeUrl}
-                                                    onChange={(e) => setPrototypeUrl(e.target.value)}
-                                                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono"
-                                                    placeholder="https://example.com"
-                                                />
-                                            </div>
-                                            <div className="flex flex-wrap gap-4">
-                                                {['header', 'infeed', 'chatbot', 'video'].map(k => (
-                                                    <label key={k} className="flex items-center gap-2 text-xs text-white/70 cursor-pointer">
-                                                        <input type="checkbox" checked={adToggles[k]} onChange={(e) => setAdToggles(prev => ({ ...prev, [k]: e.target.checked }))} className="rounded" />
-                                                        {k}
-                                                    </label>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/50" style={{ minHeight: 400 }}>
-                                            <iframe
-                                                title="Prototype preview"
-                                                src={prototypeUrl.startsWith('http') ? prototypeUrl : 'about:blank'}
-                                                className="w-full h-[400px] md:h-[500px] pointer-events-none opacity-90"
-                                                sandbox="allow-scripts"
-                                            />
-                                            {adToggles.header && (
-                                                <div className="absolute top-0 left-0 right-0 h-12 bg-cyan-500/20 border-b border-cyan-500/30 flex items-center justify-center text-[10px] font-mono text-cyan-400">
-                                                    Header Sticky Ad
-                                                </div>
-                                            )}
-                                            {adToggles.infeed && (
-                                                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-20 bg-purple-500/20 border border-purple-500/30 rounded flex items-center justify-center text-[10px] font-mono text-purple-300">
-                                                    Infeed Ad
-                                                </div>
-                                            )}
-                                            {adToggles.chatbot && (
-                                                <div className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-cyan-500/30 border border-cyan-400 flex items-center justify-center text-cyan-400">
-                                                    <Icon name="MessageCircle" size={20} />
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {tab === 'generate' && (
-                                    <div className="space-y-4">
-                                        <p className="text-xs text-white/60">Embed this script to add the Monetization Widget to any site.</p>
-                                        <textarea
-                                            readOnly
-                                            value={generateScript()}
-                                            className="w-full h-48 px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-[11px] font-mono text-cyan-300 no-scrollbar"
-                                            spellCheck={false}
-                                        />
-                                        <button onClick={() => navigator.clipboard.writeText(generateScript())} className="px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 text-xs font-mono hover:bg-cyan-500/30 transition-colors">
-                                            Copy script
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                </AnimatePresence>
-            );
-        };
-
-        const FloatingWidget = ({ isOpen, onClose, content }) => {
-            const [msg, setMsg] = useState('');
-            const [messages, setMessages] = useState([]);
-            const data = content || MOCK_SUMMARIES['default'];
-            if (!isOpen) return null;
-            const send = () => {
-                if (!msg.trim()) return;
-                setMessages(m => [...m, { role: 'user', text: msg }]);
-                setMsg('');
-            };
-            return (
-                <motion.div
-                    drag
-                    dragMomentum={false}
-                    dragConstraints={{ left: -800, right: 800, top: -400, bottom: 400 }}
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="fixed bottom-24 right-6 w-[340px] max-h-[85vh] z-[95] glass rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-cyan-500/20"
-                >
-                    <div className="p-3 border-b border-white/10 flex justify-between items-center bg-cyan-500/10">
-                        <span className="text-xs font-mono text-cyan-400 uppercase">Widget • Gemini + GPT Ad</span>
-                        <button onClick={onClose} className="p-1 rounded hover:bg-white/10"><Icon name="X" size={14} className="text-white/60" /></button>
-                    </div>
-                    <div className="flex-1 overflow-y-auto p-3 space-y-3 no-scrollbar">
-                        <p className="text-[11px] text-white/80 leading-relaxed">{data.summary}</p>
-                        <div className="flex flex-wrap gap-1">
-                            {(data.prompts || []).map((p, i) => (
-                                <span key={i} className="text-[9px] font-mono px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded">{p}</span>
-                            ))}
-                        </div>
-                        <div className="min-h-[60px] rounded-lg bg-black/40 border border-white/10 flex items-center justify-center text-[10px] text-white/40">
-                            {data.adCopy}
-                        </div>
-                        {messages.length > 0 && (
-                            <div className="space-y-1">
-                                {messages.map((m, i) => (
-                                    <p key={i} className="text-[10px] text-cyan-400">{m.text}</p>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                    <div className="p-2 border-t border-white/10 flex gap-2">
-                        <input
-                            type="text"
-                            value={msg}
-                            onChange={(e) => setMsg(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && send()}
-                            placeholder="Chat..."
-                            className="flex-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs placeholder-white/30"
-                        />
-                        <button onClick={send} className="px-3 py-2 rounded-lg bg-cyan-500 text-black text-xs font-mono">Send</button>
-                    </div>
-                </motion.div>
-            );
-        };
-
-        const MobileStickyVideo = ({ visible, onClose, onCloseOpensWidget }) => {
-            if (!visible) return null;
-            const handleClose = () => { onClose(); onCloseOpensWidget(); };
-            return (
-                <motion.div
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="md:hidden fixed bottom-20 right-4 z-[85] w-24 h-36 rounded-xl overflow-hidden border-2 border-cyan-500/40 bg-black shadow-xl"
-                >
-                    <div className="absolute inset-0 flex items-center justify-center text-white/30 text-[10px] font-mono">Video</div>
-                    <button onClick={handleClose} className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/80 flex items-center justify-center text-white z-10">
-                        <Icon name="X" size={12} />
-                    </button>
-                </motion.div>
-            );
-        };
-
-        const ChatbotFab = ({ onOpenWidget }) => (
-            <motion.button
-                drag
-                dragMomentum={false}
-                dragConstraints={{ left: -400, right: 400, top: -400, bottom: 400 }}
-                className="fixed z-[90] w-14 h-14 rounded-full bg-cyan-500 shadow-[0_0_30px_rgba(0,242,255,0.5)] flex items-center justify-center text-black hover:scale-105 transition-transform cursor-grab active:cursor-grabbing"
-                style={{ bottom: 24, right: 24 }}
-                onClick={onOpenWidget}
-            >
-                <Icon name="MessageCircle" size={24} />
-            </motion.button>
-        );
-
-        function App() {
-            const [labOpen, setLabOpen] = useState(false);
-            const [mode, setMode] = useState('product');
-            const [widgetPopupOpen, setWidgetPopupOpen] = useState(false);
-            const [floatingWidgetContent, setFloatingWidgetContent] = useState(MOCK_SUMMARIES['default']);
-            const [mobileVideoVisible, setMobileVideoVisible] = useState(false);
-            const modeData = NEXUS_MODES[mode] || NEXUS_MODES.product;
-
-            return (
-                <div className="relative min-h-screen">
-                    <NexusCanvas />
-                    <header className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-between items-center glass border-b border-white/5">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center">
-                                <Icon name="Cpu" className="text-cyan-400 w-5 h-5" />
-                            </div>
-                            <div>
-                                <span className="text-sm font-bold text-white block">Ranjan Dasgupta</span>
-                                <span className="text-[10px] font-mono text-cyan-400/80">ranjan.adsgupta.com • Signal Nexus 2030</span>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-cyan-400 transition-colors p-2" aria-label="LinkedIn">
-                                <Icon name="Linkedin" size={20} />
-                            </a>
-                            <button onClick={() => setLabOpen(true)} className="p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all flex items-center gap-2">
-                                <Icon name="Terminal" size={18} className="text-cyan-400" />
-                                <span className="text-xs font-mono text-white/70 hidden sm:inline">Monetization Lab v3.2</span>
-                            </button>
-                        </div>
-                    </header>
-
-                    <main className="relative z-10 pt-28 pb-24 px-4 md:px-8 max-w-6xl mx-auto">
-                        <section className="text-center py-16 md:py-24">
-                            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-cyan-400 font-mono text-xs uppercase tracking-[0.4em] mb-4">
-                                Building AdTech Platforms • 200M+ Revenue • Web, CTV & AI
-                            </motion.p>
-                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-5xl md:text-8xl font-bold tracking-tighter text-white mb-6">
-                                SIGNAL NEXUS
-                            </motion.h1>
-                            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="text-white/50 text-sm md:text-base max-w-xl mx-auto mb-12">
-                                Explore by topic. Ask about product, ads, tech, or sales — the space adapts.
-                            </motion.p>
-                            <div className="flex flex-wrap justify-center gap-2 mb-12">
-                                {Object.keys(NEXUS_MODES).map(m => (
-                                    <button
-                                        key={m}
-                                        onClick={() => setMode(m)}
-                                        className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition-all ${mode === m ? 'bg-cyan-500 text-black' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
-                                    >
-                                        {m}
-                                    </button>
-                                ))}
-                            </div>
-                            <motion.div key={mode} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="glass rounded-2xl p-8 md:p-12 inline-block text-left">
-                                <h2 className="text-2xl font-bold text-white mb-1">{modeData.title}</h2>
-                                <p className="text-sm text-white/50 mb-6">{modeData.subtitle}</p>
-                                <ul className="space-y-2">
-                                    {modeData.nodes.map((n, i) => (
-                                        <li key={i} className="flex items-center gap-2 text-cyan-400/90 font-mono text-sm">
-                                            <Icon name="Zap" size={14} /> {n}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </motion.div>
-                        </section>
-
-                        <section className="py-16 border-t border-white/5">
-                            <h2 className="text-xl font-bold text-white mb-6 text-center">Journey</h2>
-                            <div className="space-y-8 max-w-2xl mx-auto">
-                                {[
-                                    { year: '2025 —', role: 'InMobi • Product, Web & CTV Exchange', desc: 'New initiatives for exchange and convergence.' },
-                                    { year: '2020–2025', role: 'Glance • Product Growth Programmatic', desc: '5 years scaling programmatic and monetization.' },
-                                    { year: '2019–2020', role: 'Automatad • Product Strategy, Omni-Channel', desc: 'Monetization strategy and execution.' },
-                                    { year: '2015–2019', role: 'Google • Technical Specialist', desc: 'DFP, AdX, DV360, SA360, GAM for global publishers.' },
-                                ].map((item, i) => (
-                                    <motion.div key={i} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="pl-8 border-l-2 border-cyan-500/30">
-                                        <span className="text-[10px] font-mono text-cyan-400">{item.year}</span>
-                                        <h3 className="text-lg font-semibold text-white mt-1">{item.role}</h3>
-                                        <p className="text-sm text-white/50 mt-1">{item.desc}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </section>
-
-                        <footer className="py-12 text-center border-t border-white/5">
-                            <p className="text-[10px] font-mono text-white/30 uppercase tracking-widest">&copy; 2030 Ranjan Dasgupta • Bengaluru</p>
-                            <p className="text-[10px] text-white/20 mt-2">adsgupta.com • talenos.adsgupta.com • demoai.adsgupta.com</p>
-                        </footer>
-                    </main>
-
-                    <ChatbotFab onOpenWidget={() => { setFloatingWidgetContent(MOCK_SUMMARIES['default']); setWidgetPopupOpen(true); }} />
-                    <FloatingWidget isOpen={widgetPopupOpen} onClose={() => setWidgetPopupOpen(false)} content={floatingWidgetContent} />
-                    <MobileStickyVideo visible={mobileVideoVisible} onClose={() => setMobileVideoVisible(false)} onCloseOpensWidget={() => { setWidgetPopupOpen(true); setFloatingWidgetContent(MOCK_SUMMARIES['default']); }} />
-                    <button
-                        onClick={() => setMobileVideoVisible(true)}
-                        className="md:hidden fixed bottom-24 left-4 z-[80] px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-[10px] font-mono text-white/70 uppercase"
-                    >
-                        Video
-                    </button>
-                    <MonetizationLab isOpen={labOpen} onClose={() => setLabOpen(false)} />
-                </div>
-            );
-        }
-
-        const rootEl = document.getElementById('root');
-        if (rootEl) {
-            try {
-                const root = ReactDOM.createRoot(rootEl);
-                root.render(<App />);
-            } catch (err) {
-                rootEl.innerHTML = '<div style="padding:2rem;color:#fff;font-family:system-ui;max-width:600px;margin:0 auto;"><h1>Ranjan Dasgupta</h1><p>ranjan.adsgupta.com</p><p style="color:#00f2ff;"><a href="https://www.linkedin.com/in/ranjandsgpt/" style="color:inherit;">LinkedIn</a></p><pre style="background:rgba(255,255,255,0.1);padding:1rem;border-radius:8px;font-size:12px;overflow:auto;">' + (err && err.message ? err.message : String(err)) + '</pre></div>';
-                if (typeof console !== 'undefined') console.error(err);
-            }
-        }
-    </script>
+  <footer>
+    <p>Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
+    <p style="margin-top: 0.5rem;">&copy; 2025</p>
+  </footer>
 </body>
 </html>
