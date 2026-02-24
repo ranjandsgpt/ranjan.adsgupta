@@ -139,6 +139,30 @@
       color: var(--primary);
     }
     .btn-terminal svg { width: 20px; height: 20px; }
+    .dev-trigger-fixed {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .dev-trigger-fixed:hover {
+      background: rgba(0, 242, 255, 0.2);
+      border-color: rgba(0, 242, 255, 0.5);
+      color: var(--primary);
+    }
+    .dev-trigger-fixed svg { width: 20px; height: 20px; }
 
     /* Neural particle canvas (rotating universe) */
     .neural-canvas {
@@ -206,7 +230,13 @@
       color: #fff;
       text-shadow: 0 0 60px rgba(0, 242, 255, 0.15);
       margin: 0 auto 1.5rem;
-      transition: font-weight 0.3s ease;
+      transition: font-weight 0.3s ease, opacity 0.4s ease;
+      animation: heroNameFadeIn 1.5s ease-out forwards;
+    }
+    .signal-hero-name.is-scrolled { opacity: 0.15; }
+    @keyframes heroNameFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .signal-hero-divider {
       display: flex;
@@ -348,6 +378,89 @@
       color: var(--text-muted);
     }
     .signal-cta strong { color: var(--neon); }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      z-index: 2;
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 4rem;
+      background: linear-gradient(to bottom, var(--primary), transparent);
+    }
+    .scroll-hint-text {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    /* Page timeline (experience list – Gemini style) */
+    .page-timeline {
+      position: relative;
+      z-index: 1;
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 8rem;
+    }
+    .page-timeline-item {
+      position: relative;
+      padding-left: 3rem;
+      padding-bottom: 4rem;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .page-timeline-item:last-child { padding-bottom: 0; }
+    .page-timeline-dot {
+      position: absolute;
+      left: -5px;
+      top: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+    }
+    .page-timeline-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .page-timeline-role {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .page-timeline-desc {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .page-timeline-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .page-timeline-link:hover { color: var(--primary); }
+    .page-timeline-link svg { width: 12px; height: 12px; }
 
     /* Expandable story panel (replaces traditional sections) */
     .story-panel {
@@ -403,38 +516,167 @@
     }
     .story-panel a:hover { text-decoration: underline; }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 3rem 1.5rem 2rem;
-      text-align: center;
+    /* Footer – AdsGupta clone (https://www.adsgupta.com) */
+    .footer-adsgupta {
       position: relative;
       z-index: 2;
+      padding: 4rem 0 4rem;
+      background: #0A0A0A;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .footer-headline {
+    @media (min-width: 768px) {
+      .footer-adsgupta { padding: 6rem 0 4rem; }
+    }
+    .footer-adsgupta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .footer-adsgupta-inner { padding: 0 3rem; }
+    }
+    .footer-adsgupta-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    @media (min-width: 1024px) {
+      .footer-adsgupta-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+      }
+    }
+    .footer-adsgupta-heading {
       font-family: var(--font-sans);
+      font-size: 1.875rem;
       font-weight: 700;
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      letter-spacing: -0.02em;
       color: #fff;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
     }
-    .footer-tagline {
-      font-size: 0.9375rem;
-      color: var(--text-muted);
-      max-width: 42ch;
-      margin: 0 auto 0;
-      line-height: 1.6;
+    @media (min-width: 768px) {
+      .footer-adsgupta-heading { font-size: 2.25rem; }
     }
-    footer p {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
+    .footer-adsgupta-desc {
+      font-size: 1.125rem;
+      color: #a1a1aa;
+      margin-bottom: 2rem;
+      max-width: 28rem;
     }
-    footer a {
-      color: var(--primary);
+    .footer-adsgupta-form {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .footer-adsgupta-input {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      border-radius: 9999px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: inherit;
+    }
+    .footer-adsgupta-input::placeholder { color: #71717a; }
+    .footer-adsgupta-input:focus {
+      outline: none;
+      border-color: rgba(34, 211, 238, 0.5);
+    }
+    .footer-adsgupta-submit {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 9999px;
+      background: #22d3ee;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .footer-adsgupta-submit:hover { background: #67e8f9; }
+    .footer-adsgupta-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .footer-adsgupta-links { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    }
+    .footer-adsgupta-col-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: 0.025em;
+    }
+    .footer-adsgupta-ul {
+      list-style: none;
+    }
+    .footer-adsgupta-ul li { margin-bottom: 0.75rem; }
+    .footer-adsgupta-ul a {
+      font-size: 0.875rem;
+      color: #71717a;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-adsgupta-ul a:hover { color: #fff; }
+    .footer-adsgupta-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .footer-adsgupta-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    .footer-adsgupta-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-adsgupta-logo {
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
       text-decoration: none;
     }
-    footer a:hover { text-decoration: underline; }
+    .footer-adsgupta-logo-cyan { color: #22d3ee; }
+    .footer-adsgupta-copy {
+      font-size: 0.875rem;
+      color: #52525b;
+    }
+    .footer-adsgupta-social {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-adsgupta-social-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #a1a1aa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s, background 0.3s;
+    }
+    .footer-adsgupta-social-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
 
     @media (max-width: 640px) {
       .nav-links { display: none; }
@@ -443,30 +685,6 @@
     }
 
     /* Dev console */
-    .dev-trigger {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 100;
-      width: 44px;
-      height: 44px;
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 9999px;
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-    .dev-trigger:hover {
-      background: rgba(0, 242, 255, 0.2);
-      border-color: rgba(0, 242, 255, 0.5);
-      color: var(--primary);
-    }
-    .dev-trigger svg { width: 20px; height: 20px; }
     .dev-console {
       position: fixed;
       inset: 0;
@@ -490,6 +708,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .dev-console-header {
       display: flex;
@@ -831,8 +1050,16 @@
       color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
     }
+    .dev-prototype-main {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
     .dev-prototype-frame-wrap {
       position: relative;
+      flex: 1;
+      min-width: 280px;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -859,26 +1086,29 @@
     .proto-overlay.header-sticky { top: 0; left: 0; right: 0; height: 50px; }
     .proto-overlay.infeed { left: 50%; transform: translateX(-50%); width: 300px; height: 250px; top: 30%; }
     .proto-overlay.footer-sticky { bottom: 0; left: 0; right: 0; height: 60px; }
+    .proto-overlay.proto-summarizer { top: 60px; right: 1rem; width: 140px; height: 80px; }
+    .proto-overlay.proto-prompt { top: 60px; left: 1rem; width: 140px; height: 80px; }
 
     /* Unified widget (summarizer + prompts + ads + chat) */
     .unified-widget {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
       width: 360px;
-      max-width: calc(100vw - 2rem);
-      max-height: 85vh;
+      max-width: calc(100% - 2rem);
+      max-height: 70vh;
       background: linear-gradient(180deg, #0f172a 0%, #0c0f14 100%);
       border: 1px solid rgba(0, 245, 212, 0.25);
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-      z-index: 350;
       display: none;
       flex-direction: column;
       overflow: hidden;
     }
     .unified-widget.is-open { display: flex; }
+    .unified-widget--inside-console {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 80;
+    }
     .unified-widget-header {
       padding: 0.75rem 1rem;
       background: rgba(0, 245, 212, 0.08);
@@ -948,55 +1178,19 @@
     }
     .unified-widget-chat input::placeholder { color: rgba(255, 255, 255, 0.35); }
 
-    /* Draggable chatbot trigger – terminal-style (Gemini) */
-    .chatbot-trigger {
-      position: fixed;
-      right: 1.5rem;
-      bottom: 5rem;
-      width: 44px;
-      height: 44px;
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 9999px;
-      color: #fff;
-      cursor: grab;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 300;
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .chatbot-trigger:hover {
-      background: rgba(0, 242, 255, 0.2);
-      border-color: rgba(0, 242, 255, 0.5);
-      color: var(--primary);
-    }
-    .chatbot-trigger:active { cursor: grabbing; }
-    .chatbot-trigger svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-    /* Mobile: sticky video player */
-    .mobile-video-sticky {
-      display: none;
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
+    /* Prototype tab: vertical video module */
+    .proto-video-module {
+      position: relative;
       width: 120px;
       height: 180px;
       border-radius: 12px;
       overflow: hidden;
-      border: 2px solid rgba(0, 245, 212, 0.4);
-      z-index: 280;
+      border: 2px solid rgba(0, 242, 255, 0.4);
       background: #000;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      margin-top: 1rem;
+      flex-shrink: 0;
     }
-    @media (max-width: 768px) {
-      .mobile-video-sticky { display: block; }
-    }
-    @media (min-width: 769px) {
-      .mobile-video-sticky { display: none !important; }
-    }
-    .mobile-video-sticky .video-close {
+    .proto-video-close {
       position: absolute;
       top: 4px;
       right: 4px;
@@ -1011,7 +1205,7 @@
       font-size: 1rem;
       line-height: 1;
     }
-    .mobile-video-sticky .video-placeholder {
+    .proto-video-placeholder {
       width: 100%;
       height: 100%;
       background: linear-gradient(180deg, #1a0a2e 0%, #0d0d1a 100%);
@@ -1023,10 +1217,127 @@
       text-align: center;
       padding: 0.5rem;
     }
+
+    /* Login & Admin */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 400;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.is-open { display: flex; }
+    .modal-box {
+      background: #0c0f14;
+      border: 1px solid rgba(0, 242, 255, 0.25);
+      border-radius: 16px;
+      padding: 1.5rem;
+      max-width: 400px;
+      width: 100%;
+    }
+    .modal-box h3 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .modal-box label {
+      display: block;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.35rem;
+    }
+    .modal-box input[type="email"],
+    .modal-box input[type="password"],
+    .modal-box input[type="text"] {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .modal-box .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .modal-box .modal-actions button {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+    .modal-box .btn-primary {
+      background: var(--primary);
+      color: #000;
+    }
+    .modal-box .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #e2e8f0;
+    }
+    .admin-bar {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .admin-bar.is-visible { display: flex; }
+    .admin-bar .upload-resume-btn, .admin-bar .logout-btn {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      font-weight: 600;
+    }
+    .admin-bar .upload-resume-btn { background: rgba(0, 242, 255, 0.2); color: var(--primary); }
+    .admin-bar .logout-btn { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+    .download-pdf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #000;
+      background: #22d3ee;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .download-pdf-btn:hover { background: #67e8f9; }
+    .resume-upload-input { display: none; }
   </style>
 </head>
 <body>
   <canvas class="neural-canvas" id="neuralCanvas" aria-hidden="true"></canvas>
+
+  <div class="modal-overlay" id="loginModal" role="dialog" aria-label="Login">
+    <div class="modal-box">
+      <h3>Login</h3>
+      <form id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required placeholder="you@example.com" autocomplete="email">
+        <label for="loginPasscode">Passcode</label>
+        <input type="password" id="loginPasscode" required placeholder="••••••••" autocomplete="current-password">
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Sign in</button>
+          <button type="button" class="btn-secondary" id="loginModalClose">Cancel</button>
+        </div>
+      </form>
+      <p id="loginError" style="margin-top:0.75rem;font-size:0.8rem;color:#f87171;display:none;"></p>
+    </div>
+  </div>
 
   <nav class="nav">
     <div class="nav-brand-wrap">
@@ -1044,10 +1355,13 @@
       <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
     <div class="nav-devtools">
+      <div class="admin-bar" id="adminBar">
+        <button type="button" class="upload-resume-btn" id="uploadResumeBtn">Upload resume</button>
+        <button type="button" class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+      <a href="#" class="nav-cta" id="loginLink">Login</a>
       <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener noreferrer">AdsGupta →</a>
-      <button type="button" class="btn-terminal" id="navDevTrigger" title="Developer console" aria-label="Open developer console">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-      </button>
+      <input type="file" id="resumeFileInput" class="resume-upload-input" accept=".pdf,.txt">
     </div>
   </nav>
 
@@ -1075,8 +1389,43 @@
       <a href="https://www.linkedin.com/in/ranjandsgpt/" class="orbit-node linkedin" target="_blank" rel="noopener" title="LinkedIn">IN</a>
       <a href="https://adsgupta.com/audit" class="orbit-node audit" target="_blank" rel="noopener" title="Audit">AUDIT</a>
     </div>
-    <p class="signal-cta"><strong>Click any node</strong> to open its story · Dev console bottom-right</p>
+    <p class="signal-cta"><strong>Click any node</strong> to open its story · Dev console bottom right</p>
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-hint-line"></div>
+      <span class="scroll-hint-text">Scroll to traverse archive</span>
+    </div>
   </header>
+
+  <section class="page-timeline" id="pageTimeline">
+    <div class="page-timeline-item">
+      <span class="page-timeline-dot"></span>
+      <span class="page-timeline-meta">2025 - PRES // FUTURE</span>
+      <h3 class="page-timeline-role">InMobi | Senior Manager</h3>
+      <p class="page-timeline-desc">Driving 2030 product strategies for Web & CTV Exchange in convergence with Agentic AI.</p>
+      <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+    <div class="page-timeline-item">
+      <span class="page-timeline-dot"></span>
+      <span class="page-timeline-meta">2020 - 2025 // SCALE</span>
+      <h3 class="page-timeline-role">Glance | Product Monetization</h3>
+      <p class="page-timeline-desc">Built and scaled E2E Unified Monetization stack across Web, App, and CTV for 5+ years.</p>
+      <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+    <div class="page-timeline-item">
+      <span class="page-timeline-dot"></span>
+      <span class="page-timeline-meta">2019 - 2020 // STRATEGY</span>
+      <h3 class="page-timeline-role">Automatad | Product Strategy</h3>
+      <p class="page-timeline-desc">Monetization strategy and execution. Omni-channel product strategy.</p>
+      <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+    <div class="page-timeline-item">
+      <span class="page-timeline-dot"></span>
+      <span class="page-timeline-meta">2015 - 2019 // LEGACY</span>
+      <h3 class="page-timeline-role">Google | Technical Specialist</h3>
+      <p class="page-timeline-desc">Technical expert for DoubleClick, DFP, ADX, and AdSense. 4 years of platform optimization.</p>
+      <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    </div>
+  </section>
 
   <div id="story-experience" class="story-panel" aria-hidden="true">
     <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>
@@ -1099,14 +1448,76 @@
     <p><a href="https://talenos.adsgupta.com" target="_blank" rel="noopener">talenos.adsgupta.com</a> · <a href="https://demoai.adsgupta.com" target="_blank" rel="noopener">demoai.adsgupta.com</a> · <a href="https://adsgupta.com/audit" target="_blank" rel="noopener">adsgupta.com/audit</a></p>
   </div>
 
-  <footer>
-    <h2 class="footer-headline">Solving the Invisible Problems.</h2>
-    <p class="footer-tagline">Turning complex ecosystems into predictable, revenue-compounding machines. Focused on identity, AI, and multi-screen unification.</p>
-    <p style="margin-top: 1.5rem;">Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
-    <p style="margin-top: 0.5rem;">&copy; 2030</p>
+  <footer class="footer-adsgupta" data-testid="footer-section">
+    <div class="footer-adsgupta-inner">
+      <div class="footer-adsgupta-top">
+        <div class="footer-adsgupta-cta">
+          <h3 class="footer-adsgupta-heading">Stay Ahead of<br>the Curve</h3>
+          <p class="footer-adsgupta-desc">Get exclusive insights on AI advertising, delivered to your inbox.</p>
+          <form class="footer-adsgupta-form" action="#" method="post" id="footerNewsletterForm">
+            <input type="email" placeholder="Enter your email" class="footer-adsgupta-input" required aria-label="Email for newsletter">
+            <button type="submit" class="footer-adsgupta-submit" aria-label="Subscribe">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </form>
+        </div>
+        <div class="footer-adsgupta-links">
+          <div class="footer-adsgupta-col">
+            <h4 class="footer-adsgupta-col-title">Platform</h4>
+            <ul class="footer-adsgupta-ul">
+              <li><a href="https://demoai.adsgupta.com" target="_blank" rel="noopener noreferrer">AI Sandbox</a></li>
+              <li><a href="https://adsgupta.com/#features" target="_blank" rel="noopener noreferrer">Features</a></li>
+              <li><a href="https://adsgupta.com/">Pricing</a></li>
+            </ul>
+          </div>
+          <div class="footer-adsgupta-col">
+            <h4 class="footer-adsgupta-col-title">Resources</h4>
+            <ul class="footer-adsgupta-ul">
+              <li><a href="https://adsgupta.com/blog">Blog</a></li>
+              <li><a href="https://adsgupta.com/">Documentation</a></li>
+              <li><a href="https://adsgupta.com/">API</a></li>
+            </ul>
+          </div>
+          <div class="footer-adsgupta-col">
+            <h4 class="footer-adsgupta-col-title">Company</h4>
+            <ul class="footer-adsgupta-ul">
+              <li><a href="https://adsgupta.com/aboutme">About</a></li>
+              <li><a href="https://adsgupta.com/contact">Contact</a></li>
+              <li><a href="https://adsgupta.com/">Careers</a></li>
+            </ul>
+          </div>
+          <div class="footer-adsgupta-col">
+            <h4 class="footer-adsgupta-col-title">Legal</h4>
+            <ul class="footer-adsgupta-ul">
+              <li><a href="https://adsgupta.com/privacy">Privacy Policy</a></li>
+              <li><a href="https://adsgupta.com/terms">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-adsgupta-bottom">
+        <div class="footer-adsgupta-brand-wrap">
+          <a href="https://adsgupta.com" class="footer-adsgupta-logo">ADS<span class="footer-adsgupta-logo-cyan">GUPTA</span></a>
+          <span class="footer-adsgupta-copy">© 2025 Ads Gupta. All rights reserved.</span>
+          <button type="button" class="download-pdf-btn" id="downloadPdfBtn">Download portfolio (PDF)</button>
+        </div>
+        <div class="footer-adsgupta-social">
+          <a href="#" class="footer-adsgupta-social-btn" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer" class="footer-adsgupta-social-btn" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <button type="button" class="dev-trigger" id="devTrigger" title="Developer console" aria-label="Open developer console">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+  </button>
+
+  <button type="button" class="btn-terminal dev-trigger-fixed" id="navDevTrigger" title="Developer console" aria-label="Open developer console">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
   </button>
 
@@ -1167,12 +1578,22 @@
               <label><input type="checkbox" id="overlayInfeed"> Infeed ad</label>
               <label><input type="checkbox" id="overlayFooterSticky"> Footer sticky</label>
               <label><input type="checkbox" id="overlayChatbot"> Chatbot</label>
+              <label><input type="checkbox" id="overlaySummarizer"> Summarizer</label>
+              <label><input type="checkbox" id="overlayPrompt"> Prompt</label>
             </div>
-            <div class="dev-prototype-frame-wrap" id="prototypeFrameWrap">
-              <div class="proto-overlay header-sticky" id="protoHeaderSticky" style="display:none;">Header sticky ad</div>
-              <div class="proto-overlay infeed" id="protoInfeed" style="display:none;">Infeed 300×250</div>
-              <div class="proto-overlay footer-sticky" id="protoFooterSticky" style="display:none;">Footer sticky</div>
-              <iframe class="dev-prototype-frame" id="prototypeFrame" title="Prototype preview"></iframe>
+            <div class="dev-prototype-main">
+              <div class="dev-prototype-frame-wrap" id="prototypeFrameWrap">
+                <div class="proto-overlay header-sticky" id="protoHeaderSticky" style="display:none;">Header sticky ad</div>
+                <div class="proto-overlay infeed" id="protoInfeed" style="display:none;">Infeed 300×250</div>
+                <div class="proto-overlay footer-sticky" id="protoFooterSticky" style="display:none;">Footer sticky</div>
+                <div class="proto-overlay proto-summarizer" id="protoSummarizer" style="display:none;">Summarizer</div>
+                <div class="proto-overlay proto-prompt" id="protoPrompt" style="display:none;">Prompt</div>
+                <iframe class="dev-prototype-frame" id="prototypeFrame" title="Prototype preview"></iframe>
+              </div>
+              <div class="proto-video-module" id="protoVideoModule">
+                <button type="button" class="proto-video-close" id="mobileVideoClose" aria-label="Close video">×</button>
+                <div class="proto-video-placeholder">Vertical video · Close to open widget</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1211,46 +1632,269 @@
           </div>
         </div>
       </div>
+      <div class="unified-widget unified-widget--inside-console" id="unifiedWidget">
+        <div class="unified-widget-header">
+          <h3>Summarizer · Prompts · Ads</h3>
+          <button type="button" class="unified-widget-close" id="unifiedWidgetClose" aria-label="Close">×</button>
+        </div>
+        <div class="unified-widget-body">
+          <div class="widget-summary">
+            <h4>Summary</h4>
+            <p id="widgetSummaryText">Click a keyword or prompt to see a personalized summary here.</p>
+          </div>
+          <div class="widget-prompts">
+            <h4>Prompts</h4>
+            <p id="widgetPromptText">e.g. &quot;Summarize another article&quot; — click recommended prompts to load.</p>
+          </div>
+          <div class="widget-ads">
+            <h4>Ads</h4>
+            <div class="widget-ads-placeholder">Ad slot</div>
+          </div>
+        </div>
+        <div class="unified-widget-chat">
+          <input type="text" id="widgetChatInput" placeholder="Chat here…">
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="unified-widget" id="unifiedWidget">
-    <div class="unified-widget-header">
-      <h3>Summarizer · Prompts · Ads</h3>
-      <button type="button" class="unified-widget-close" id="unifiedWidgetClose" aria-label="Close">×</button>
-    </div>
-    <div class="unified-widget-body">
-      <div class="widget-summary">
-        <h4>Summary</h4>
-        <p id="widgetSummaryText">Click a keyword or prompt to see a personalized summary here.</p>
-      </div>
-      <div class="widget-prompts">
-        <h4>Prompts</h4>
-        <p id="widgetPromptText">e.g. &quot;Summarize another article&quot; — click recommended prompts to load.</p>
-      </div>
-      <div class="widget-ads">
-        <h4>Ads</h4>
-        <div class="widget-ads-placeholder">Ad slot</div>
-      </div>
-    </div>
-    <div class="unified-widget-chat">
-      <input type="text" id="widgetChatInput" placeholder="Chat here…">
-    </div>
-  </div>
-
-  <button type="button" class="chatbot-trigger" id="chatbotTrigger" title="Open widget (Monetization AI)" aria-label="Open widget">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-  </button>
-
-  <div class="mobile-video-sticky" id="mobileVideoSticky">
-    <button type="button" class="video-close" id="mobileVideoClose" aria-label="Close video">×</button>
-    <div class="video-placeholder">Vertical video · Close to open widget</div>
-  </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     (function () {
       var PREBID_TIMEOUT = 1000;
       var FAILSAFE_TIMEOUT = 3300;
+
+      var AUTH_EMAIL = 'ranjandsgpt@gmail.com';
+      var AUTH_PASSCODE = 'ranjan1234';
+      var STORAGE_AUTH = 'portfolio_admin';
+      var STORAGE_RESUME = 'portfolio_resume_content';
+
+      function isLoggedIn() {
+        return sessionStorage.getItem(STORAGE_AUTH) === 'true';
+      }
+      function setLoggedIn(ok) {
+        if (ok) sessionStorage.setItem(STORAGE_AUTH, 'true');
+        else sessionStorage.removeItem(STORAGE_AUTH);
+      }
+      function updateAuthUI() {
+        var adminBar = document.getElementById('adminBar');
+        var loginLink = document.getElementById('loginLink');
+        if (isLoggedIn()) {
+          if (adminBar) adminBar.classList.add('is-visible');
+          if (loginLink) loginLink.style.display = 'none';
+        } else {
+          if (adminBar) adminBar.classList.remove('is-visible');
+          if (loginLink) loginLink.style.display = '';
+        }
+      }
+
+      var loginModal = document.getElementById('loginModal');
+      var loginForm = document.getElementById('loginForm');
+      var loginError = document.getElementById('loginError');
+      if (document.getElementById('loginLink')) {
+        document.getElementById('loginLink').addEventListener('click', function (e) {
+          e.preventDefault();
+          if (loginModal) loginModal.classList.add('is-open');
+          if (loginError) { loginError.style.display = 'none'; loginError.textContent = ''; }
+        });
+      }
+      document.getElementById('loginModalClose').addEventListener('click', function () {
+        if (loginModal) loginModal.classList.remove('is-open');
+      });
+      if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = document.getElementById('loginEmail').value.trim();
+          var pass = document.getElementById('loginPasscode').value;
+          if (email === AUTH_EMAIL && pass === AUTH_PASSCODE) {
+            setLoggedIn(true);
+            updateAuthUI();
+            if (loginModal) loginModal.classList.remove('is-open');
+            loginForm.reset();
+            if (loginError) { loginError.style.display = 'none'; loginError.textContent = ''; }
+          } else {
+            if (loginError) {
+              loginError.textContent = 'Invalid email or passcode.';
+              loginError.style.display = 'block';
+            }
+          }
+        });
+      }
+      if (document.getElementById('logoutBtn')) {
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+          setLoggedIn(false);
+          updateAuthUI();
+        });
+      }
+      updateAuthUI();
+
+      function applyResumeToTimeline(entries) {
+        var container = document.getElementById('pageTimeline');
+        if (!container || !entries || !entries.length) return;
+        var extLinkSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+        container.innerHTML = entries.map(function (e) {
+          return '<div class="page-timeline-item">' +
+            '<span class="page-timeline-dot"></span>' +
+            '<span class="page-timeline-meta">' + (e.meta || e.yearRange || '') + '</span>' +
+            '<h3 class="page-timeline-role">' + (e.role || '') + '</h3>' +
+            '<p class="page-timeline-desc">' + (e.desc || '') + '</p>' +
+            '<a href="#" class="page-timeline-link">Deployment Document ' + extLinkSvg + '</a></div>';
+        }).join('');
+      }
+      function parseResumeText(text) {
+        var entries = [];
+        var lines = text.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean);
+        var yearRange = /(\d{4})\s*[-–—]\s*(\d{4}|Present|Pres|current)/i;
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          var m = line.match(yearRange);
+          if (m) {
+            var meta = line;
+            var role = (lines[i + 1] || '').trim();
+            var desc = (lines[i + 2] || '').trim();
+            if (role && desc && desc.length > 200) {
+              var shortDesc = desc.slice(0, 180) + '…';
+              desc = shortDesc;
+            }
+            if (role) {
+              entries.push({ meta: meta, role: role, desc: desc || '' });
+              i += 2;
+            }
+          } else if (roleLine(line)) {
+            if (entries.length && !entries[entries.length - 1].role) entries[entries.length - 1].role = line;
+            else if (entries.length) entries[entries.length - 1].desc += (entries[entries.length - 1].desc ? ' ' : '') + line;
+          } else if (entries.length && line.length > 15 && !/^[\d\-–—\s]+$/.test(line)) {
+            entries[entries.length - 1].desc += (entries[entries.length - 1].desc ? ' ' : '') + line;
+          }
+        }
+        function roleLine(l) {
+          return l.indexOf('|') !== -1 || (l.length > 5 && l.length < 80 && !/^\d{4}/.test(l) && !/^•|^\-/.test(l));
+        }
+        if (entries.length === 0 && text.length > 100) {
+          var blocks = text.split(/\n\s*\n/);
+          blocks.forEach(function (block) {
+            var parts = block.split(/\n/).filter(Boolean);
+            var first = parts[0];
+            if (first && (/\d{4}/.test(first) || first.length > 10)) {
+              var role = parts[1] || first;
+              var desc = parts.slice(2).join(' ').trim() || parts.slice(1).join(' ').trim();
+              entries.push({ meta: first, role: role, desc: desc });
+            }
+          });
+        }
+        return entries;
+      }
+      function extractTextFromPdf(file, cb) {
+        if (typeof pdfjsLib === 'undefined') { cb('PDF library not loaded', null); return; }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          pdfjsLib.getDocument({ data: e.target.result }).promise.then(function (pdf) {
+            var numPages = pdf.numPages;
+            var texts = [];
+            function getPage(n) {
+              if (n > numPages) {
+                cb(null, texts.join('\n'));
+                return;
+              }
+              pdf.getPage(n).then(function (page) {
+                return page.getTextContent();
+              }).then(function (content) {
+                texts.push(content.items.map(function (it) { return it.str; }).join(' '));
+                getPage(n + 1);
+              }).catch(function () { getPage(n + 1); });
+            }
+            getPage(1);
+          }).catch(function (err) { cb(err.message, null); });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+      function onResumeFileSelected(file) {
+        if (!file) return;
+        var isPdf = file.type === 'application/pdf';
+        var isTxt = file.type === 'text/plain' || /\.txt$/i.test(file.name);
+        if (!isPdf && !isTxt) {
+          alert('Please upload a PDF or TXT file.');
+          return;
+        }
+        function processText(text) {
+          try {
+            var entries = parseResumeText(text);
+            if (entries.length) {
+              applyResumeToTimeline(entries);
+              try { localStorage.setItem(STORAGE_RESUME, JSON.stringify(entries)); } catch (e) {}
+              alert('Resume applied. Timeline updated from your upload.');
+            } else {
+              try { localStorage.setItem(STORAGE_RESUME + '_raw', text); } catch (e) {}
+              alert('Uploaded. Could not auto-parse timeline entries; you can paste structured experience blocks next.');
+            }
+          } catch (e) {
+            alert('Error applying resume: ' + e.message);
+          }
+        }
+        if (isTxt) {
+          var r = new FileReader();
+          r.onload = function () { processText(r.result); };
+          r.readAsText(file);
+        } else {
+          extractTextFromPdf(file, function (err, text) {
+            if (err) { alert('PDF error: ' + err); return; }
+            processText(text || '');
+          });
+        }
+      }
+      if (document.getElementById('uploadResumeBtn')) {
+        document.getElementById('uploadResumeBtn').addEventListener('click', function () {
+          document.getElementById('resumeFileInput').click();
+        });
+      }
+      if (document.getElementById('resumeFileInput')) {
+        document.getElementById('resumeFileInput').addEventListener('change', function () {
+          var f = this.files && this.files[0];
+          onResumeFileSelected(f);
+          this.value = '';
+        });
+      }
+      try {
+        var saved = localStorage.getItem(STORAGE_RESUME);
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length) applyResumeToTimeline(parsed);
+        }
+      } catch (e) {}
+
+      function getPdfFilename() {
+        var d = new Date();
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return 'RanjanDasgupta_' + months[d.getMonth()] + '_' + d.getFullYear() + '.pdf';
+      }
+      if (document.getElementById('downloadPdfBtn')) {
+        document.getElementById('downloadPdfBtn').addEventListener('click', function () {
+          if (typeof html2pdf === 'undefined') {
+            alert('PDF export not loaded. Please refresh and try again.');
+            return;
+          }
+          var opt = {
+            margin: 10,
+            filename: getPdfFilename(),
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+          var el = document.body;
+          this.disabled = true;
+          html2pdf().set(opt).from(el).save().then(function () {
+            document.getElementById('downloadPdfBtn').disabled = false;
+          }).catch(function () {
+            document.getElementById('downloadPdfBtn').disabled = false;
+          });
+        });
+      }
 
       (function neuralCanvas() {
         var canvas = document.getElementById('neuralCanvas');
@@ -1365,7 +2009,7 @@
         document.getElementById('signalBadge').textContent = '2030 · ' + (storylineLabels[theme] || 'AdTech · AI · Programmatic');
       });
 
-      (function scrollWeight() {
+      (function scrollWeightAndFade() {
         var el = document.getElementById('signalHeroName');
         if (!el) return;
         function onScroll() {
@@ -1373,6 +2017,9 @@
           var progress = total > 0 ? window.pageYOffset / total : 0;
           var w = Math.round(100 + progress * 8);
           el.style.fontWeight = Math.min(800, Math.max(100, w));
+          var scrollY = window.pageYOffset;
+          if (scrollY > 120) el.classList.add('is-scrolled');
+          else el.classList.remove('is-scrolled');
         }
         window.addEventListener('scroll', onScroll);
         onScroll();
@@ -1417,63 +2064,24 @@
         e.preventDefault();
         refreshDemoView(t.getAttribute('data-demo-topic'));
       });
+      var widget = document.getElementById('unifiedWidget');
       document.getElementById('demoRecommended').addEventListener('click', function (e) {
         var t = e.target.closest('a[data-demo-topic]');
         if (!t) return;
         e.preventDefault();
         var topic = t.getAttribute('data-demo-topic');
         refreshDemoView(topic);
+        openDevConsole();
         openUnifiedWidget(topic);
       });
 
-      var chatbot = document.getElementById('chatbotTrigger');
-      var widget = document.getElementById('unifiedWidget');
       document.getElementById('unifiedWidgetClose').addEventListener('click', function () {
         widget.classList.remove('is-open');
       });
-      var dragHappened = false;
-      chatbot.addEventListener('click', function (e) {
-        if (dragHappened) { dragHappened = false; e.preventDefault(); return; }
-        if (e.target === chatbot) widget.classList.add('is-open');
-      });
-      var drag = { dx: 0, dy: 0 };
-      function moveChatbot(e) {
-        dragHappened = true;
-        chatbot.style.left = (e.clientX - drag.dx) + 'px';
-        chatbot.style.top = (e.clientY - drag.dy) + 'px';
-        chatbot.style.right = 'auto';
-        chatbot.style.bottom = 'auto';
-      }
-      function startDrag(clientX, clientY) {
-        var r = chatbot.getBoundingClientRect();
-        drag.dx = clientX - r.left;
-        drag.dy = clientY - r.top;
-        document.addEventListener('mousemove', moveChatbot);
-      }
-      function moveChatbotTouch(e) {
-        if (e.touches.length) { dragHappened = true; moveChatbot(e.touches[0]); }
-      }
-      chatbot.addEventListener('mousedown', function (e) {
-        if (e.button !== 0) return;
-        startDrag(e.clientX, e.clientY);
-        e.preventDefault();
-      });
-      chatbot.addEventListener('touchstart', function (e) {
-        if (e.touches.length) {
-          startDrag(e.touches[0].clientX, e.touches[0].clientY);
-          document.addEventListener('touchmove', moveChatbotTouch, { passive: true });
-        }
-      }, { passive: true });
-      document.addEventListener('touchend', function () {
-        document.removeEventListener('touchmove', moveChatbotTouch);
-        document.removeEventListener('mousemove', moveChatbot);
-      });
-      document.addEventListener('mouseup', function () {
-        document.removeEventListener('mousemove', moveChatbot);
-      });
 
-      document.getElementById('mobileVideoClose').addEventListener('click', function () {
-        document.getElementById('mobileVideoSticky').style.display = 'none';
+      var mobileVideoCloseEl = document.getElementById('mobileVideoClose');
+      if (mobileVideoCloseEl) mobileVideoCloseEl.addEventListener('click', function () {
+        openDevConsole();
         openUnifiedWidget('ai-monetization');
       });
 
@@ -1487,14 +2095,16 @@
         document.getElementById('protoHeaderSticky').style.display = document.getElementById('overlayHeaderSticky').checked ? 'flex' : 'none';
         document.getElementById('protoInfeed').style.display = document.getElementById('overlayInfeed').checked ? 'flex' : 'none';
         document.getElementById('protoFooterSticky').style.display = document.getElementById('overlayFooterSticky').checked ? 'flex' : 'none';
+        if (widget) {
+          if (document.getElementById('overlayChatbot').checked) widget.classList.add('is-open');
+          else widget.classList.remove('is-open');
+        }
+        document.getElementById('protoSummarizer').style.display = document.getElementById('overlaySummarizer').checked ? 'flex' : 'none';
+        document.getElementById('protoPrompt').style.display = document.getElementById('overlayPrompt').checked ? 'flex' : 'none';
       }
-      ['overlayHeaderSticky', 'overlayInfeed', 'overlayFooterSticky', 'overlayChatbot'].forEach(function (id) {
-        document.getElementById(id).addEventListener('change', function () {
-          syncPrototypeOverlays();
-          if (id === 'overlayChatbot') {
-            chatbot.style.visibility = this.checked ? 'visible' : 'hidden';
-          }
-        });
+      ['overlayHeaderSticky', 'overlayInfeed', 'overlayFooterSticky', 'overlayChatbot', 'overlaySummarizer', 'overlayPrompt'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('change', syncPrototypeOverlays);
       });
 
       function getAdTagScript() {
@@ -1571,7 +2181,6 @@
         document.getElementById('adtagOutput').value = getAdTagScript();
       }
 
-      var trigger = document.getElementById('devTrigger');
       var navDevTrigger = document.getElementById('navDevTrigger');
       var consoleEl = document.getElementById('devConsole');
       var closeBtn = document.getElementById('devConsoleClose');
@@ -1583,7 +2192,6 @@
         consoleEl.classList.add('is-open');
         updateAdTagOutput();
       }
-      if (trigger) trigger.addEventListener('click', openDevConsole);
       if (navDevTrigger) navDevTrigger.addEventListener('click', openDevConsole);
 
       closeBtn.addEventListener('click', function () {
@@ -1635,6 +2243,9 @@
       });
 
       updateAdTagOutput();
+
+      var newsletterForm = document.getElementById('footerNewsletterForm');
+      if (newsletterForm) newsletterForm.addEventListener('submit', function (e) { e.preventDefault(); });
     })();
   </script>
 </body>
