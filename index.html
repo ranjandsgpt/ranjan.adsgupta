@@ -8,7 +8,7 @@
   <title>Ranjan Dasgupta | ranjan.adsgupta.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -17,9 +17,13 @@
       --text: #ffffff;
       --text-muted: rgba(255, 255, 255, 0.6);
       --accent: #3b82f6;
+      --neon: #00f5d4;
+      --neon-pink: #f72585;
+      --neon-violet: #7b2cbf;
       --border: rgba(255, 255, 255, 0.08);
       --font-sans: 'Space Grotesk', system-ui, sans-serif;
       --font-display: 'Exo 2', 'Space Grotesk', sans-serif;
+      --font-mono: 'Orbitron', monospace;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -29,6 +33,7 @@
       line-height: 1.6;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* Nav */
@@ -42,15 +47,16 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 1.5rem;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(0, 245, 212, 0.15);
     }
     .nav-brand {
-      font-family: var(--font-display);
+      font-family: var(--font-mono);
       font-weight: 600;
-      font-size: 1.125rem;
-      letter-spacing: -0.02em;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--neon);
     }
     .nav-links {
       display: flex;
@@ -60,164 +66,272 @@
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: color 0.2s, text-shadow 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--neon); text-shadow: 0 0 20px rgba(0, 245, 212, 0.5); }
     .nav-cta {
       display: inline-flex;
       align-items: center;
       padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: white;
+      background: transparent;
+      color: var(--neon);
       font-size: 0.875rem;
       font-weight: 600;
       text-decoration: none;
+      border: 1px solid var(--neon);
       border-radius: 0.5rem;
-      transition: opacity 0.2s;
+      transition: box-shadow 0.2s, background 0.2s;
     }
-    .nav-cta:hover { opacity: 0.9; }
+    .nav-cta:hover { box-shadow: 0 0 24px rgba(0, 245, 212, 0.35); background: rgba(0, 245, 212, 0.08); }
 
-    /* Hero */
-    .hero {
+    /* Signal Space Hero - 2030 explorable */
+    .signal-hero {
       min-height: 100vh;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 6rem 1rem 4rem;
+      overflow: hidden;
+    }
+    .signal-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 245, 212, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 20% 60%, rgba(247, 37, 133, 0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .signal-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.6; } 50% { opacity: 1; }
+    }
+    .signal-title-wrap {
+      position: relative;
+      z-index: 2;
       text-align: center;
-      padding: 6rem 1.5rem 4rem;
+      margin-bottom: 2rem;
     }
-    .hero-badge {
-      font-size: 0.75rem;
+    .signal-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent);
+      letter-spacing: 0.2em;
+      color: var(--neon);
       margin-bottom: 1rem;
+      text-transform: uppercase;
     }
-    .hero-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      max-width: 20ch;
-      margin-bottom: 1.25rem;
+    .signal-title {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: clamp(1.75rem, 5vw, 3rem);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(0, 245, 212, 0.2);
+      max-width: 18ch;
+      margin: 0 auto 0.75rem;
     }
-    .hero-desc {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      max-width: 42ch;
-      margin-bottom: 2rem;
-    }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: var(--accent);
-      color: white;
-      font-weight: 600;
+    .signal-sub {
       font-size: 0.9375rem;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      transition: opacity 0.2s;
-    }
-    .hero-cta:hover { opacity: 0.9; }
-
-    /* Sections */
-    section {
-      max-width: 64rem;
+      color: var(--text-muted);
+      max-width: 36ch;
       margin: 0 auto;
-      padding: 4rem 1.5rem;
     }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-      color: var(--text);
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-    .card:hover { border-color: rgba(255, 255, 255, 0.15); }
-    .card h3 {
-      font-family: var(--font-display);
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .card p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-    .card-meta {
-      font-size: 0.75rem;
-      color: var(--accent);
-      margin-top: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* Timeline / Experience */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 1.5rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .timeline-date {
+    .signal-theme {
+      margin-top: 1rem;
       font-size: 0.8125rem;
-      font-weight: 500;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .signal-theme span {
+      color: var(--neon);
+      cursor: pointer;
+      transition: text-shadow 0.2s, color 0.2s;
+    }
+    .signal-theme span:hover {
+      text-shadow: 0 0 16px rgba(0, 245, 212, 0.6);
+    }
+    body[data-storyline="product"] .signal-grid { background-image: linear-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1px, transparent 1px); }
+    body[data-storyline="ads"] .signal-grid { background-image: linear-gradient(rgba(247, 37, 133, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 37, 133, 0.06) 1px, transparent 1px); }
+    body[data-storyline="tech"] .signal-grid { background-image: linear-gradient(rgba(0, 245, 212, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 212, 0.06) 1px, transparent 1px); }
+    body[data-storyline="ai"] .signal-grid { background-image: linear-gradient(rgba(123, 44, 191, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(123, 44, 191, 0.08) 1px, transparent 1px); }
+    .orbit-wrap {
+      position: relative;
+      width: min(90vw, 720px);
+      height: min(70vh, 520px);
+      margin: 2rem auto;
+    }
+    .orbit-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 245, 212, 0.25), rgba(123, 44, 191, 0.2));
+      border: 1px solid rgba(0, 245, 212, 0.4);
+      box-shadow: 0 0 60px rgba(0, 245, 212, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--neon);
+    }
+    .orbit-node {
+      position: absolute;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(15, 15, 25, 0.85);
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      z-index: 5;
+    }
+    .orbit-node:hover {
+      transform: scale(1.12);
+      box-shadow: 0 0 30px rgba(0, 245, 212, 0.35);
+      border-color: var(--neon);
+    }
+    .orbit-node.exp {
+      top: 8%; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(123, 44, 191, 0.4), rgba(0, 245, 212, 0.2));
+    }
+    .orbit-node.exp:hover { top: 8%; left: 50%; transform: translateX(-50%) scale(1.12); }
+    .orbit-node.focus {
+      top: 25%; right: 12%;
+      background: linear-gradient(135deg, rgba(247, 37, 133, 0.3), rgba(123, 44, 191, 0.2));
+    }
+    .orbit-node.adsgupta {
+      bottom: 25%; right: 12%;
+      background: linear-gradient(135deg, rgba(0, 245, 212, 0.3), rgba(59, 130, 246, 0.2));
+    }
+    .orbit-node.subdomains {
+      bottom: 8%; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(0, 245, 212, 0.2));
+    }
+    .orbit-node.subdomains:hover { bottom: 8%; left: 50%; transform: translateX(-50%) scale(1.12); }
+    .orbit-node.linkedin {
+      top: 25%; left: 12%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(123, 44, 191, 0.2));
+    }
+    .orbit-node.audit {
+      bottom: 25%; left: 12%;
+      background: linear-gradient(135deg, rgba(247, 37, 133, 0.25), rgba(0, 245, 212, 0.15));
+    }
+    .signal-cta {
+      position: relative;
+      z-index: 2;
+      margin-top: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
-    .timeline-role {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 1.125rem;
-      margin-bottom: 0.25rem;
+    .signal-cta strong { color: var(--neon); }
+
+    /* Expandable story panel (replaces traditional sections) */
+    .story-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 5rem 1.5rem 2rem;
+      overflow-y: auto;
+      transform: translateY(100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.4s ease, opacity 0.3s, visibility 0.3s;
     }
-    .timeline-company { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.5rem; }
-    .timeline-desc { font-size: 0.875rem; color: var(--text-muted); }
+    .story-panel.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .story-panel-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .story-panel-close:hover {
+      border-color: var(--neon);
+      background: rgba(0, 245, 212, 0.1);
+    }
+    .story-panel h2 {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--neon);
+    }
+    .story-panel p, .story-panel li {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 0.75rem;
+    }
+    .story-panel a {
+      color: var(--neon);
+      text-decoration: none;
+    }
+    .story-panel a:hover { text-decoration: underline; }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,0.06);
       padding: 2rem 1.5rem;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
     footer p {
       font-size: 0.8125rem;
       color: var(--text-muted);
     }
     footer a {
-      color: var(--accent);
+      color: var(--neon);
       text-decoration: none;
     }
     footer a:hover { text-decoration: underline; }
 
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .orbit-wrap { height: 380px; }
+      .orbit-node { width: 48px; height: 48px; font-size: 0.55rem; }
     }
 
     /* Dev console */
@@ -258,10 +372,10 @@
     .dev-console.is-open { display: flex; }
     .dev-console-panel {
       width: 100%;
-      max-width: 960px;
-      max-height: 90vh;
+      max-width: 1000px;
+      max-height: 92vh;
       background: linear-gradient(180deg, #0c0f14 0%, #0a0d12 100%);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(0, 245, 212, 0.25);
       border-radius: 16px;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
       overflow: hidden;
@@ -456,84 +570,401 @@
       color: #0c0f14;
       border-color: #22c55e;
     }
+
+    /* Demo view: single space for summary + prompt + ads (no new window) */
+    .dev-demo-view {
+      min-height: 380px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #080a0e;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dev-demo-view .demo-toolbar {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      flex-wrap: wrap;
+    }
+    .dev-demo-view .demo-toolbar a {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.75rem;
+      color: #38bdf8;
+      text-decoration: none;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.1);
+      transition: background 0.2s;
+    }
+    .dev-demo-view .demo-toolbar a:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+    .dev-demo-view .demo-content {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      overflow-y: auto;
+      max-height: 340px;
+    }
+    .dev-demo-view .demo-content .summary-block {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(0, 245, 212, 0.06);
+      border-left: 3px solid #00f5d4;
+      border-radius: 0 8px 8px 0;
+    }
+    .dev-demo-view .demo-content .summary-block h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #00f5d4;
+      margin-bottom: 0.35rem;
+    }
+    .dev-demo-view .demo-content .prompt-block {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(123, 44, 191, 0.1);
+      border-left: 3px solid #7b2cbf;
+      border-radius: 0 8px 8px 0;
+    }
+    .dev-demo-view .demo-content .prompt-block h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #a78bfa;
+      margin-bottom: 0.35rem;
+    }
+    .dev-demo-view .demo-content .ads-block {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.75rem;
+    }
+    .dev-demo-view .demo-content .article-preview p {
+      margin-bottom: 0.6rem;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .dev-demo-view .demo-content .article-preview .demo-hyperlink {
+      color: #38bdf8;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .dev-demo-view .demo-content .article-preview .demo-hyperlink:hover {
+      color: #00f5d4;
+    }
+    .dev-demo-view .recommended-section {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .dev-demo-view .recommended-section h4 {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.5rem;
+    }
+    .dev-demo-view .recommended-section .rec-item {
+      padding: 0.5rem 0;
+      font-size: 0.8125rem;
+      color: #38bdf8;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .dev-demo-view .recommended-section .rec-item:hover {
+      color: #00f5d4;
+    }
+
+    /* Prototype tab: iframe + overlay controls */
+    .dev-prototype-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .dev-prototype-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .dev-prototype-controls input[type="url"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 0.875rem;
+    }
+    .dev-prototype-overlays {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .dev-prototype-overlays label {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+    }
+    .dev-prototype-frame-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 400px;
+      background: #000;
+    }
+    .dev-prototype-frame {
+      width: 100%;
+      height: 420px;
+      border: none;
+      display: block;
+    }
+    .proto-overlay {
+      position: absolute;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px dashed rgba(0, 245, 212, 0.4);
+    }
+    .proto-overlay.header-sticky { top: 0; left: 0; right: 0; height: 50px; }
+    .proto-overlay.infeed { left: 50%; transform: translateX(-50%); width: 300px; height: 250px; top: 30%; }
+    .proto-overlay.footer-sticky { bottom: 0; left: 0; right: 0; height: 60px; }
+
+    /* Unified widget (summarizer + prompts + ads + chat) */
+    .unified-widget {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 360px;
+      max-width: calc(100vw - 2rem);
+      max-height: 85vh;
+      background: linear-gradient(180deg, #0f172a 0%, #0c0f14 100%);
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      z-index: 350;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .unified-widget.is-open { display: flex; }
+    .unified-widget-header {
+      padding: 0.75rem 1rem;
+      background: rgba(0, 245, 212, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .unified-widget-header h3 {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: #00f5d4;
+    }
+    .unified-widget-close {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .unified-widget-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .unified-widget .widget-summary,
+    .unified-widget .widget-prompts,
+    .unified-widget .widget-ads {
+      margin-bottom: 1rem;
+    }
+    .unified-widget .widget-summary h4,
+    .unified-widget .widget-prompts h4,
+    .unified-widget .widget-ads h4 {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.4rem;
+    }
+    .unified-widget .widget-ads-placeholder {
+      min-height: 80px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .unified-widget-chat {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.75rem;
+    }
+    .unified-widget-chat input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 0.8125rem;
+    }
+    .unified-widget-chat input::placeholder { color: rgba(255, 255, 255, 0.35); }
+
+    /* Draggable chatbot trigger */
+    .chatbot-trigger {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 5rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(123, 44, 191, 0.9), rgba(0, 245, 212, 0.8));
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      box-shadow: 0 4px 24px rgba(123, 44, 191, 0.4);
+      transition: transform 0.2s;
+    }
+    .chatbot-trigger:active { cursor: grabbing; }
+    .chatbot-trigger:hover { transform: scale(1.08); }
+
+    /* Mobile: sticky video player */
+    .mobile-video-sticky {
+      display: none;
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      width: 120px;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 245, 212, 0.4);
+      z-index: 280;
+      background: #000;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    @media (max-width: 768px) {
+      .mobile-video-sticky { display: block; }
+    }
+    @media (min-width: 769px) {
+      .mobile-video-sticky { display: none !important; }
+    }
+    .mobile-video-sticky .video-close {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 2;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .mobile-video-sticky .video-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1a0a2e 0%, #0d0d1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.65rem;
+      text-align: center;
+      padding: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <nav class="nav">
-    <span class="nav-brand">Ranjan Dasgupta</span>
+    <span class="nav-brand">RANJAN.DASGUPTA</span>
     <div class="nav-links">
-      <a href="#experience">Experience</a>
-      <a href="#about">About</a>
+      <a href="#" data-story="experience">Experience</a>
+      <a href="#" data-story="focus">Focus</a>
       <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
     <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener noreferrer">AdsGupta →</a>
   </nav>
 
-  <header class="hero">
-    <p class="hero-badge">AdTech · AI · Programmatic</p>
-    <h1 class="hero-title">Building AdTech platforms at scale.</h1>
-    <p class="hero-desc">Product lead for Web & CTV Exchange. 200M+ revenue scale. InMobi, Glance, Google.</p>
-    <a href="#experience" class="hero-cta">View experience</a>
+  <header class="signal-hero">
+    <div class="signal-grid" aria-hidden="true"></div>
+    <div class="signal-title-wrap">
+      <p class="signal-badge" id="signalBadge">2030 · AdTech · AI · Programmatic</p>
+      <h1 class="signal-title">Signal space</h1>
+      <p class="signal-sub">Explore nodes to discover experience, focus, and projects. Each path leads somewhere.</p>
+      <p class="signal-theme" id="signalTheme">
+        <span data-theme="product">Product</span> · <span data-theme="ads">Ads</span> · <span data-theme="tech">Tech</span> · <span data-theme="ai">AI</span>
+      </p>
+    </div>
+    <div class="orbit-wrap">
+      <div class="orbit-center">YOU</div>
+      <a href="#" class="orbit-node exp" data-story="experience" title="Experience">EXP</a>
+      <a href="#" class="orbit-node focus" data-story="focus" title="Focus">FOCUS</a>
+      <a href="https://adsgupta.com" class="orbit-node adsgupta" target="_blank" rel="noopener" title="AdsGupta">ADS</a>
+      <a href="#" class="orbit-node subdomains" data-story="subdomains" title="Subdomains">SUBS</a>
+      <a href="https://www.linkedin.com/in/ranjandsgpt/" class="orbit-node linkedin" target="_blank" rel="noopener" title="LinkedIn">IN</a>
+      <a href="https://adsgupta.com/audit" class="orbit-node audit" target="_blank" rel="noopener" title="Audit">AUDIT</a>
+    </div>
+    <p class="signal-cta"><strong>Click any node</strong> to open its story · Dev console bottom-right</p>
   </header>
 
-  <section id="experience">
-    <h2 class="section-title">Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <span class="timeline-date">2025 — Present</span>
-        <div>
-          <div class="timeline-role">Product, Web & CTV Exchange</div>
-          <div class="timeline-company">InMobi</div>
-          <p class="timeline-desc">New initiatives for exchange and convergence.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-date">2020 — 2025</span>
-        <div>
-          <div class="timeline-role">Product Growth, Programmatic</div>
-          <div class="timeline-company">Glance</div>
-          <p class="timeline-desc">Scaled programmatic and monetization.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-date">2019 — 2020</span>
-        <div>
-          <div class="timeline-role">Product Strategy, Omni-Channel</div>
-          <div class="timeline-company">Automatad</div>
-          <p class="timeline-desc">Monetization strategy and execution.</p>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-date">2015 — 2019</span>
-        <div>
-          <div class="timeline-role">Technical Specialist</div>
-          <div class="timeline-company">Google</div>
-          <p class="timeline-desc">DFP, AdX, DV360, SA360 for global publishers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2 class="section-title">Focus</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Programmatic & Exchange</h3>
-        <p>Web, App, and CTV monetization. SPO, yield, and unified stacks.</p>
-        <span class="card-meta">InMobi · Glance</span>
-      </div>
-      <div class="card">
-        <h3>AI & Advertising</h3>
-        <p>Agentic AI, contextual intelligence, and future-focused ad products.</p>
-        <span class="card-meta">AdsGupta</span>
-      </div>
-      <div class="card">
-        <h3>Scale & Strategy</h3>
-        <p>200M+ revenue scale. Product strategy and ecosystem design.</p>
-        <span class="card-meta">Bengaluru</span>
-      </div>
-    </div>
-  </section>
+  <div id="story-experience" class="story-panel" aria-hidden="true">
+    <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>
+    <h2>Experience</h2>
+    <p><strong>2025 — Present</strong> · Product, Web & CTV Exchange · InMobi. New initiatives for exchange and convergence.</p>
+    <p><strong>2020 — 2025</strong> · Product Growth, Programmatic · Glance. Scaled programmatic and monetization.</p>
+    <p><strong>2019 — 2020</strong> · Product Strategy, Omni-Channel · Automatad. Monetization strategy and execution.</p>
+    <p><strong>2015 — 2019</strong> · Technical Specialist · Google. DFP, AdX, DV360, SA360 for global publishers.</p>
+  </div>
+  <div id="story-focus" class="story-panel" aria-hidden="true">
+    <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>
+    <h2>Focus</h2>
+    <p><strong>Programmatic & Exchange</strong> · Web, App, and CTV monetization. SPO, yield, and unified stacks. InMobi · Glance.</p>
+    <p><strong>AI & Advertising</strong> · Agentic AI, contextual intelligence, and future-focused ad products. AdsGupta.</p>
+    <p><strong>Scale & Strategy</strong> · 200M+ revenue scale. Product strategy and ecosystem design. Bengaluru.</p>
+  </div>
+  <div id="story-subdomains" class="story-panel" aria-hidden="true">
+    <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>
+    <h2>Subdomains & products</h2>
+    <p><a href="https://talenos.adsgupta.com" target="_blank" rel="noopener">talenos.adsgupta.com</a> · <a href="https://demoai.adsgupta.com" target="_blank" rel="noopener">demoai.adsgupta.com</a> · <a href="https://adsgupta.com/audit" target="_blank" rel="noopener">adsgupta.com/audit</a></p>
+  </div>
 
   <footer>
     <p>Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
@@ -553,16 +984,59 @@
       </header>
       <div class="dev-console-tabs">
         <button type="button" class="dev-console-tab is-active" data-tab="monetization">[ AI MONETIZATION ]</button>
-        <button type="button" class="dev-console-tab" data-tab="adtag">[ AD TAG GENERATOR ]</button>
+        <button type="button" class="dev-console-tab" data-tab="prototype">[ PROTOTYPE ]</button>
+        <button type="button" class="dev-console-tab" data-tab="adtag">[ AD TAG ]</button>
       </div>
       <div class="dev-console-body">
         <div class="dev-tab-pane is-active" id="pane-monetization">
-          <div class="dev-url-row">
-            <input type="url" class="dev-url-input" id="monetizationUrl" placeholder="https://demoai.adsgupta.com/monetization" value="https://demoai.adsgupta.com/monetization">
-            <button type="button" class="dev-btn" id="loadMonetizationUrl">Load</button>
+          <div class="dev-demo-view" id="devDemoView">
+            <div class="demo-toolbar" id="demoToolbar">
+              <a href="#" data-demo-reset>Show article</a>
+              <a href="#" data-demo-topic="programmatic">Programmatic</a>
+              <a href="#" data-demo-topic="header-bidding">Header Bidding</a>
+              <a href="#" data-demo-topic="spo">SPO</a>
+              <a href="#" data-demo-topic="ai-monetization">AI Monetization</a>
+            </div>
+            <div class="demo-content" id="demoContent">
+              <div class="article-preview" id="articlePreview">
+                <p>Ecosystem of <span class="demo-hyperlink" data-demo-topic="programmatic">Programmatic Ad Serving</span>: What's next? Insights on solving invisible problems: <span class="demo-hyperlink" data-demo-topic="header-bidding">auction inefficiencies</span>, identity gaps, and siloed stacks. By integrating <span class="demo-hyperlink" data-demo-topic="spo">SPO &amp; Pricing Callouts</span>, we turn siloed stacks into predictable, revenue-compounding machines. Scale handles over 200M+ Revenue across Web and App.</p>
+              </div>
+              <div class="summary-block" id="demoSummaryBlock" style="display:none;">
+                <h4>Summary</h4>
+                <p id="demoSummaryText"></p>
+              </div>
+              <div class="prompt-block" id="demoPromptBlock" style="display:none;">
+                <h4>Prompt</h4>
+                <p id="demoPromptText"></p>
+              </div>
+              <div class="ads-block" id="demoAdsBlock">Ad slot · 300×250</div>
+              <div class="recommended-section" id="demoRecommended">
+                <h4>Recommended</h4>
+                <a href="#" class="rec-item" data-demo-topic="programmatic">Summarize: Programmatic 101</a>
+                <a href="#" class="rec-item" data-demo-topic="header-bidding">Summarize: Header Bidding Guide</a>
+                <a href="#" class="rec-item" data-demo-topic="ai-monetization">Summarize: AI Monetization</a>
+              </div>
+            </div>
           </div>
-          <div class="dev-preview-frame-wrap">
-            <iframe class="dev-preview-frame" id="monetizationFrame" title="AI Monetization preview"></iframe>
+        </div>
+        <div class="dev-tab-pane" id="pane-prototype">
+          <div class="dev-prototype-wrap">
+            <div class="dev-prototype-controls">
+              <input type="url" id="prototypeUrl" placeholder="https://example.com" value="">
+              <button type="button" class="dev-btn" id="prototypeLoad">Load</button>
+            </div>
+            <div class="dev-prototype-overlays">
+              <label><input type="checkbox" id="overlayHeaderSticky"> Header sticky</label>
+              <label><input type="checkbox" id="overlayInfeed"> Infeed ad</label>
+              <label><input type="checkbox" id="overlayFooterSticky"> Footer sticky</label>
+              <label><input type="checkbox" id="overlayChatbot"> Chatbot</label>
+            </div>
+            <div class="dev-prototype-frame-wrap" id="prototypeFrameWrap">
+              <div class="proto-overlay header-sticky" id="protoHeaderSticky" style="display:none;">Header sticky ad</div>
+              <div class="proto-overlay infeed" id="protoInfeed" style="display:none;">Infeed 300×250</div>
+              <div class="proto-overlay footer-sticky" id="protoFooterSticky" style="display:none;">Footer sticky</div>
+              <iframe class="dev-prototype-frame" id="prototypeFrame" title="Prototype preview"></iframe>
+            </div>
           </div>
         </div>
         <div class="dev-tab-pane" id="pane-adtag">
@@ -603,10 +1077,203 @@
     </div>
   </div>
 
+  <div class="unified-widget" id="unifiedWidget">
+    <div class="unified-widget-header">
+      <h3>Summarizer · Prompts · Ads</h3>
+      <button type="button" class="unified-widget-close" id="unifiedWidgetClose" aria-label="Close">×</button>
+    </div>
+    <div class="unified-widget-body">
+      <div class="widget-summary">
+        <h4>Summary</h4>
+        <p id="widgetSummaryText">Click a keyword or prompt to see a personalized summary here.</p>
+      </div>
+      <div class="widget-prompts">
+        <h4>Prompts</h4>
+        <p id="widgetPromptText">e.g. &quot;Summarize another article&quot; — click recommended prompts to load.</p>
+      </div>
+      <div class="widget-ads">
+        <h4>Ads</h4>
+        <div class="widget-ads-placeholder">Ad slot</div>
+      </div>
+    </div>
+    <div class="unified-widget-chat">
+      <input type="text" id="widgetChatInput" placeholder="Chat here…">
+    </div>
+  </div>
+
+  <button type="button" class="chatbot-trigger" id="chatbotTrigger" title="Open widget" aria-label="Chatbot">💬</button>
+
+  <div class="mobile-video-sticky" id="mobileVideoSticky">
+    <button type="button" class="video-close" id="mobileVideoClose" aria-label="Close video">×</button>
+    <div class="video-placeholder">Vertical video · Close to open widget</div>
+  </div>
+
   <script>
     (function () {
       var PREBID_TIMEOUT = 1000;
       var FAILSAFE_TIMEOUT = 3300;
+
+      var demoTopics = {
+        'programmatic': { summary: 'Programmatic ad serving automates the buying and selling of ad inventory via real-time auctions, reducing friction and increasing yield.', prompt: 'Summarize: Programmatic 101 for publishers' },
+        'header-bidding': { summary: 'Header bidding allows multiple demand partners to compete in a single auction before the ad server call, improving fill and CPM.', prompt: 'Summarize: Header Bidding best practices' },
+        'spo': { summary: 'Supply-path optimization (SPO) and pricing callouts reduce auction inefficiencies and consolidate demand paths for predictable revenue.', prompt: 'Summarize: SPO & Pricing Callouts guide' },
+        'ai-monetization': { summary: 'AI monetization uses agentic AI and contextual intelligence to personalize ad experiences and maximize revenue per user.', prompt: 'Summarize: AI-driven monetization strategies' }
+      };
+
+      function openStoryPanel(id) {
+        document.querySelectorAll('.story-panel').forEach(function (p) {
+          p.classList.remove('is-open');
+          p.setAttribute('aria-hidden', 'true');
+        });
+        var panel = document.getElementById('story-' + id);
+        if (panel) {
+          panel.classList.add('is-open');
+          panel.setAttribute('aria-hidden', 'false');
+        }
+      }
+      function closeStoryPanels() {
+        document.querySelectorAll('.story-panel').forEach(function (p) {
+          p.classList.remove('is-open');
+          p.setAttribute('aria-hidden', 'true');
+        });
+      }
+      document.querySelectorAll('[data-story]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          if (this.getAttribute('href') === '#') e.preventDefault();
+          openStoryPanel(this.getAttribute('data-story'));
+        });
+      });
+      document.querySelectorAll('[data-close-panel]').forEach(function (btn) {
+        btn.addEventListener('click', closeStoryPanels);
+      });
+
+      var storylineLabels = { product: 'Product & scale', ads: 'Ads & monetization', tech: 'Tech & programmatic', ai: 'AI & advertising' };
+      document.getElementById('signalTheme').addEventListener('click', function (e) {
+        var t = e.target.closest('span[data-theme]');
+        if (!t) return;
+        var theme = t.getAttribute('data-theme');
+        document.body.setAttribute('data-storyline', theme);
+        document.getElementById('signalBadge').textContent = '2030 · ' + (storylineLabels[theme] || 'AdTech · AI · Programmatic');
+      });
+
+      function refreshDemoView(topic) {
+        var data = demoTopics[topic] || demoTopics['programmatic'];
+        var summaryBlock = document.getElementById('demoSummaryBlock');
+        var promptBlock = document.getElementById('demoPromptBlock');
+        var summaryText = document.getElementById('demoSummaryText');
+        var promptText = document.getElementById('demoPromptText');
+        var articlePreview = document.getElementById('articlePreview');
+        summaryText.textContent = data.summary;
+        promptText.textContent = data.prompt;
+        summaryBlock.style.display = 'block';
+        promptBlock.style.display = 'block';
+        articlePreview.style.display = 'none';
+      }
+      function openUnifiedWidget(topic) {
+        var data = demoTopics[topic] || demoTopics['programmatic'];
+        document.getElementById('widgetSummaryText').textContent = data.summary;
+        document.getElementById('widgetPromptText').textContent = data.prompt;
+        document.getElementById('unifiedWidget').classList.add('is-open');
+      }
+      document.getElementById('demoContent').addEventListener('click', function (e) {
+        var t = e.target.closest('[data-demo-topic]');
+        if (!t) return;
+        e.preventDefault();
+        var topic = t.getAttribute('data-demo-topic');
+        refreshDemoView(topic);
+      });
+      function resetDemoView() {
+        document.getElementById('articlePreview').style.display = 'block';
+        document.getElementById('demoSummaryBlock').style.display = 'none';
+        document.getElementById('demoPromptBlock').style.display = 'none';
+      }
+      document.getElementById('demoToolbar').addEventListener('click', function (e) {
+        var t = e.target.closest('a[data-demo-reset]');
+        if (t) { e.preventDefault(); resetDemoView(); return; }
+        t = e.target.closest('a[data-demo-topic]');
+        if (!t) return;
+        e.preventDefault();
+        refreshDemoView(t.getAttribute('data-demo-topic'));
+      });
+      document.getElementById('demoRecommended').addEventListener('click', function (e) {
+        var t = e.target.closest('a[data-demo-topic]');
+        if (!t) return;
+        e.preventDefault();
+        var topic = t.getAttribute('data-demo-topic');
+        refreshDemoView(topic);
+        openUnifiedWidget(topic);
+      });
+
+      var chatbot = document.getElementById('chatbotTrigger');
+      var widget = document.getElementById('unifiedWidget');
+      document.getElementById('unifiedWidgetClose').addEventListener('click', function () {
+        widget.classList.remove('is-open');
+      });
+      var dragHappened = false;
+      chatbot.addEventListener('click', function (e) {
+        if (dragHappened) { dragHappened = false; e.preventDefault(); return; }
+        if (e.target === chatbot) widget.classList.add('is-open');
+      });
+      var drag = { dx: 0, dy: 0 };
+      function moveChatbot(e) {
+        dragHappened = true;
+        chatbot.style.left = (e.clientX - drag.dx) + 'px';
+        chatbot.style.top = (e.clientY - drag.dy) + 'px';
+        chatbot.style.right = 'auto';
+        chatbot.style.bottom = 'auto';
+      }
+      function startDrag(clientX, clientY) {
+        var r = chatbot.getBoundingClientRect();
+        drag.dx = clientX - r.left;
+        drag.dy = clientY - r.top;
+        document.addEventListener('mousemove', moveChatbot);
+      }
+      function moveChatbotTouch(e) {
+        if (e.touches.length) { dragHappened = true; moveChatbot(e.touches[0]); }
+      }
+      chatbot.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        startDrag(e.clientX, e.clientY);
+        e.preventDefault();
+      });
+      chatbot.addEventListener('touchstart', function (e) {
+        if (e.touches.length) {
+          startDrag(e.touches[0].clientX, e.touches[0].clientY);
+          document.addEventListener('touchmove', moveChatbotTouch, { passive: true });
+        }
+      }, { passive: true });
+      document.addEventListener('touchend', function () {
+        document.removeEventListener('touchmove', moveChatbotTouch);
+        document.removeEventListener('mousemove', moveChatbot);
+      });
+      document.addEventListener('mouseup', function () {
+        document.removeEventListener('mousemove', moveChatbot);
+      });
+
+      document.getElementById('mobileVideoClose').addEventListener('click', function () {
+        document.getElementById('mobileVideoSticky').style.display = 'none';
+        openUnifiedWidget('ai-monetization');
+      });
+
+      document.getElementById('prototypeLoad').addEventListener('click', function () {
+        var url = document.getElementById('prototypeUrl').value.trim();
+        if (!url) return;
+        if (!/^https?:/i.test(url)) url = 'https://' + url;
+        document.getElementById('prototypeFrame').src = url;
+      });
+      function syncPrototypeOverlays() {
+        document.getElementById('protoHeaderSticky').style.display = document.getElementById('overlayHeaderSticky').checked ? 'flex' : 'none';
+        document.getElementById('protoInfeed').style.display = document.getElementById('overlayInfeed').checked ? 'flex' : 'none';
+        document.getElementById('protoFooterSticky').style.display = document.getElementById('overlayFooterSticky').checked ? 'flex' : 'none';
+      }
+      ['overlayHeaderSticky', 'overlayInfeed', 'overlayFooterSticky', 'overlayChatbot'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', function () {
+          syncPrototypeOverlays();
+          if (id === 'overlayChatbot') {
+            chatbot.style.visibility = this.checked ? 'visible' : 'hidden';
+          }
+        });
+      });
 
       function getAdTagScript() {
         var gptPath = document.getElementById('adtagGptPath').value.trim() || '/19968336/header-bid-tag-0';
@@ -686,18 +1353,11 @@
       var consoleEl = document.getElementById('devConsole');
       var closeBtn = document.getElementById('devConsoleClose');
       var tabs = document.querySelectorAll('.dev-console-tab');
-      var loadBtn = document.getElementById('loadMonetizationUrl');
-      var frame = document.getElementById('monetizationFrame');
-      var urlInput = document.getElementById('monetizationUrl');
       var copyBtn = document.getElementById('adtagCopy');
       var formInputs = document.querySelectorAll('#adtagGptPath, #adtagDivId, #adtagSizes, #adtagPrebidPlacement, #adtagAmazonPubId');
 
       trigger.addEventListener('click', function () {
         consoleEl.classList.add('is-open');
-        if (!frame.src || frame.src === 'about:blank') {
-          var url = urlInput.value.trim();
-          if (url) frame.src = url;
-        }
         updateAdTagOutput();
       });
 
@@ -724,15 +1384,6 @@
           var pane = document.getElementById('pane-' + t);
           if (pane) pane.classList.add('is-active');
         });
-      });
-
-      loadBtn.addEventListener('click', function () {
-        var url = urlInput.value.trim();
-        if (url) frame.src = url;
-      });
-
-      urlInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') { frame.src = urlInput.value.trim() || 'about:blank'; }
       });
 
       formInputs.forEach(function (input) {
