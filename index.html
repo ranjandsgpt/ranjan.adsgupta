@@ -139,6 +139,7 @@
       color: var(--primary);
     }
     .btn-terminal svg { width: 20px; height: 20px; }
+    .dev-trigger,
     .dev-trigger-fixed {
       position: fixed;
       bottom: 1.5rem;
@@ -157,12 +158,15 @@
       justify-content: center;
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
+    .dev-trigger:hover,
     .dev-trigger-fixed:hover {
       background: rgba(0, 242, 255, 0.2);
       border-color: rgba(0, 242, 255, 0.5);
       color: var(--primary);
     }
+    .dev-trigger svg,
     .dev-trigger-fixed svg { width: 20px; height: 20px; }
+    .dev-trigger { right: 4.5rem; }
 
     /* Neural particle canvas (rotating universe) */
     .neural-canvas {
@@ -1317,6 +1321,59 @@
     }
     .download-pdf-btn:hover { background: #67e8f9; }
     .resume-upload-input { display: none; }
+
+    /* Crawler tab – Hyper-Intelligence (Gemini-style) */
+    .crawler-wrap { display: flex; flex-direction: column; gap: 1rem; min-height: 420px; }
+    .crawler-input-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end; }
+    .crawler-input-wrap { flex: 1; min-width: 200px; }
+    .crawler-input-wrap label { display: block; font-size: 0.65rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 0.35rem; }
+    .crawler-input-wrap input { width: 100%; padding: 0.6rem 0.75rem; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-size: 0.8125rem; font-family: var(--font-mono); }
+    .crawler-input-wrap input:focus { outline: none; border-color: rgba(245, 158, 11, 0.5); }
+    .crawler-btn { padding: 0.6rem 1rem; background: #f59e0b; color: #000; border: none; border-radius: 10px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .crawler-btn:hover:not(:disabled) { background: #fbbf24; }
+    .crawler-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .crawler-btn.spin svg { animation: crawlerSpin 0.8s linear infinite; }
+    @keyframes crawlerSpin { to { transform: rotate(360deg); } }
+    .crawler-workspace { display: grid; grid-template-columns: 1fr 2.5fr; gap: 1rem; margin-top: 0.5rem; }
+    @media (max-width: 768px) { .crawler-workspace { grid-template-columns: 1fr; } }
+    .crawler-buckets { display: flex; flex-direction: column; gap: 0.5rem; }
+    .crawler-bucket { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.75rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.6); font-size: 0.7rem; cursor: pointer; transition: all 0.2s; text-align: left; }
+    .crawler-bucket:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+    .crawler-bucket.is-active { background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #f59e0b; }
+    .crawler-bucket .label { font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .crawler-bucket .count { font-size: 0.6rem; font-family: var(--font-mono); color: inherit; opacity: 0.7; }
+    .crawler-explorer { min-height: 320px; }
+    .crawler-search { margin-bottom: 0.75rem; }
+    .crawler-search input { width: 100%; max-width: 280px; padding: 0.5rem 0.75rem; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.75rem; }
+    .crawler-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .crawler-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.75rem; }
+    .crawler-card:hover { border-color: rgba(245, 158, 11, 0.3); }
+    .crawler-card h4 { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #f59e0b; margin-bottom: 0.5rem; }
+    .crawler-card .attr { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.35rem; margin-bottom: 0.35rem; }
+    .crawler-card .attr:last-child { border-bottom: none; margin-bottom: 0; }
+    .crawler-card .attr-key { font-size: 0.6rem; font-family: var(--font-mono); color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 0.15rem; }
+    .crawler-card .attr-val { font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+    .crawler-card .attr-val.tags { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    .crawler-card .attr-val span { font-size: 0.65rem; background: rgba(255,255,255,0.05); padding: 0.2rem 0.4rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); }
+    .crawler-raw { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 0.75rem; margin-top: 0.75rem; }
+    .crawler-raw h4 { font-size: 0.65rem; font-family: var(--font-mono); color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .crawler-raw pre { font-size: 0.6rem; color: rgba(245, 158, 11, 0.5); max-height: 120px; overflow: auto; white-space: pre-wrap; word-break: break-all; }
+    .crawler-empty { min-height: 320px; border: 2px dashed rgba(255,255,255,0.08); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; color: rgba(255,255,255,0.35); }
+    .crawler-empty .icon-wrap { width: 48px; height: 48px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .crawler-empty h3 { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; color: rgba(255,255,255,0.5); }
+    .crawler-empty p { font-size: 0.7rem; max-width: 280px; line-height: 1.5; }
+    .crawler-dsp-section { margin-top: 1rem; }
+    .crawler-dsp-section h4 { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #f59e0b; margin-bottom: 0.5rem; }
+    .crawler-dsp-table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; margin-top: 0.5rem; }
+    .crawler-dsp-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; }
+    .crawler-dsp-table th, .crawler-dsp-table td { padding: 0.4rem 0.5rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .crawler-dsp-table th { background: rgba(0,0,0,0.3); color: rgba(255,255,255,0.5); font-family: var(--font-mono); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .crawler-dsp-table td { color: rgba(255,255,255,0.85); }
+    .crawler-dsp-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .crawler-dsp-table .dsp-name { color: #f59e0b; font-weight: 600; white-space: nowrap; }
+    .crawler-dsp-table .req { color: #22c55e; }
+    .crawler-dsp-table .rec { color: #eab308; }
+    .crawler-dsp-table .opt { color: rgba(255,255,255,0.45); }
   </style>
 </head>
 <body>
@@ -1533,6 +1590,7 @@
       <div class="dev-console-tabs">
         <button type="button" class="dev-console-tab is-active" data-tab="monetization">[ AI MONETIZATION ]</button>
         <button type="button" class="dev-console-tab" data-tab="prototype">[ PROTOTYPE ]</button>
+        <button type="button" class="dev-console-tab" data-tab="crawler">[ CRAWLER ]</button>
         <button type="button" class="dev-console-tab" data-tab="adtag">[ AD TAG ]</button>
       </div>
       <div class="dev-console-body">
@@ -1593,6 +1651,53 @@
               <div class="proto-video-module" id="protoVideoModule">
                 <button type="button" class="proto-video-close" id="mobileVideoClose" aria-label="Close video">×</button>
                 <div class="proto-video-placeholder">Vertical video · Close to open widget</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-tab-pane" id="pane-crawler">
+          <div class="crawler-wrap">
+            <div class="crawler-input-row">
+              <div class="crawler-input-wrap">
+                <label for="crawlerUrl">Unified_Target_URL</label>
+                <input type="text" id="crawlerUrl" placeholder="Enter E-Commerce or Content Landing Page..." value="">
+              </div>
+              <button type="button" class="crawler-btn" id="crawlerBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <span id="crawlerBtnText">Initialize Deep Crawl</span>
+              </button>
+            </div>
+            <div class="crawler-workspace">
+              <aside class="crawler-buckets">
+                <span class="crawler-bucket-label" style="font-size:0.6rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;display:block;">Intelligence_Buckets</span>
+                <button type="button" class="crawler-bucket is-active" data-bucket="core"><span class="label">Product DNA</span><span class="count">215 Signals</span></button>
+                <button type="button" class="crawler-bucket" data-bucket="audience"><span class="label">Psychographics</span><span class="count">242 Signals</span></button>
+                <button type="button" class="crawler-bucket" data-bucket="creative"><span class="label">Creative Intelligence</span><span class="count">198 Signals</span></button>
+                <button type="button" class="crawler-bucket" data-bucket="competitive"><span class="label">Market Context</span><span class="count">185 Signals</span></button>
+                <button type="button" class="crawler-bucket" data-bucket="technical"><span class="label">AdTech Signals</span><span class="count">210 Signals</span></button>
+              </aside>
+              <div class="crawler-explorer">
+                <div class="crawler-empty" id="crawlerEmpty">
+                  <div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/><path d="M20 12a8 8 0 1 0-16 0 8 8 0 0 0 16 0Z"/></svg></div>
+                  <h3>Awaiting Signal Matrix</h3>
+                  <p>System ready for mass entity extraction. Input URL to populate the 1000+ attribute intelligence grid.</p>
+                </div>
+                <div id="crawlerResults" style="display:none;">
+                  <div class="crawler-search">
+                    <input type="text" id="crawlerSearch" placeholder="Search through extracted signals...">
+                  </div>
+                  <div class="crawler-cards" id="crawlerCards"></div>
+                  <div class="crawler-dsp-section" id="crawlerDspSection" style="display:none;">
+                    <h4>IAB OpenRTB contextual signals by DSP (top 10 for better eCPM)</h4>
+                    <div class="crawler-dsp-table-wrap">
+                      <table class="crawler-dsp-table" id="crawlerDspTable"></table>
+                    </div>
+                  </div>
+                  <div class="crawler-raw">
+                    <h4>Raw_Signal_Stream_Output</h4>
+                    <pre id="crawlerRaw"></pre>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1670,8 +1775,9 @@
       var PREBID_TIMEOUT = 1000;
       var FAILSAFE_TIMEOUT = 3300;
 
-      var AUTH_EMAIL = 'ranjandsgpt@gmail.com';
-      var AUTH_PASSCODE = 'ranjan1234';
+      // Demo-only: use non-sensitive placeholders only. Never put real credentials here—they are visible in page source. For production use server-side auth.
+      var AUTH_EMAIL = 'admin@example.com';
+      var AUTH_PASSCODE = 'demo';
       var STORAGE_AUTH = 'portfolio_admin';
       var STORAGE_RESUME = 'portfolio_resume_content';
 
@@ -2107,6 +2213,145 @@
         if (el) el.addEventListener('change', syncPrototypeOverlays);
       });
 
+      (function crawlerModule() {
+        function generateIntelligencePayload(url) {
+          return {
+            core: {
+              Primary_Identity: { product_name: 'Kaaya Black Trousers', brand_parent: 'Global Desi', sku_primary: 'F25H39BT_BLACK', category_path: 'Women > All Clothing > Bottoms > Trousers > Formal', product_type: 'Apparel/Bottomwear' },
+              Physical_Attributes: { primary_color: 'Jet Black (#0A0A0A)', fabric_composition: '65% Viscose, 30% Nylon, 5% Elastane', fit_profile: 'Slim-Straight / Regular Rise' },
+              Inventory_Logic: { stock_status: 'In Stock (High Availability)', shipping_lead_time: '24-48 Hours', return_window: '30 Days Non-Hassle' },
+              Lifecycle_Data: { seasonality: 'Year-Round / Essential', release_date: '2024-Q1', lifecycle_stage: 'Growth / Evergreen' }
+            },
+            audience: {
+              Demographic_Anchor: { primary_age: '24-38', gender_skew: '98% Female', income_decile: 'Upper-Middle (7-9)', family_status: 'Single / Young Professional / DINK' },
+              Psychographic_Spectrum: { lifestyle_cluster: 'Urban Corporate / Modern Ethnic', brand_affinity: ['FabIndia', 'Zara', 'W', 'H&M'], value_drivers: ['Sustainable Fashion', 'Versatility', 'Ethical Sourcing'] },
+              Intent_Signals: { purchase_probability: '0.82 (High)', search_path: ['black office pants', 'comfortable formal trousers', 'Global Desi new arrivals'], retention_likelihood: '75% (Brand Loyal)' },
+              Geographic_Clustering: { top_tier_cities: ['Mumbai', 'Bengaluru', 'Delhi NCR', 'Hyderabad'], climate_suitability: 'Arid / Tropical / Subtropical' }
+            },
+            creative: {
+              Visual_Style_Guide: { primary_mood: 'Sophisticated / Professional', color_palette: ['#000000', '#FFFFFF', '#F3F4F6'], typography_vibe: 'Serif / Clean Sans', composition: 'Minimalist / High Contrast' },
+              Messaging_Architecture: { headline_primary: 'The Only Trousers You Need', tagline_variations: ['Desk to Dinner', 'Effortless Elegance'], tonality: 'Empowering / Refined', emotional_hooks: ['Confidence Booster', 'Time Saver', 'Style Anchor'] },
+              Creative_Variations: { email_subject_lines: ['Your 9-to-5 Uniform, Reimagined', 'Back in Black: The Kaaya Restock'], push_notification: 'The perfect fit doesn\'t exist? Think again. Meet Kaaya.' }
+            },
+            competitive: {
+              Market_Positioning: { price_quartile: 'Mid-Premium', competitors: ['Allen Solly Woman', 'Van Heusen', 'Marks & Spencer'], market_share_est: '12% in Category' },
+              Strategic_Advantage: { usp_unique: 'Ethnic Fusion tailoring for Western silhouettes', pricing_strategy: 'Value-based Premium', discount_sensitivity: 'Low' },
+              Sentiment_Analysis: { social_buzz: 'Positive / Trending', review_sentiment_score: '4.8/5.0', top_praised_feature: 'Fabric Comfort / Fit' }
+            },
+            technical: {
+              Taxonomy_Mapping: { iab_v2_category: 'Apparel & Accessories > Clothing > Pants', google_product_category: '204', facebook_pixel_events: ['ViewContent', 'AddToCart'], keywords_contextual: ['formal', 'bottoms', 'black', 'stretch', 'viscose'] },
+              AdTech_Compliance: { ads_txt_status: 'Verified', sellers_json: 'Valid', brand_safety_tier: 'GARM Floor (Safe)', inventory_quality: 'Tier 1 Premium' },
+              Performance_Benchmarks: { est_ctr_baseline: '1.2% - 1.8%', est_cvr_baseline: '2.5%', historical_cpm_range: '$4.50 - $12.00' }
+            }
+          };
+        }
+        var crawlerIntelligence = null;
+        var crawlerActiveBucket = 'core';
+        var crawlerSearchQuery = '';
+        var IAB_DSP_CONTEXTUAL_SIGNALS = {
+          signals: ['site.cat', 'site.domain', 'site.page', 'content.cat', 'content.keywords', 'content.title', 'user.keywords', 'device.geo', 'device.ua', 'publisher.id'],
+          dsps: [
+            { name: 'Google DV360', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.title', 'device.geo', 'publisher.id'], opt: ['content.cat', 'user.keywords'] },
+            { name: 'The Trade Desk', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
+            { name: 'MediaMath', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
+            { name: 'Amazon TAM', req: ['site.domain', 'device.ua', 'publisher.id'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.title', 'device.geo'], opt: ['content.cat', 'user.keywords'] },
+            { name: 'Xandr', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
+            { name: 'Criteo', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.title', 'content.cat', 'user.keywords', 'device.geo'], opt: ['publisher.id'] },
+            { name: 'PubMatic', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
+            { name: 'OpenX', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'device.geo', 'publisher.id'], opt: ['content.cat', 'content.title', 'user.keywords'] },
+            { name: 'Magnite', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
+            { name: 'Index Exchange', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] }
+          ]
+        };
+        function renderCrawlerResults() {
+          var emptyEl = document.getElementById('crawlerEmpty');
+          var resultsEl = document.getElementById('crawlerResults');
+          var cardsEl = document.getElementById('crawlerCards');
+          var rawEl = document.getElementById('crawlerRaw');
+          var dspSectionEl = document.getElementById('crawlerDspSection');
+          var dspTableEl = document.getElementById('crawlerDspTable');
+          if (!crawlerIntelligence) {
+            if (emptyEl) emptyEl.style.display = 'flex';
+            if (resultsEl) resultsEl.style.display = 'none';
+            if (dspSectionEl) dspSectionEl.style.display = 'none';
+            return;
+          }
+          if (emptyEl) emptyEl.style.display = 'none';
+          if (resultsEl) resultsEl.style.display = 'block';
+          var data = crawlerIntelligence[crawlerActiveBucket] || {};
+          var filtered = {};
+          Object.keys(data).forEach(function (key) {
+            var sectionMatch = key.toLowerCase().indexOf(crawlerSearchQuery.toLowerCase()) !== -1;
+            var contentMatch = JSON.stringify(data[key]).toLowerCase().indexOf(crawlerSearchQuery.toLowerCase()) !== -1;
+            if (!crawlerSearchQuery || sectionMatch || contentMatch) filtered[key] = data[key];
+          });
+          var html = '';
+          Object.keys(filtered).forEach(function (section) {
+            var attrs = filtered[section];
+            var rows = '';
+            Object.keys(attrs).forEach(function (attr) {
+            var val = attrs[attr];
+            var valHtml = Array.isArray(val) ? '<div class="attr-val tags">' + val.map(function (v) { return '<span>' + String(v).replace(/</g, '&lt;') + '</span>'; }).join('') + '</div>' : '<div class="attr-val">' + String(val).replace(/</g, '&lt;') + '</div>';
+            rows += '<div class="attr"><div class="attr-key">' + String(attr).replace(/_/g, ' ') + '</div>' + valHtml + '</div>';
+            });
+            html += '<div class="crawler-card"><h4>' + String(section).replace(/_/g, ' ') + '</h4>' + rows + '</div>';
+          });
+          if (cardsEl) cardsEl.innerHTML = html || '<p style="color:rgba(255,255,255,0.4);font-size:0.75rem;">No matches for search.</p>';
+          if (rawEl) rawEl.textContent = JSON.stringify(crawlerIntelligence[crawlerActiveBucket], null, 2);
+          if (crawlerActiveBucket === 'technical' && dspSectionEl && dspTableEl) {
+            dspSectionEl.style.display = 'block';
+            var sigs = IAB_DSP_CONTEXTUAL_SIGNALS.signals;
+            var dsps = IAB_DSP_CONTEXTUAL_SIGNALS.dsps;
+            var thRow = '<tr><th>DSP</th>' + sigs.map(function (s) { return '<th>' + s + '</th>'; }).join('') + '</tr>';
+            var bodyRows = dsps.map(function (dsp) {
+              var cells = sigs.map(function (sig) {
+                var c = dsp.req.indexOf(sig) !== -1 ? 'req' : (dsp.rec.indexOf(sig) !== -1 ? 'rec' : 'opt');
+                var label = c === 'req' ? 'Required' : (c === 'rec' ? 'Recommended' : 'Optional');
+                return '<td class="' + c + '">' + label + '</td>';
+              });
+              return '<tr><td class="dsp-name">' + String(dsp.name).replace(/</g, '&lt;') + '</td>' + cells.join('') + '</tr>';
+            });
+            dspTableEl.innerHTML = '<thead>' + thRow + '</thead><tbody>' + bodyRows.join('') + '</tbody>';
+          } else if (dspSectionEl) {
+            dspSectionEl.style.display = 'none';
+          }
+        }
+        var crawlerBtn = document.getElementById('crawlerBtn');
+        var crawlerBtnText = document.getElementById('crawlerBtnText');
+        if (crawlerBtn) {
+          crawlerBtn.addEventListener('click', function () {
+            var urlInput = document.getElementById('crawlerUrl');
+            var url = (urlInput && urlInput.value) ? urlInput.value.trim() : '';
+            if (!url) url = 'https://example.com/product';
+            crawlerBtn.disabled = true;
+            crawlerBtn.classList.add('spin');
+            if (crawlerBtnText) crawlerBtnText.textContent = 'Extracting Intelligence...';
+            setTimeout(function () {
+              crawlerIntelligence = generateIntelligencePayload(url);
+              crawlerBtn.disabled = false;
+              crawlerBtn.classList.remove('spin');
+              if (crawlerBtnText) crawlerBtnText.textContent = 'Initialize Deep Crawl';
+              renderCrawlerResults();
+            }, 2000);
+          });
+        }
+        document.querySelectorAll('.crawler-bucket').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            document.querySelectorAll('.crawler-bucket').forEach(function (b) { b.classList.remove('is-active'); });
+            this.classList.add('is-active');
+            crawlerActiveBucket = this.getAttribute('data-bucket') || 'core';
+            renderCrawlerResults();
+          });
+        });
+        var searchInput = document.getElementById('crawlerSearch');
+        if (searchInput) {
+          searchInput.addEventListener('input', function () {
+            crawlerSearchQuery = this.value.trim();
+            renderCrawlerResults();
+          });
+        }
+      })();
+
       function getAdTagScript() {
         var gptPath = document.getElementById('adtagGptPath').value.trim() || '/19968336/header-bid-tag-0';
         var divId = document.getElementById('adtagDivId').value.trim() || 'div-gpt-ad-1460505748561-0';
@@ -2181,6 +2426,7 @@
         document.getElementById('adtagOutput').value = getAdTagScript();
       }
 
+      var devTrigger = document.getElementById('devTrigger');
       var navDevTrigger = document.getElementById('navDevTrigger');
       var consoleEl = document.getElementById('devConsole');
       var closeBtn = document.getElementById('devConsoleClose');
@@ -2192,6 +2438,7 @@
         consoleEl.classList.add('is-open');
         updateAdTagOutput();
       }
+      if (devTrigger) devTrigger.addEventListener('click', openDevConsole);
       if (navDevTrigger) navDevTrigger.addEventListener('click', openDevConsole);
 
       closeBtn.addEventListener('click', function () {
