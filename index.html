@@ -219,6 +219,243 @@
       .nav-links { display: none; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
     }
+
+    /* Dev console */
+    .dev-trigger {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .dev-trigger:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 28px rgba(56, 189, 248, 0.25);
+    }
+    .dev-console {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .dev-console.is-open { display: flex; }
+    .dev-console-panel {
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      background: linear-gradient(180deg, #0c0f14 0%, #0a0d12 100%);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dev-console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .dev-console-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+      color: #f1f5f9;
+    }
+    .dev-console-subtitle {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #38bdf8;
+      margin-top: 0.15rem;
+    }
+    .dev-console-close {
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dev-console-close:hover {
+      background: rgba(248, 113, 113, 0.2);
+      color: #f87171;
+    }
+    .dev-console-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.3);
+    }
+    .dev-console-tab {
+      padding: 0.875rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .dev-console-tab:hover { color: rgba(255, 255, 255, 0.8); }
+    .dev-console-tab.is-active {
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+    }
+    .dev-console-body {
+      flex: 1;
+      overflow: auto;
+      padding: 1.25rem;
+    }
+    .dev-tab-pane { display: none; }
+    .dev-tab-pane.is-active { display: block; }
+    .dev-url-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .dev-url-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+    .dev-url-input::placeholder { color: rgba(255, 255, 255, 0.35); }
+    .dev-url-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .dev-btn {
+      padding: 0.75rem 1.25rem;
+      background: #38bdf8;
+      color: #0c0f14;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .dev-btn:hover { opacity: 0.9; }
+    .dev-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+    }
+    .dev-preview-frame-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #000;
+      min-height: 420px;
+    }
+    .dev-preview-frame {
+      width: 100%;
+      height: 420px;
+      border: none;
+      display: block;
+    }
+    .dev-tag-form {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .dev-tag-form label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.35rem;
+    }
+    .dev-tag-form input, .dev-tag-form select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 0.875rem;
+    }
+    .dev-tag-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dev-tag-output-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0a0d12;
+    }
+    .dev-tag-output {
+      width: 100%;
+      min-height: 320px;
+      padding: 1rem;
+      font-family: ui-monospace, 'SF Mono', Monaco, monospace;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      resize: vertical;
+    }
+    .dev-tag-output:focus { outline: none; }
+    .dev-copy-wrap {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+    .dev-copy-btn {
+      padding: 0.5rem 0.875rem;
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dev-copy-btn:hover {
+      background: #38bdf8;
+      color: #0c0f14;
+    }
+    .dev-copy-btn.copied {
+      background: #22c55e;
+      color: #0c0f14;
+      border-color: #22c55e;
+    }
   </style>
 </head>
 <body>
@@ -302,5 +539,227 @@
     <p>Ranjan Dasgupta · <a href="https://ranjan.adsgupta.com">ranjan.adsgupta.com</a> · <a href="https://adsgupta.com">adsgupta.com</a></p>
     <p style="margin-top: 0.5rem;">&copy; 2025</p>
   </footer>
+
+  <button type="button" class="dev-trigger" id="devTrigger" title="Developer console" aria-label="Open developer console">⌘</button>
+
+  <div class="dev-console" id="devConsole" role="dialog" aria-label="Developer console">
+    <div class="dev-console-panel">
+      <header class="dev-console-header">
+        <div>
+          <div class="dev-console-title">AdTech Control Center</div>
+          <div class="dev-console-subtitle">Unified monetization infrastructure</div>
+        </div>
+        <button type="button" class="dev-console-close" id="devConsoleClose" aria-label="Close">×</button>
+      </header>
+      <div class="dev-console-tabs">
+        <button type="button" class="dev-console-tab is-active" data-tab="monetization">[ AI MONETIZATION ]</button>
+        <button type="button" class="dev-console-tab" data-tab="adtag">[ AD TAG GENERATOR ]</button>
+      </div>
+      <div class="dev-console-body">
+        <div class="dev-tab-pane is-active" id="pane-monetization">
+          <div class="dev-url-row">
+            <input type="url" class="dev-url-input" id="monetizationUrl" placeholder="https://demoai.adsgupta.com/monetization" value="https://demoai.adsgupta.com/monetization">
+            <button type="button" class="dev-btn" id="loadMonetizationUrl">Load</button>
+          </div>
+          <div class="dev-preview-frame-wrap">
+            <iframe class="dev-preview-frame" id="monetizationFrame" title="AI Monetization preview"></iframe>
+          </div>
+        </div>
+        <div class="dev-tab-pane" id="pane-adtag">
+          <div class="dev-tag-form">
+            <div>
+              <label for="adtagGptPath">GPT Ad unit path (e.g. /12345678/site/slot)</label>
+              <input type="text" id="adtagGptPath" placeholder="/12345678/your-site/your-slot" value="/19968336/header-bid-tag-0">
+            </div>
+            <div class="row2">
+              <div>
+                <label for="adtagDivId">Div / slot element ID</label>
+                <input type="text" id="adtagDivId" placeholder="div-gpt-ad-1234567890-0" value="div-gpt-ad-1460505748561-0">
+              </div>
+              <div>
+                <label for="adtagSizes">Sizes (e.g. 300x250,300x600)</label>
+                <input type="text" id="adtagSizes" placeholder="300x250,300x600" value="300x250,300x600">
+              </div>
+            </div>
+            <div class="row2">
+              <div>
+                <label for="adtagPrebidPlacement">Prebid placement ID (e.g. OpenWrap)</label>
+                <input type="text" id="adtagPrebidPlacement" placeholder="13144370" value="13144370">
+              </div>
+              <div>
+                <label for="adtagAmazonPubId">Amazon TAM publisher ID (optional)</label>
+                <input type="text" id="adtagAmazonPubId" placeholder="1234" value="">
+              </div>
+            </div>
+          </div>
+          <div class="dev-tag-output-wrap">
+            <textarea class="dev-tag-output" id="adtagOutput" readonly></textarea>
+            <div class="dev-copy-wrap">
+              <button type="button" class="dev-copy-btn" id="adtagCopy">Copy tag</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var PREBID_TIMEOUT = 1000;
+      var FAILSAFE_TIMEOUT = 3300;
+
+      function getAdTagScript() {
+        var gptPath = document.getElementById('adtagGptPath').value.trim() || '/19968336/header-bid-tag-0';
+        var divId = document.getElementById('adtagDivId').value.trim() || 'div-gpt-ad-1460505748561-0';
+        var sizesStr = document.getElementById('adtagSizes').value.trim() || '300x250,300x600';
+        var prebidPlacement = document.getElementById('adtagPrebidPlacement').value.trim() || '13144370';
+        var amazonPubId = document.getElementById('adtagAmazonPubId').value.trim();
+
+        var sizes = sizesStr.split(/[,\s]+/).map(function (s) {
+          var parts = s.split(/x/i);
+          return parts.length === 2 ? [parseInt(parts[0], 10), parseInt(parts[1], 10)] : null;
+        }).filter(Boolean);
+        var sizesJson = JSON.stringify(sizes);
+        var sizesGpt = sizes.map(function (s) { return '[' + s.join(', ') + ']'; }).join(', ');
+
+        var amazonBlock = '';
+        if (amazonPubId) {
+          amazonBlock = '\n  // Amazon TAM (Transparent Ad Marketplace) – replace with your APS script from Amazon Publisher Services\n' +
+            '  (function(d,z,s){s=d.createElement(\'script\');s.src=\'https://\'+z+\'/sdk/tam.js\';s.async=true;d.getElementsByTagName(\'head\')[0].appendChild(s);})(document,\'aps.amazon.com\');\n' +
+            '  // Configure Amazon slot with your publisher ID: ' + amazonPubId + '\n';
+        }
+
+        var scriptEnd = '</scr' + 'ipt>';
+        return '<!-- GPT + Prebid (OpenWrap) + Amazon TAM. Prebid OpenWrap: https://docs.prebid.org/prebid/openwrap/overview.html -->\n' +
+          '<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js">' + scriptEnd + '\n' +
+          '<script async src="https://cdn.jsdelivr.net/npm/prebid.js@latest/dist/prebid.js">' + scriptEnd + '\n' +
+          amazonBlock +
+          '<script>\n' +
+          '  var PREBID_TIMEOUT = ' + PREBID_TIMEOUT + ';\n' +
+          '  var FAILSAFE_TIMEOUT = ' + FAILSAFE_TIMEOUT + ';\n' +
+          '  var adUnits = [{\n' +
+          '    code: \'' + divId + '\',\n' +
+          '    mediaTypes: { banner: { sizes: ' + sizesJson + ' } },\n' +
+          '    bids: [\n' +
+          '      { bidder: \'appnexus\', params: { placementId: ' + prebidPlacement + ' } }\n' +
+          '      // Add more bidders: openwraptag, rubicon, etc. See https://docs.prebid.org/dev-docs/bidders.html\n' +
+          '    ]\n' +
+          '  }];\n' +
+          '  var pbjs = pbjs || {};\n' +
+          '  pbjs.que = pbjs.que || [];\n' +
+          '  var googletag = googletag || {};\n' +
+          '  googletag.cmd = googletag.cmd || [];\n' +
+          '  googletag.cmd.push(function () { googletag.pubads().disableInitialLoad(); });\n' +
+          '  pbjs.que.push(function () {\n' +
+          '    pbjs.addAdUnits(adUnits);\n' +
+          '    pbjs.requestBids({ bidsBackHandler: sendAdserverRequest, timeout: PREBID_TIMEOUT });\n' +
+          '  });\n' +
+          '  function sendAdserverRequest() {\n' +
+          '    if (pbjs.adserverRequestSent) return;\n' +
+          '    pbjs.adserverRequestSent = true;\n' +
+          '    googletag.cmd.push(function () {\n' +
+          '      if (typeof pbjs.setTargetingForGPTAsync === \'function\') {\n' +
+          '        pbjs.setTargetingForGPTAsync();\n' +
+          '      }\n' +
+          '      googletag.pubads().refresh();\n' +
+          '    });\n' +
+          '  }\n' +
+          '  setTimeout(sendAdserverRequest, FAILSAFE_TIMEOUT);\n' +
+          '  googletag.cmd.push(function () {\n' +
+          '    googletag.defineSlot(\'' + gptPath.replace(/'/g, "\\'") + '\', [' + sizesGpt + '], \'' + divId + '\').addService(googletag.pubads());\n' +
+          '    googletag.pubads().enableSingleRequest();\n' +
+          '    googletag.enableServices();\n' +
+          '  });\n' +
+          scriptEnd + '\n' +
+          '<!-- Ad slot div -->\n' +
+          '<div id="' + divId + '"></div>\n' +
+          '<script>\n' +
+          '  googletag.cmd.push(function () { googletag.display(\'' + divId + '\'); });\n' +
+          scriptEnd + '\n';
+      }
+
+      function updateAdTagOutput() {
+        document.getElementById('adtagOutput').value = getAdTagScript();
+      }
+
+      var trigger = document.getElementById('devTrigger');
+      var consoleEl = document.getElementById('devConsole');
+      var closeBtn = document.getElementById('devConsoleClose');
+      var tabs = document.querySelectorAll('.dev-console-tab');
+      var loadBtn = document.getElementById('loadMonetizationUrl');
+      var frame = document.getElementById('monetizationFrame');
+      var urlInput = document.getElementById('monetizationUrl');
+      var copyBtn = document.getElementById('adtagCopy');
+      var formInputs = document.querySelectorAll('#adtagGptPath, #adtagDivId, #adtagSizes, #adtagPrebidPlacement, #adtagAmazonPubId');
+
+      trigger.addEventListener('click', function () {
+        consoleEl.classList.add('is-open');
+        if (!frame.src || frame.src === 'about:blank') {
+          var url = urlInput.value.trim();
+          if (url) frame.src = url;
+        }
+        updateAdTagOutput();
+      });
+
+      closeBtn.addEventListener('click', function () {
+        consoleEl.classList.remove('is-open');
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && consoleEl.classList.contains('is-open')) {
+          consoleEl.classList.remove('is-open');
+        }
+      });
+
+      consoleEl.addEventListener('click', function (e) {
+        if (e.target === consoleEl) consoleEl.classList.remove('is-open');
+      });
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var t = this.getAttribute('data-tab');
+          tabs.forEach(function (x) { x.classList.remove('is-active'); });
+          document.querySelectorAll('.dev-tab-pane').forEach(function (p) { p.classList.remove('is-active'); });
+          this.classList.add('is-active');
+          var pane = document.getElementById('pane-' + t);
+          if (pane) pane.classList.add('is-active');
+        });
+      });
+
+      loadBtn.addEventListener('click', function () {
+        var url = urlInput.value.trim();
+        if (url) frame.src = url;
+      });
+
+      urlInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { frame.src = urlInput.value.trim() || 'about:blank'; }
+      });
+
+      formInputs.forEach(function (input) {
+        input.addEventListener('input', updateAdTagOutput);
+        input.addEventListener('change', updateAdTagOutput);
+      });
+
+      copyBtn.addEventListener('click', function () {
+        var ta = document.getElementById('adtagOutput');
+        ta.select();
+        ta.setSelectionRange(0, 99999);
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+          setTimeout(function () {
+            copyBtn.textContent = 'Copy tag';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          copyBtn.textContent = 'Copy failed';
+          setTimeout(function () { copyBtn.textContent = 'Copy tag'; }, 2000);
+        }
+      });
+
+      updateAdTagOutput();
+    })();
+  </script>
 </body>
 </html>
