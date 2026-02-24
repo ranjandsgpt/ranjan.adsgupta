@@ -139,7 +139,6 @@
       color: var(--primary);
     }
     .btn-terminal svg { width: 20px; height: 20px; }
-    .dev-trigger,
     .dev-trigger-fixed {
       position: fixed;
       bottom: 1.5rem;
@@ -158,15 +157,12 @@
       justify-content: center;
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
-    .dev-trigger:hover,
     .dev-trigger-fixed:hover {
       background: rgba(0, 242, 255, 0.2);
       border-color: rgba(0, 242, 255, 0.5);
       color: var(--primary);
     }
-    .dev-trigger svg,
     .dev-trigger-fixed svg { width: 20px; height: 20px; }
-    .dev-trigger { right: 4.5rem; }
 
     /* Neural particle canvas (rotating universe) */
     .neural-canvas {
@@ -1374,6 +1370,8 @@
     .crawler-dsp-table .req { color: #22c55e; }
     .crawler-dsp-table .rec { color: #eab308; }
     .crawler-dsp-table .opt { color: rgba(255,255,255,0.45); }
+    .crawler-dsp-table .signal-value { font-family: var(--font-mono); color: rgba(0, 242, 255, 0.9); word-break: break-all; }
+    .crawler-dsp-table .signal-format { font-size: 0.6rem; color: rgba(255,255,255,0.4); }
   </style>
 </head>
 <body>
@@ -1570,10 +1568,6 @@
     </div>
   </footer>
 
-  <button type="button" class="dev-trigger" id="devTrigger" title="Developer console" aria-label="Open developer console">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-  </button>
-
   <button type="button" class="btn-terminal dev-trigger-fixed" id="navDevTrigger" title="Developer console" aria-label="Open developer console">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
   </button>
@@ -1688,7 +1682,8 @@
                   </div>
                   <div class="crawler-cards" id="crawlerCards"></div>
                   <div class="crawler-dsp-section" id="crawlerDspSection" style="display:none;">
-                    <h4>IAB OpenRTB contextual signals by DSP (top 10 for better eCPM)</h4>
+                    <h4>IAB OpenRTB contextual signals – values to pass to DSPs</h4>
+                    <p class="crawler-dsp-intro" style="font-size:0.65rem;color:rgba(255,255,255,0.45);margin-bottom:0.5rem;">Use these object values in your bid request for better eCPM. Accepted by: Google DV360, The Trade Desk, MediaMath, Amazon TAM, Xandr, Criteo, PubMatic, OpenX, Magnite, Index Exchange.</p>
                     <div class="crawler-dsp-table-wrap">
                       <table class="crawler-dsp-table" id="crawlerDspTable"></table>
                     </div>
@@ -2215,7 +2210,11 @@
 
       (function crawlerModule() {
         function generateIntelligencePayload(url) {
+          var parsedUrl = (function (u) { try { var a = document.createElement('a'); a.href = u; return a; } catch (e) { return { hostname: '', href: u }; } })(url || '');
           return {
+            _url: url || '',
+            _domain: (parsedUrl.hostname || 'www.example.com'),
+            _page: (parsedUrl.href || url || 'https://www.example.com/product'),
             core: {
               Primary_Identity: { product_name: 'Kaaya Black Trousers', brand_parent: 'Global Desi', sku_primary: 'F25H39BT_BLACK', category_path: 'Women > All Clothing > Bottoms > Trousers > Formal', product_type: 'Apparel/Bottomwear' },
               Physical_Attributes: { primary_color: 'Jet Black (#0A0A0A)', fabric_composition: '65% Viscose, 30% Nylon, 5% Elastane', fit_profile: 'Slim-Straight / Regular Rise' },
@@ -2248,21 +2247,18 @@
         var crawlerIntelligence = null;
         var crawlerActiveBucket = 'core';
         var crawlerSearchQuery = '';
-        var IAB_DSP_CONTEXTUAL_SIGNALS = {
-          signals: ['site.cat', 'site.domain', 'site.page', 'content.cat', 'content.keywords', 'content.title', 'user.keywords', 'device.geo', 'device.ua', 'publisher.id'],
-          dsps: [
-            { name: 'Google DV360', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.title', 'device.geo', 'publisher.id'], opt: ['content.cat', 'user.keywords'] },
-            { name: 'The Trade Desk', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
-            { name: 'MediaMath', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
-            { name: 'Amazon TAM', req: ['site.domain', 'device.ua', 'publisher.id'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.title', 'device.geo'], opt: ['content.cat', 'user.keywords'] },
-            { name: 'Xandr', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
-            { name: 'Criteo', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.title', 'content.cat', 'user.keywords', 'device.geo'], opt: ['publisher.id'] },
-            { name: 'PubMatic', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
-            { name: 'OpenX', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'device.geo', 'publisher.id'], opt: ['content.cat', 'content.title', 'user.keywords'] },
-            { name: 'Magnite', req: ['site.cat', 'site.domain', 'device.ua'], rec: ['site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] },
-            { name: 'Index Exchange', req: ['site.domain', 'device.ua'], rec: ['site.cat', 'site.page', 'content.keywords', 'content.cat', 'device.geo', 'publisher.id'], opt: ['content.title', 'user.keywords'] }
-          ]
-        };
+        var IAB_DSP_SIGNAL_VALUES = [
+          { signal: 'site.cat', value: 'IAB18-4', format: 'IAB Content Taxonomy array, e.g. IAB18-4 (Apparel & Accessories > Clothing)' },
+          { signal: 'site.domain', value: 'www.example.com', format: 'string, root domain of the site' },
+          { signal: 'site.page', value: 'https://www.example.com/product/123', format: 'string, full URL of the page' },
+          { signal: 'content.cat', value: 'IAB18-4', format: 'IAB category array for the specific content/section' },
+          { signal: 'content.keywords', value: 'formal, trousers, black, office, stretch', format: 'comma-separated or array of keywords' },
+          { signal: 'content.title', value: 'Kaaya Black Trousers | Global Desi', format: 'string, title of the content or product' },
+          { signal: 'user.keywords', value: 'fashion, workwear, sustainable', format: 'comma-separated interests/intent keywords' },
+          { signal: 'device.geo', value: '{"country":"USA","region":"CA","city":"San Francisco"}', format: 'object: country (ISO-3166-1-alpha-2), optional lat, lon, region, city' },
+          { signal: 'device.ua', value: '(from bid request)', format: 'string, user agent from the requesting device' },
+          { signal: 'publisher.id', value: 'pub_12345', format: 'string, your exchange-specific publisher ID' }
+        ];
         function renderCrawlerResults() {
           var emptyEl = document.getElementById('crawlerEmpty');
           var resultsEl = document.getElementById('crawlerResults');
@@ -2300,16 +2296,23 @@
           if (rawEl) rawEl.textContent = JSON.stringify(crawlerIntelligence[crawlerActiveBucket], null, 2);
           if (crawlerActiveBucket === 'technical' && dspSectionEl && dspTableEl) {
             dspSectionEl.style.display = 'block';
-            var sigs = IAB_DSP_CONTEXTUAL_SIGNALS.signals;
-            var dsps = IAB_DSP_CONTEXTUAL_SIGNALS.dsps;
-            var thRow = '<tr><th>DSP</th>' + sigs.map(function (s) { return '<th>' + s + '</th>'; }).join('') + '</tr>';
-            var bodyRows = dsps.map(function (dsp) {
-              var cells = sigs.map(function (sig) {
-                var c = dsp.req.indexOf(sig) !== -1 ? 'req' : (dsp.rec.indexOf(sig) !== -1 ? 'rec' : 'opt');
-                var label = c === 'req' ? 'Required' : (c === 'rec' ? 'Recommended' : 'Optional');
-                return '<td class="' + c + '">' + label + '</td>';
-              });
-              return '<tr><td class="dsp-name">' + String(dsp.name).replace(/</g, '&lt;') + '</td>' + cells.join('') + '</tr>';
+            var signalRows = IAB_DSP_SIGNAL_VALUES.slice();
+            if (crawlerIntelligence) {
+              var tech = crawlerIntelligence.technical || {};
+              var core = crawlerIntelligence.core || {};
+              var taxonomy = (tech.Taxonomy_Mapping || {});
+              var keywords = taxonomy.keywords_contextual;
+              var productName = (core.Primary_Identity || {}).product_name;
+              if (Array.isArray(keywords)) signalRows.forEach(function (r) { if (r.signal === 'content.keywords') r.value = keywords.join(', '); });
+              if (productName) signalRows.forEach(function (r) { if (r.signal === 'content.title') r.value = productName; });
+              if (crawlerIntelligence._domain) signalRows.forEach(function (r) { if (r.signal === 'site.domain') r.value = crawlerIntelligence._domain; });
+              if (crawlerIntelligence._page) signalRows.forEach(function (r) { if (r.signal === 'site.page') r.value = crawlerIntelligence._page; });
+            }
+            var thRow = '<tr><th>OpenRTB object</th><th>Value to pass</th><th>Format / source</th></tr>';
+            var bodyRows = signalRows.map(function (row) {
+              var v = String(row.value).replace(/</g, '&lt;');
+              var f = String(row.format).replace(/</g, '&lt;');
+              return '<tr><td class="dsp-name">' + String(row.signal).replace(/</g, '&lt;') + '</td><td class="signal-value">' + v + '</td><td class="signal-format">' + f + '</td></tr>';
             });
             dspTableEl.innerHTML = '<thead>' + thRow + '</thead><tbody>' + bodyRows.join('') + '</tbody>';
           } else if (dspSectionEl) {
@@ -2426,7 +2429,6 @@
         document.getElementById('adtagOutput').value = getAdTagScript();
       }
 
-      var devTrigger = document.getElementById('devTrigger');
       var navDevTrigger = document.getElementById('navDevTrigger');
       var consoleEl = document.getElementById('devConsole');
       var closeBtn = document.getElementById('devConsoleClose');
@@ -2438,7 +2440,6 @@
         consoleEl.classList.add('is-open');
         updateAdTagOutput();
       }
-      if (devTrigger) devTrigger.addEventListener('click', openDevConsole);
       if (navDevTrigger) navDevTrigger.addEventListener('click', openDevConsole);
 
       closeBtn.addEventListener('click', function () {
