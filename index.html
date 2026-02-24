@@ -131,14 +131,14 @@
             ];
 
             const generateScript = () => `<!-- Monetization Widget v3.2 - adsgupta.com -->
-<script src="https://cdn.adsgupta.com/widget/v3.2.js" data-site-id="YOUR_SITE_ID" data-theme="nexus"><\/script>
+<script src="https://cdn.adsgupta.com/widget/v3.2.js" data-site-id="YOUR_SITE_ID" data-theme="nexus"><` + `/script>
 <script>
   window.ADSGUPTA_WIDGET_CONFIG = {
     keywords: ["programmatic", "SPO", "yield", "CTV"],
     summarizer: "gemini",
     ads: "gpt"
   };
-</script>`;
+<` + `/script>`;
 
             if (!isOpen) return null;
 
