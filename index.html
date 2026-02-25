@@ -1586,6 +1586,7 @@
         <button type="button" class="dev-console-tab" data-tab="prototype">[ PROTOTYPE ]</button>
         <button type="button" class="dev-console-tab" data-tab="crawler">[ CRAWLER ]</button>
         <button type="button" class="dev-console-tab" data-tab="adtag">[ AD TAG ]</button>
+        <button type="button" class="dev-console-tab" data-tab="prebid-gam">[ PREBID GAM API ]</button>
       </div>
       <div class="dev-console-body">
         <div class="dev-tab-pane is-active" id="pane-monetization">
@@ -1695,6 +1696,16 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="dev-tab-pane" id="pane-prebid-gam">
+          <div class="dev-tag-form" style="max-width: 560px;">
+            <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7); font-size: 0.875rem;">Automate Prebid line item setup in Google Ad Manager: OAuth connect, create Advertiser, Order, Line items (by CPM bucket), Prebid Universal Creative, and KVP targeting.</p>
+            <a href="http://localhost:3001" target="_blank" rel="noopener noreferrer" class="crawler-btn" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+              Open Prebid GAM API
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <p style="margin-top: 0.75rem; font-size: 0.7rem; color: rgba(255,255,255,0.45);">Runs at <code style="background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px;">localhost:3001</code>. Start with <code style="background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px;">cd monetization/prebid-gam-api && npm run dev</code>.</p>
           </div>
         </div>
         <div class="dev-tab-pane" id="pane-adtag">
