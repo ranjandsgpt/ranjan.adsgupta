@@ -1372,6 +1372,14 @@
     .crawler-dsp-table .opt { color: rgba(255,255,255,0.45); }
     .crawler-dsp-table .signal-value { font-family: var(--font-mono); color: rgba(0, 242, 255, 0.9); word-break: break-all; }
     .crawler-dsp-table .signal-format { font-size: 0.6rem; color: rgba(255,255,255,0.4); }
+    .prebid-gam-embed { display: flex; flex-direction: column; height: 100%; min-height: 420px; }
+    .prebid-gam-embed-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem; }
+    .prebid-gam-embed-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.7); }
+    .prebid-gam-embed-link { font-size: 0.65rem; color: var(--primary); text-decoration: none; }
+    .prebid-gam-embed-link:hover { text-decoration: underline; }
+    .prebid-gam-embed-iframe { flex: 1; width: 100%; min-height: 360px; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; background: #fff; }
+    .prebid-gam-embed-hint { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+    .prebid-gam-embed-hint code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -1698,14 +1706,14 @@
             </div>
           </div>
         </div>
-        <div class="dev-tab-pane" id="pane-prebid-gam">
-          <div class="dev-tag-form" style="max-width: 560px;">
-            <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7); font-size: 0.875rem;">Automate Prebid line item setup in Google Ad Manager: OAuth connect, create Advertiser, Order, Line items (by CPM bucket), Prebid Universal Creative, and KVP targeting.</p>
-            <a href="http://localhost:3001" target="_blank" rel="noopener noreferrer" class="crawler-btn" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-              Open Prebid GAM API
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-            <p style="margin-top: 0.75rem; font-size: 0.7rem; color: rgba(255,255,255,0.45);">Runs at <code style="background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px;">localhost:3001</code>. Start with <code style="background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px;">cd monetization/prebid-gam-api && npm run dev</code>.</p>
+        <div class="dev-tab-pane" id="pane-prebid-gam" data-prebid-gam-url="https://prebid-gam-api.vercel.app">
+          <div class="prebid-gam-embed">
+            <div class="prebid-gam-embed-bar">
+              <span class="prebid-gam-embed-title">Prebid GAM API</span>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="prebid-gam-embed-link" id="prebidGamLink">Open in new tab</a>
+            </div>
+            <iframe src="" title="Prebid GAM API" class="prebid-gam-embed-iframe" id="prebidGamIframe"></iframe>
+            <p class="prebid-gam-embed-hint" id="prebidGamHint">If the panel is blank, start the app: <code>cd monetization/prebid-gam-api && npm run dev</code></p>
           </div>
         </div>
         <div class="dev-tab-pane" id="pane-adtag">
@@ -2466,6 +2474,18 @@
       consoleEl.addEventListener('click', function (e) {
         if (e.target === consoleEl) consoleEl.classList.remove('is-open');
       });
+
+      (function () {
+        var pane = document.getElementById('pane-prebid-gam');
+        var iframe = document.getElementById('prebidGamIframe');
+        var link = document.getElementById('prebidGamLink');
+        var hint = document.getElementById('prebidGamHint');
+        var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        var url = (pane && pane.getAttribute('data-prebid-gam-url')) || (isLocal ? 'http://localhost:3001' : '');
+        if (url && iframe) iframe.src = url;
+        if (url && link) { link.href = url; }
+        if (hint && !isLocal) hint.textContent = 'Prebid GAM API runs at ' + url;
+      })();
 
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {

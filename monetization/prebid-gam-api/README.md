@@ -29,11 +29,22 @@ cp .env.example .env
 
 Edit `.env`:
 
-- **GOOGLE_CLIENT_ID** / **GOOGLE_CLIENT_SECRET**: Create OAuth 2.0 credentials in [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Add authorized redirect URI: `http://localhost:3001/api/auth/gam/callback` (or your production URL).
+- **GOOGLE_CLIENT_ID** / **GOOGLE_CLIENT_SECRET**: From GCP (see below). Do not commit these; keep them in `.env` only.
 - **NEXTAUTH_URL** / **BASE_URL**: e.g. `http://localhost:3001` for local.
 - **DATABASE_URL**: PostgreSQL connection string, e.g. `postgresql://user:password@localhost:5432/prebid_gam`.
 
-Enable the **Google Ad Manager API** (and optionally DFP scope) for your project.
+**GCP OAuth (Web application)** — [Ad Manager API authentication](https://developers.google.com/ad-manager/api/authentication):
+
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), create a project (or pick one), then **Create credentials** → **OAuth client ID**.
+2. If prompted, configure the OAuth consent screen (e.g. External, app name, your email).
+3. Application type: **Web application**. Add authorized redirect URI:  
+   `http://localhost:3001/api/auth/gam/callback`  
+   (for production, add your production callback URL too).
+4. Copy the **Client ID** and **Client secret** into `.env` as `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+5. Enable the **Google Ad Manager API** for the project (APIs & Services → Enable APIs).
+6. In your GAM network: **Admin** → ensure **API access** is enabled (no extra step needed for web app flow; users authorize when they click “Connect via Google OAuth”).
+
+The app uses the single Ad Manager scope: `https://www.googleapis.com/auth/dfp`.
 
 ### 2. Database
 
