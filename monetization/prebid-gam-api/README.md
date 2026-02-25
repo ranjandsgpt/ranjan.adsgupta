@@ -66,6 +66,66 @@ Open [http://localhost:3001](http://localhost:3001).
 
 The main portfolio’s AdTech Control Center can add a tab **Prebid GAM API** that links to `http://localhost:3001` (or your deployed URL) so you open the tool from the same place as the Ad Tag tab.
 
+## Owner setup (deployment for end users)
+
+If you want **real end users** to use the Prebid GAM API from your portfolio (e.g. AdTech Control Center), you deploy this app once and point the portfolio at it. End users never see or set any URL; they only connect their GAM and run setup.
+
+### Step 1: Deploy the Prebid GAM API app
+
+1. **Hosting**: Deploy `monetization/prebid-gam-api` to a host that supports Node.js (e.g. **Vercel**).
+2. **Vercel**: In the dashboard, **Add New** → **Project** → import the same repo.
+   - Set **Root Directory** to `monetization/prebid-gam-api`.
+   - Build command: `npm run build` (or leave default). Output directory: `.next`.
+   - Install command: `npm install`.
+3. Note your deployment URL, e.g. `https://prebid-gam-api-xyz.vercel.app`.
+
+### Step 2: Environment variables (deployed app)
+
+In your deployment project (e.g. Vercel → Project → Settings → Environment Variables), set:
+
+| Variable | Description |
+|----------|-------------|
+| `GOOGLE_CLIENT_ID` | OAuth client ID from GCP (Web application) |
+| `GOOGLE_CLIENT_SECRET` | OAuth client secret from GCP |
+| `BASE_URL` | Your deployed app URL, e.g. `https://prebid-gam-api-xyz.vercel.app` |
+| `NEXTAUTH_URL` | Same as `BASE_URL` (or leave unset if not using NextAuth elsewhere) |
+| `DATABASE_URL` | PostgreSQL connection string (e.g. Vercel Postgres or any hosted Postgres) |
+
+Do **not** commit these; keep them only in the deployment environment.
+
+### Step 3: GCP OAuth redirect URI (production)
+
+1. Open [Google Cloud Console](https://console.cloud.google.com/apis/credentials) → your project → your **OAuth 2.0 Client ID** (Web application).
+2. Under **Authorized redirect URIs**, add:  
+   `https://YOUR-DEPLOYMENT-URL/api/auth/gam/callback`  
+   Example: `https://prebid-gam-api-xyz.vercel.app/api/auth/gam/callback`.
+3. Save. Ensure **Google Ad Manager API** is enabled for the project.
+
+### Step 4: Database (production)
+
+Use a PostgreSQL instance reachable from your deployment (e.g. Vercel Postgres, Neon, Supabase). Run migrations from your machine or CI:
+
+```bash
+cd monetization/prebid-gam-api
+DATABASE_URL="postgresql://..." npx prisma db push
+```
+
+(Or use `prisma migrate deploy` if you use migrations.)
+
+### Step 5: Point the portfolio at the deployed app
+
+In the **portfolio** repo (the one that contains `index.html`):
+
+1. Open `index.html` and find the Prebid GAM tab pane (e.g. search for `pane-prebid-gam` or `data-prebid-gam-url`).
+2. On the pane `<div>`, set the deployed app URL:
+   ```html
+   <div class="dev-tab-pane" id="pane-prebid-gam" data-prebid-gam-url="https://prebid-gam-api-xyz.vercel.app">
+   ```
+   Use your real deployment URL (no trailing slash). The comment above the pane reminds you: *"Site owner: set data-prebid-gam-url to your deployed Prebid GAM API app URL…"*
+3. Save and deploy the portfolio as usual.
+
+After this, when users open the AdTech Control Center and the **Prebid GAM API** tab, they will see the embedded app (or "Open in new tab"). They do **not** see or enter any URL; they only enter their GAM Network Code, connect via Google OAuth, and run setup.
+
 ## Usage
 
 1. **Connect GAM**: Enter your GAM Network Code and click “Connect via Google OAuth”. Sign in and grant access.
@@ -77,11 +137,12 @@ The main portfolio’s AdTech Control Center can add a tab **Prebid GAM API** th
 
 ## GAM API (live mode)
 
-The live GAM integration uses the **Google Ad Manager SOAP API**. The codebase includes:
+The live GAM integration uses the **Google Ad Manager SOAP API** (v202511). The codebase includes:
 
-- `src/lib/gam/client.ts`: Interface `IGamClient` and a **stub** implementation used for dry runs. A `GamSoapClient` skeleton is present; you need to wire it to the actual SOAP endpoints (e.g. CompanyService, OrderService, LineItemService, CreativeService) using the `soap` package and your OAuth access token. See [GAM API documentation](https://developers.google.com/ad-manager/api/start).
+- `src/lib/gam/client.ts`: Interface `IGamClient`, **GamClientStub** (dry runs), and **GamSoapClient** (live).
+- `src/lib/gam/soapClient.ts`: SOAP helpers for CompanyService, OrderService, LineItemService, CreativeService, and LineItemCreativeAssociationService. Uses OAuth Bearer token and RequestHeader (networkCode, applicationName). See [GAM API documentation](https://developers.google.com/ad-manager/api/start).
 
-Until the SOAP client is fully implemented, use **Dry run** to validate config and CPM buckets; live runs will return an error indicating SOAP is not wired.
+Use **Dry run** to validate config and CPM buckets without touching GAM; uncheck **Dry run** and click **Generate Setup** to create advertisers, orders, line items, and creatives in the user’s GAM network.
 
 ## Project structure
 

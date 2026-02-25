@@ -45,28 +45,51 @@ export class GamClientStub implements IGamClient {
   }
 }
 
+import {
+  soapCreateCompanies,
+  soapCreateOrders,
+  soapCreateLineItems,
+  soapCreateCreatives,
+  soapCreateLineItemCreativeAssociations,
+} from './soapClient';
+
 /**
- * Live GAM SOAP client. Wire to your SOAP implementation using credentials.
- * Example: use 'soap' package with WSDL
- * https://ads.google.com/apis/ads/publisher/v202402/LineItemService?wsdl
+ * Live GAM SOAP client (v202511). Uses CompanyService, OrderService, LineItemService,
+ * CreativeService, LineItemCreativeAssociationService with OAuth Bearer token.
  */
 export class GamSoapClient implements IGamClient {
   constructor(private _baseUrl?: string) {}
 
   async createAdvertiser(creds: GamCredentials, input: CreateAdvertiserInput): Promise<GamServiceResult> {
-    // TODO: SOAP call to CompanyService.createCompanies
-    return { success: false, error: 'GAM SOAP not wired; use dry run or implement SOAP calls' };
+    return soapCreateCompanies(creds, input.name);
   }
   async createOrder(creds: GamCredentials, input: CreateOrderInput): Promise<GamServiceResult> {
-    return { success: false, error: 'GAM SOAP not wired' };
+    return soapCreateOrders(creds, input.name, input.advertiserId);
   }
   async createLineItem(creds: GamCredentials, input: CreateLineItemInput): Promise<GamServiceResult> {
-    return { success: false, error: 'GAM SOAP not wired' };
+    return soapCreateLineItems(creds, {
+      name: input.name,
+      orderId: input.orderId,
+      cpmMicros: input.cpmMicros,
+      currency: input.currency,
+      sizes: input.sizes,
+      priority: input.priority,
+      targetingType: input.targetingType,
+    });
   }
   async createCreative(creds: GamCredentials, input: CreateCreativeInput): Promise<GamServiceResult> {
-    return { success: false, error: 'GAM SOAP not wired' };
+    return soapCreateCreatives(creds, {
+      name: input.name,
+      advertiserId: input.advertiserId,
+      snippet: input.snippet,
+      sizes: input.sizes,
+    });
   }
   async attachCreativeToLineItem(creds: GamCredentials, input: AttachCreativeInput): Promise<GamServiceResult> {
-    return { success: false, error: 'GAM SOAP not wired' };
+    return soapCreateLineItemCreativeAssociations(creds, {
+      lineItemId: input.lineItemId,
+      creativeId: input.creativeId,
+      sizes: input.sizes,
+    });
   }
 }

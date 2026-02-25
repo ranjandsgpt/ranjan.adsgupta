@@ -1382,9 +1382,6 @@
     .prebid-gam-embed-hint code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px; }
     .prebid-gam-embed-placeholder { padding: 1.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; min-height: 320px; }
     .prebid-gam-embed-msg { font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem; }
-    .prebid-gam-embed-steps { font-size: 0.7rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin: 0; padding-left: 1.25rem; }
-    .prebid-gam-embed-steps li { margin-bottom: 0.5rem; }
-    .prebid-gam-embed-steps code { background: rgba(0,0,0,0.3); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.65rem; }
   </style>
 </head>
 <body>
@@ -1711,23 +1708,18 @@
             </div>
           </div>
         </div>
-        <div class="dev-tab-pane" id="pane-prebid-gam">
+        <!-- Site owner: set data-prebid-gam-url to your deployed Prebid GAM API app URL so users see Connect GAM + config here. -->
+        <div class="dev-tab-pane" id="pane-prebid-gam" data-prebid-gam-url="">
           <div class="prebid-gam-embed">
             <div class="prebid-gam-embed-bar">
               <span class="prebid-gam-embed-title">Prebid GAM API</span>
               <a href="#" target="_blank" rel="noopener noreferrer" class="prebid-gam-embed-link" id="prebidGamLink">Open in new tab</a>
             </div>
             <div class="prebid-gam-embed-placeholder" id="prebidGamPlaceholder" style="display:none;">
-              <p class="prebid-gam-embed-msg">Deploy the Prebid GAM API to Vercel, then set its URL here.</p>
-              <ol class="prebid-gam-embed-steps">
-                <li>In Vercel: New Project → same repo → <strong>Root Directory</strong> = <code>monetization/prebid-gam-api</code></li>
-                <li>Add env vars: <code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code>, <code>BASE_URL</code>, <code>DATABASE_URL</code></li>
-                <li>In GCP: add redirect URI <code>https://YOUR-DEPLOYMENT.vercel.app/api/auth/gam/callback</code></li>
-                <li>In this repo’s <code>index.html</code>, add to the pane div: <code>data-prebid-gam-url="https://YOUR-DEPLOYMENT.vercel.app"</code></li>
-              </ol>
+              <p class="prebid-gam-embed-msg">Prebid GAM API is not configured. Contact the site administrator.</p>
             </div>
             <iframe src="" title="Prebid GAM API" class="prebid-gam-embed-iframe" id="prebidGamIframe"></iframe>
-            <p class="prebid-gam-embed-hint" id="prebidGamHint">If the panel is blank, start the app: <code>cd monetization/prebid-gam-api && npm run dev</code></p>
+            <p class="prebid-gam-embed-hint" id="prebidGamHint"></p>
           </div>
         </div>
         <div class="dev-tab-pane" id="pane-adtag">
@@ -2496,12 +2488,13 @@
         var hint = document.getElementById('prebidGamHint');
         var placeholder = document.getElementById('prebidGamPlaceholder');
         var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        var url = (pane && pane.getAttribute('data-prebid-gam-url')) || (isLocal ? 'http://localhost:3001' : '');
+        var url = (pane && pane.getAttribute('data-prebid-gam-url')) ? pane.getAttribute('data-prebid-gam-url').trim() : '';
+        if (!url && isLocal) url = 'http://localhost:3001';
         if (url) {
-          if (iframe) iframe.src = url;
+          if (iframe) { iframe.src = url; iframe.style.display = 'block'; }
           if (link) { link.href = url; link.style.display = ''; }
           if (placeholder) placeholder.style.display = 'none';
-          if (hint) { hint.style.display = ''; hint.textContent = isLocal ? 'If the panel is blank, start the app: cd monetization/prebid-gam-api && npm run dev' : 'Prebid GAM API runs at ' + url; }
+          if (hint) hint.style.display = 'none';
         } else {
           if (iframe) iframe.style.display = 'none';
           if (link) link.style.display = 'none';
