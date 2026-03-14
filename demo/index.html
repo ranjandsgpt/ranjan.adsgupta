@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Ad Exchange Demo — OpenRTB Auction Simulator | Ranjan Dasgupta</title>
+  <meta name="description" content="Experience a real-time OpenRTB ad auction. Watch bid requests fan out to demand partners, see first-price auction mechanics, and understand how programmatic advertising works under the hood.">
+  <meta name="author" content="Ranjan Dasgupta">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ranjan.adsgupta.com/demo">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+  <meta property="og:title" content="Live Ad Exchange Demo — OpenRTB Auction Simulator | Ranjan Dasgupta">
+  <meta property="og:description" content="Run a live OpenRTB auction demo and see how programmatic advertising works in real time.">
+  <meta property="og:image" content="https://ranjan.adsgupta.com/og-image.png">
+  <meta property="og:url" content="https://ranjan.adsgupta.com/demo">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ranjan Dasgupta">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live Ad Exchange Demo — OpenRTB Auction Simulator | Ranjan Dasgupta">
+  <meta name="twitter:description" content="Watch a live OpenRTB 2.6 ad auction run end-to-end, built by AdTech product leader Ranjan Dasgupta.">
+  <meta name="twitter:image" content="https://ranjan.adsgupta.com/og-image.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is an ad exchange?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An ad exchange is a technology platform that facilitates the buying and selling of digital advertising inventory through real-time auctions. The AdsGupta Exchange, built by Ranjan Dasgupta, processes OpenRTB 2.6 bid requests and runs first-price auctions across multiple demand partners."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is OpenRTB?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OpenRTB is the industry-standard protocol maintained by the IAB Tech Lab that defines how ad exchanges communicate with demand-side platforms. Version 2.6 supports banner, video, native, and audio formats and is used by the AdsGupta Exchange demo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast does a real ad auction run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A production ad auction typically completes in under 200 milliseconds. The AdsGupta Exchange enforces a 120ms timeout for DSP responses, with the full auction from ad request to creative delivery designed to complete within that 200ms budget."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who built this exchange?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This exchange was built by Ranjan Dasgupta, an AdTech product leader with experience at InMobi, Glance, Automatad, and Google. He specializes in programmatic advertising, CTV monetization, and exchange-side product strategy at $200M+ scale."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+    }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header, main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    .hero-title {
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: #9ca3af;
+      max-width: 40rem;
+    }
+    .hero-cta {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .btn-primary, .btn-secondary {
+      border-radius: 999px;
+      padding: 0.6rem 1.3rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: #38bdf8;
+      color: #020617;
+      border-color: #38bdf8;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .panel {
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.12), rgba(15,23,42,0.92));
+      padding: 1rem 1.1rem;
+    }
+    .panel h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem 0;
+    }
+    .field-group {
+      margin-bottom: 0.75rem;
+    }
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 0.15rem;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+    }
+    .sim-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+    .dsp-node {
+      flex: 1;
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
+      font-size: 0.8rem;
+    }
+    .dsp-name { font-weight: 600; }
+    .dsp-status { margin-top: 0.15rem; color: #9ca3af; }
+    .dsp-bid { margin-top: 0.15rem; }
+    .dsp-bid.win { color: #22c55e; }
+    .dsp-bid.lose { color: #9ca3af; }
+    .dsp-bid.nobid { color: #6b7280; }
+    .dsp-bid.timeout { color: #f97316; }
+    .slot-preview {
+      border-radius: 0.75rem;
+      border: 1px dashed rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+    }
+    .metric {
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+    }
+    .metric strong { margin-right: 0.25rem; }
+    .details {
+      margin-top: 2rem;
+      max-width: 1120px;
+      padding: 0 1.5rem 2rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    pre {
+      background: #020617;
+      color: #e5e7eb;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      overflow-x: auto;
+      font-size: 0.75rem;
+    }
+    dl { margin: 0; }
+    dt { margin-top: 1rem; font-weight: 600; }
+    dd { margin: 0.25rem 0 0.75rem 0; color: #cbd5f5; }
+    h2.section-title {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p style="font-size:0.8rem;color:#9ca3af;margin-bottom:0.5rem;">
+      <a href="/">← Back to homepage</a>
+    </p>
+    <h1 class="hero-title">Live Exchange Demo — See a Real Ad Auction in Action</h1>
+    <p class="hero-subtitle">
+      This live OpenRTB 2.6 exchange demo lets you watch a complete ad auction unfold — from bid request construction to first-price winner selection — built by AdTech product leader Ranjan Dasgupta.
+    </p>
+    <div class="hero-cta">
+      <button type="button" class="btn-primary" id="runAuctionBtn">Run a Demo Auction</button>
+      <a href="/exchange" class="btn-secondary">View Exchange Dashboard</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="layout" aria-label="Auction simulator">
+      <div class="panel">
+        <h2>1. Configure the Ad Request</h2>
+        <div class="field-group">
+          <label for="publisher">Publisher domain</label>
+          <select id="publisher">
+            <option value="example.com">example.com</option>
+            <option value="news-site.com">news-site.com</option>
+            <option value="sports-blog.com">sports-blog.com</option>
+            <option value="tech-journal.com">tech-journal.com</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="size">Ad size</label>
+          <select id="size">
+            <option value="300x250">300x250</option>
+            <option value="728x90">728x90</option>
+            <option value="160x600">160x600</option>
+            <option value="320x50">320x50</option>
+            <option value="300x600">300x600</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="floor">Floor price (USD)</label>
+          <input id="floor" type="number" min="0.1" max="5" step="0.05" value="0.5">
+        </div>
+        <div class="field-group">
+          <label for="category">Page category</label>
+          <select id="category">
+            <option value="IAB1">News</option>
+            <option value="IAB2">Sports</option>
+            <option value="IAB3">Technology</option>
+            <option value="IAB8">Finance</option>
+            <option value="IAB9">Entertainment</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="geo">Geo</label>
+          <select id="geo">
+            <option value="US">United States</option>
+            <option value="GB">United Kingdom</option>
+            <option value="IN">India</option>
+            <option value="DE">Germany</option>
+            <option value="JP">Japan</option>
+          </select>
+        </div>
+        <p style="font-size:0.75rem;color:#9ca3af;margin-top:0.5rem;">
+          When you run the auction, the simulator builds an OpenRTB 2.6 BidRequest, fans it out to simulated DSPs, and then runs a first-price auction to select the winning bid.
+        </p>
+
+        <h2 style="margin-top:1.5rem;">2. Bid Fan-out</h2>
+        <div id="dspRow" class="sim-row">
+          <!-- DSP nodes will be injected here -->
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>3. Auction Result &amp; Creative</h2>
+        <div class="slot-preview" id="adSlot">
+          Waiting for auction…
+        </div>
+        <div class="metrics" id="metrics">
+          <!-- metrics pills -->
+        </div>
+      </div>
+    </section>
+
+    <section class="details" aria-label="Auction details">
+      <h2 class="section-title">Auction Details</h2>
+      <p style="font-size:0.9rem;color:#9ca3af;max-width:46rem;">
+        Each time you run the demo, a new auction runs with different bid responses. Below you can inspect the constructed BidRequest, the simulated BidResponses from each DSP, and the final auction result. This mirrors how a real exchange like the AdsGupta Exchange behaves in production.
+      </p>
+
+      <h3 style="font-size:1rem;margin-top:1.25rem;">BidRequest (OpenRTB 2.6)</h3>
+      <pre id="bidRequestJson">{}</pre>
+
+      <h3 style="font-size:1rem;margin-top:1.25rem;">BidResponses (by DSP)</h3>
+      <pre id="bidResponsesJson">{}</pre>
+
+      <h2 class="section-title">How the AdsGupta Exchange Works</h2>
+      <p>
+        When a publisher's page loads, the AdsGupta Exchange receives an ad request and constructs an OpenRTB 2.6 bid request describing the ad opportunity — the slot size, the page context, the user's device, and the floor price. This bid request is sent to multiple demand-side platforms (DSPs) simultaneously, mirroring how modern <a href="/programmatic-advertising">programmatic advertising strategy</a> is executed across exchanges.
+      </p>
+      <p>
+        In parallel, each DSP decides whether to bid based on its campaigns, targeting rules, and budgets. Some respond with bids, some respond with "no bid", and some may timeout if the exchange-enforced deadline is too aggressive. The AdsGupta Exchange enforces a strict timeout budget and then runs a first-price auction on the bids it received. This is similar to how header bidding and unified auctions work in practice, as described on the <a href="/header-bidding">header bidding and Prebid optimization</a> page.
+      </p>
+      <p>
+        The highest valid bid that meets or exceeds the floor price wins the auction. The exchange records the clearing price, the bid landscape, and latency metrics for analytics and <a href="/yield-optimization">yield optimization for publishers</a>. It then returns the winning creative markup to the publisher page, fires the DSP's win notice URL, and logs the impression and any subsequent click events.
+      </p>
+      <p>
+        Along the way, quality and compliance checks ensure that creatives meet policy requirements, advertiser domains respect publisher block lists, and supply paths align with <a href="/supply-path-optimization">supply path optimization (SPO)</a> strategy. The result is a transparent, efficient auction that serves both publishers and buyers.
+      </p>
+
+      <h2 class="section-title">Frequently Asked Questions about Ad Exchange Demos</h2>
+      <dl>
+        <dt>What is an ad exchange?</dt>
+        <dd>An ad exchange is a technology platform that facilitates the buying and selling of digital advertising inventory through real-time auctions. The AdsGupta Exchange demo on this page shows how bid requests and bid responses flow through a first-price auction, built and operated by Ranjan Dasgupta.</dd>
+
+        <dt>What is OpenRTB?</dt>
+        <dd>OpenRTB (Open Real-Time Bidding) is the industry-standard protocol maintained by the IAB Tech Lab that defines how ad exchanges communicate with demand-side platforms. The AdsGupta Exchange demo uses OpenRTB 2.6-style objects to illustrate real-world programmatic transactions.</dd>
+
+        <dt>How fast does a real ad auction run?</dt>
+        <dd>A production ad auction typically completes in under 200 milliseconds from the moment the ad tag fires to the creative being returned. This demo simulates that behavior with controlled delays and timeouts so you can see an exchange's timing constraints in action.</dd>
+
+        <dt>Who built this exchange?</dt>
+        <dd>This exchange was built by Ranjan Dasgupta, an AdTech product leader with experience at InMobi, Glance, Automatad, and Google. Ranjan Dasgupta specializes in programmatic advertising, CTV monetization, header bidding, and exchange-side product strategy at $200M+ scale.</dd>
+      </dl>
+
+      <h2 class="section-title">Next Steps</h2>
+      <p>
+        Want to connect your inventory or explore this exchange in more detail? Visit the <a href="/contact">contact page</a> to reach out, explore the <a href="/exchange">exchange dashboard</a>, or dive deeper into <a href="/programmatic-advertising">programmatic advertising strategy</a> with Ranjan Dasgupta.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      function $(id) { return document.getElementById(id); }
+
+      var runBtn = $('runAuctionBtn');
+      var dspRow = $('dspRow');
+      var adSlot = $('adSlot');
+      var metricsEl = $('metrics');
+      var bidReqEl = $('bidRequestJson');
+      var bidResEl = $('bidResponsesJson');
+
+      var DSPs = [
+        { id: 'dsp_alpha', name: 'DemandCo Alpha' },
+        { id: 'dsp_beta', name: 'BidStream' },
+        { id: 'dsp_gamma', name: 'AdNexus Test' },
+        { id: 'dsp_delta', name: 'QuantumDSP' }
+      ];
+
+      function randomIn(min, max) {
+        return min + Math.random() * (max - min);
+      }
+
+      function formatMoney(v) {
+        return '$' + v.toFixed(2);
+      }
+
+      function buildBidRequest() {
+        var pub = $('publisher').value;
+        var size = $('size').value;
+        var floor = parseFloat($('floor').value) || 0.5;
+        var cat = $('category').value;
+        var geo = $('geo').value;
+
+        var parts = size.split('x');
+        var w = parseInt(parts[0], 10);
+        var h = parseInt(parts[1], 10);
+
+        var id = 'auc_' + Math.random().toString(16).slice(2, 10);
+
+        return {
+          id: id,
+          imp: [{
+            id: '1',
+            banner: { w: w, h: h, format: [{ w: w, h: h }], pos: 1 },
+            bidfloor: floor,
+            bidfloorcur: 'USD',
+            secure: 1
+          }],
+          site: {
+            id: 'site_' + pub,
+            domain: pub,
+            page: 'https://' + pub + '/demo',
+            cat: [cat],
+            publisher: { id: 'pub_demo', name: 'Demo Publisher', domain: pub }
+          },
+          device: {
+            devicetype: 2,
+            os: 'Other',
+            w: window.innerWidth,
+            h: window.innerHeight
+          },
+          user: { id: 'user_demo' },
+          at: 1,
+          tmax: 120,
+          cur: ['USD'],
+          ext: { exchange: 'adsgupta', version: '1.0' }
+        };
+      }
+
+      function simulateDSPResponses(bidRequest) {
+        var floor = bidRequest.imp[0].bidfloor || 0.5;
+        var responses = [];
+        DSPs.forEach(function (dsp) {
+          var roll = Math.random();
+          if (roll < 0.15) {
+            responses.push({ dsp: dsp, kind: 'timeout' });
+          } else if (roll < 0.35) {
+            responses.push({ dsp: dsp, kind: 'nobid' });
+          } else {
+            var price = randomIn(floor, floor * 4);
+            var latency = randomIn(35, 110);
+            var bid = {
+              id: dsp.id + '-bid',
+              impid: '1',
+              price: price,
+              adid: 'creative_' + dsp.id,
+              adm: '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#020617;color:#e5e7eb;font-family:system-ui,sans-serif;font-size:14px;border-radius:8px;border:1px solid #38bdf8;">' + dsp.name + ' · ' + formatMoney(price) + ' CPM</div>',
+              adomain: ['example.com'],
+              crid: 'cr_' + dsp.id,
+              w: bidRequest.imp[0].banner.w,
+              h: bidRequest.imp[0].banner.h
+            };
+            responses.push({
+              dsp: dsp,
+              kind: 'bid',
+              latency: latency,
+              bid: bid
+            });
+          }
+        });
+        return responses;
+      }
+
+      function runAuction() {
+        dspRow.innerHTML = '';
+        adSlot.textContent = 'Running auction…';
+        metricsEl.innerHTML = '';
+        bidReqEl.textContent = '{}';
+        bidResEl.textContent = '{}';
+
+        var bidRequest = buildBidRequest();
+        bidReqEl.textContent = JSON.stringify(bidRequest, null, 2);
+
+        var sim = simulateDSPResponses(bidRequest);
+
+        var bids = [];
+        var start = performance.now();
+
+        sim.forEach(function (entry) {
+          var node = document.createElement('div');
+          node.className = 'dsp-node';
+          node.id = 'node-' + entry.dsp.id;
+          node.innerHTML =
+            '<div class="dsp-name">' + entry.dsp.name + '</div>' +
+            '<div class="dsp-status">Awaiting response…</div>' +
+            '<div class="dsp-bid"></div>';
+          dspRow.appendChild(node);
+
+          var latency = entry.latency || randomIn(35, 120);
+          setTimeout(function () {
+            var statusEl = node.querySelector('.dsp-status');
+            var bidEl = node.querySelector('.dsp-bid');
+            if (entry.kind === 'timeout') {
+              statusEl.textContent = 'Timeout at 120ms';
+              bidEl.textContent = '';
+              bidEl.className = 'dsp-bid timeout';
+            } else if (entry.kind === 'nobid') {
+              statusEl.textContent = 'Responded with no bid';
+              bidEl.textContent = 'No Bid';
+              bidEl.className = 'dsp-bid nobid';
+            } else if (entry.kind === 'bid') {
+              statusEl.textContent = 'Responded in ' + latency.toFixed(0) + 'ms';
+              bidEl.textContent = 'Bid: ' + formatMoney(entry.bid.price) + ' CPM';
+              bidEl.className = 'dsp-bid';
+              bids.push(entry);
+            }
+          }, latency);
+        });
+
+        setTimeout(function () {
+          if (!bids.length) {
+            adSlot.textContent = 'No fill — all bids were below floor or timed out.';
+            return;
+          }
+          bids.sort(function (a, b) { return b.bid.price - a.bid.price; });
+          var winner = bids[0];
+          var second = bids[1];
+          var clearing = winner.bid.price;
+          var secondPrice = second ? second.bid.price : null;
+
+          sim.forEach(function (entry) {
+            if (entry.kind !== 'bid') return;
+            var node = $('node-' + entry.dsp.id);
+            if (!node) return;
+            var bidEl = node.querySelector('.dsp-bid');
+            if (entry.dsp.id === winner.dsp.id) {
+              bidEl.classList.add('win');
+              bidEl.textContent += ' · WINNER';
+            } else {
+              bidEl.classList.add('lose');
+            }
+          });
+
+          adSlot.innerHTML = winner.bid.adm;
+
+          var totalLatency = performance.now() - start;
+          metricsEl.innerHTML = '';
+          var m1 = document.createElement('div');
+          m1.className = 'metric';
+          m1.innerHTML = '<strong>Clearing price</strong>' + formatMoney(clearing) + ' CPM';
+          metricsEl.appendChild(m1);
+
+          var m2 = document.createElement('div');
+          m2.className = 'metric';
+          m2.innerHTML = '<strong>Second price</strong>' + (secondPrice ? formatMoney(secondPrice) + ' CPM' : '—');
+          metricsEl.appendChild(m2);
+
+          var m3 = document.createElement('div');
+          m3.className = 'metric';
+          m3.innerHTML = '<strong>Bid count</strong>' + bids.length + ' / ' + DSPs.length;
+          metricsEl.appendChild(m3);
+
+          var m4 = document.createElement('div');
+          m4.className = 'metric';
+          m4.innerHTML = '<strong>Auction latency</strong>' + totalLatency.toFixed(0) + 'ms';
+          metricsEl.appendChild(m4);
+
+          var res = {
+            auctionId: bidRequest.id,
+            winner: {
+              dsp: winner.dsp.name,
+              price: clearing,
+              creativeId: winner.bid.crid
+            },
+            secondPrice: secondPrice,
+            bids: bids.map(function (b) {
+              return {
+                dsp: b.dsp.name,
+                price: b.bid.price
+              };
+            }),
+            floor: bidRequest.imp[0].bidfloor,
+            latencyMs: totalLatency
+          };
+          bidResEl.textContent = JSON.stringify(res, null, 2);
+        }, 140);
+      }
+
+      if (runBtn) {
+        runBtn.addEventListener('click', function () {
+          runAuction();
+        });
+      }
+
+      runAuction();
+    })();
+  </script>
+</body>
+</html>
+
