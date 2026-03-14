@@ -1469,49 +1469,6 @@
       opacity: 1;
       pointer-events: auto;
     }
-
-    /* Mode switcher */
-    .mode-switcher {
-      position: fixed;
-      right: 1.5rem;
-      bottom: 4.5rem;
-      z-index: 120;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      backdrop-filter: blur(12px);
-    }
-
-    .mode-switcher button {
-      border: none;
-      background: transparent;
-      color: #e5e7eb;
-      font-size: 0.7rem;
-      padding: 0.35rem 0.6rem;
-      border-radius: 999px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .mode-switcher button.is-active {
-      background: var(--mode-accent);
-      color: #020617;
-    }
-
-    @media (max-width: 640px) {
-      .mode-switcher {
-        bottom: 4.25rem;
-        right: 1rem;
-        padding: 0.35rem 0.5rem;
-      }
-      .mode-switcher button span.label {
-        display: none;
-      }
-    }
   </style>
 
   <!-- Schema.org: Person -->
@@ -1910,14 +1867,6 @@
   <button type="button" class="btn-terminal dev-trigger-fixed" id="navDevTrigger" title="Developer console" aria-label="Open developer console">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
   </button>
-
-  <div class="mode-switcher" id="modeSwitcher" aria-label="Display mode switcher">
-    <button type="button" data-mode="constellation"><span class="icon">✦</span> <span class="label">Constellation</span></button>
-    <button type="button" data-mode="terminal"><span class="icon">&gt;</span> <span class="label">Terminal</span></button>
-    <button type="button" data-mode="exchange"><span class="icon">◊</span> <span class="label">Exchange</span></button>
-    <button type="button" data-mode="editorial"><span class="icon">¶</span> <span class="label">Editorial</span></button>
-    <button type="button" data-mode="holographic"><span class="icon">◈</span> <span class="label">Holographic</span></button>
-  </div>
 
   <div class="dev-console" id="devConsole" role="dialog" aria-label="Developer console">
     <div class="dev-console-panel">
@@ -2878,49 +2827,6 @@
 
       var newsletterForm = document.getElementById('footerNewsletterForm');
       if (newsletterForm) newsletterForm.addEventListener('submit', function (e) { e.preventDefault(); });
-    })();
-
-    (function () {
-      var body = document.body;
-      var switcher = document.getElementById('modeSwitcher');
-      if (!switcher) return;
-
-      function setMode(mode) {
-        var m =
-          mode ||
-          (location.hash && location.hash.replace('#', '').replace('mode=', '')) ||
-          'constellation';
-        var modes = ['constellation', 'terminal', 'exchange', 'editorial', 'holographic'];
-        modes.forEach(function (name) {
-          body.classList.remove('mode-' + name);
-        });
-        if (modes.indexOf(m) === -1) m = 'constellation';
-        body.classList.add('mode-' + m);
-        location.hash = m;
-        var buttons = switcher.querySelectorAll('button[data-mode]');
-        for (var i = 0; i < buttons.length; i++) {
-          var btn = buttons[i];
-          if (btn.getAttribute('data-mode') === m) btn.classList.add('is-active');
-          else btn.classList.remove('is-active');
-        }
-      }
-
-      switcher.addEventListener('click', function (e) {
-        var target = e.target;
-        while (target && target !== switcher && !target.getAttribute('data-mode')) {
-          target = target.parentNode;
-        }
-        if (!target || target === switcher) return;
-        var mode = target.getAttribute('data-mode');
-        setMode(mode);
-      });
-
-      window.addEventListener('hashchange', function () {
-        var h = location.hash.replace('#', '').replace('mode=', '');
-        if (h) setMode(h);
-      });
-
-      setMode();
     })();
   </script>
 </body>
