@@ -51,6 +51,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://ranjan.adsgupta.com/monetization-audit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://ranjan.adsgupta.com/ai-in-advertising</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
