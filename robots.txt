@@ -2,14 +2,7 @@ User-agent: *
 Allow: /
 Sitemap: https://ranjan.adsgupta.com/sitemap.xml
 
-# Allow all major crawlers including AI/LLM crawlers
 User-agent: GPTBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: CCBot
 Allow: /
 
 User-agent: anthropic-ai
@@ -18,6 +11,11 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Bytespider
+User-agent: CCBot
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /

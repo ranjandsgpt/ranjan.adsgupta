@@ -6,14 +6,14 @@
   <meta name="theme-color" content="#000000">
   <meta name="author" content="Ranjan Dasgupta">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="Ranjan Dasgupta is an AdTech product leader with $200M+ scale experience in programmatic advertising, CTV monetization, header bidding, and Web & App exchange strategy.">
+  <meta name="description" content="Ranjan Dasgupta is an AdTech product leader with $200M+ scale experience in programmatic advertising, CTV monetization, header bidding, and exchange strategy at InMobi.">
   <title>Ranjan Dasgupta | AdTech Product Leader — Programmatic, CTV & Web Monetization</title>
   <link rel="canonical" href="https://ranjan.adsgupta.com/">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Ranjan Dasgupta — AdTech Product Leader">
-  <meta property="og:description" content="Programmatic advertising, CTV monetization, and exchange strategy at $200M+ scale. Currently at InMobi.">
+  <meta property="og:title" content="Ranjan Dasgupta | AdTech Product Leader — Programmatic, CTV & Web Monetization">
+  <meta property="og:description" content="Ranjan Dasgupta is an AdTech product leader with $200M+ scale experience in programmatic advertising, CTV monetization, header bidding, and exchange strategy at InMobi.">
   <meta property="og:image" content="https://ranjan.adsgupta.com/og-image.png">
   <meta property="og:url" content="https://ranjan.adsgupta.com/">
   <meta property="og:type" content="website">
@@ -21,8 +21,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ranjan Dasgupta — AdTech Product Leader">
-  <meta name="twitter:description" content="Programmatic advertising, CTV monetization, and exchange strategy at $200M+ scale.">
+  <meta name="twitter:title" content="Ranjan Dasgupta | AdTech Product Leader — Programmatic, CTV & Web Monetization">
+  <meta name="twitter:description" content="Ranjan Dasgupta is an AdTech product leader with $200M+ scale experience in programmatic advertising, CTV monetization, header bidding, and exchange strategy at InMobi.">
   <meta name="twitter:image" content="https://ranjan.adsgupta.com/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1455,8 +1455,25 @@
       --mode-font-sans: 'Exo 2', system-ui, sans-serif;
     }
 
+    /* Skip to main content - visually hidden until focused */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      z-index: 9999;
+      padding: 0.75rem 1rem;
+      background: var(--primary);
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0.5rem;
+    }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+    }
+
     /* SEO main block visibility tweaks for Constellation */
-    body.mode-constellation #seo-main {
+    body.mode-constellation #main-content {
       max-height: 0;
       opacity: 0;
       overflow: hidden;
@@ -1464,7 +1481,7 @@
       transition: opacity 0.3s ease;
     }
 
-    body:not(.mode-constellation) #seo-main {
+    body:not(.mode-constellation) #main-content {
       max-height: none;
       opacity: 1;
       pointer-events: auto;
@@ -1566,6 +1583,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <canvas class="neural-canvas" id="neuralCanvas" aria-hidden="true"></canvas>
 
   <div class="modal-overlay" id="loginModal" role="dialog" aria-label="Login">
@@ -1596,6 +1614,11 @@
       </div>
     </div>
     <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/work">Work</a>
+      <a href="/insights">Insights</a>
+      <a href="/contact">Contact</a>
       <a href="#" data-story="experience">Experience</a>
       <a href="#" data-story="focus">Focus</a>
       <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1642,7 +1665,7 @@
     </div>
   </header>
 
-  <main id="seo-main">
+  <main id="main-content">
   <section class="page-timeline" id="pageTimeline">
     <header>
       <h2>Experience</h2>
@@ -1652,14 +1675,14 @@
       <span class="page-timeline-dot"></span>
       <span class="page-timeline-meta">2025 - PRES // FUTURE</span>
       <h3 class="page-timeline-role">InMobi | Senior Manager</h3>
-      <p class="page-timeline-desc">Driving 2030 product strategies for Web & CTV Exchange in convergence with Agentic AI.</p>
+      <p class="page-timeline-desc">Driving 2030 product strategies for <a href="/ctv-monetization">Web &amp; CTV Exchange</a> in convergence with Agentic AI.</p>
       <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
     </div>
     <div class="page-timeline-item">
       <span class="page-timeline-dot"></span>
       <span class="page-timeline-meta">2020 - 2025 // SCALE</span>
       <h3 class="page-timeline-role">Glance | Product Monetization</h3>
-      <p class="page-timeline-desc">Built and scaled end-to-end unified monetization stacks across Web, App, and CTV for more than five years, driving programmatic advertising strategy and yield optimization.</p>
+      <p class="page-timeline-desc">Built and scaled end-to-end <a href="/web-app-monetization">unified monetization stacks</a> across Web, App, and CTV for more than five years, driving programmatic advertising strategy and yield optimization.</p>
       <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
     </div>
     <div class="page-timeline-item">
@@ -1673,7 +1696,7 @@
       <span class="page-timeline-dot"></span>
       <span class="page-timeline-meta">2015 - 2019 // LEGACY</span>
       <h3 class="page-timeline-role">Google | Technical Specialist</h3>
-      <p class="page-timeline-desc">Technical expert for DoubleClick, DFP, AdX, and AdSense with four years of platform optimization and publisher support.</p>
+      <p class="page-timeline-desc">Technical expert for <a href="/programmatic-advertising">DoubleClick, DFP, AdX</a>, and AdSense with four years of platform optimization and publisher support.</p>
       <a href="#" class="page-timeline-link">Deployment Document <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
     </div>
   </section>
@@ -1683,10 +1706,10 @@
   <div id="story-experience" class="story-panel" aria-hidden="true">
     <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>
     <h2>Experience</h2>
-    <p><strong>2025 — Present</strong> · Product, Web & CTV Exchange · InMobi. New initiatives for exchange and convergence.</p>
-    <p><strong>2020 — 2025</strong> · Product Growth, Programmatic · Glance. Scaled programmatic and monetization.</p>
+    <p><strong>2025 — Present</strong> · Product, <a href="/ctv-monetization">Web &amp; CTV Exchange</a> · InMobi. New initiatives for exchange and convergence.</p>
+    <p><strong>2020 — 2025</strong> · Product Growth, Programmatic · Glance. Scaled programmatic and <a href="/web-app-monetization">monetization</a>.</p>
     <p><strong>2019 — 2020</strong> · Product Strategy, Omni-Channel · Automatad. Monetization strategy and execution.</p>
-    <p><strong>2015 — 2019</strong> · Technical Specialist · Google. DFP, AdX, DV360, SA360 for global publishers.</p>
+    <p><strong>2015 — 2019</strong> · Technical Specialist · Google. <a href="/programmatic-advertising">DFP, AdX</a>, DV360, SA360 for global publishers.</p>
   </div>
   <div id="story-focus" class="story-panel" aria-hidden="true">
     <button type="button" class="story-panel-close" data-close-panel aria-label="Close">×</button>

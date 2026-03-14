@@ -192,9 +192,12 @@
     .footer-adsgupta-social { display: flex; align-items: center; gap: 1rem; }
     .footer-adsgupta-social-btn { width: 2.5rem; height: 2.5rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.05); color: #a1a1aa; display: flex; align-items: center; justify-content: center; transition: color 0.3s, background 0.3s; }
     .footer-adsgupta-social-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+    .skip-link { position: absolute; left: -9999px; z-index: 9999; padding: 0.75rem 1rem; background: var(--primary); color: #000; font-weight: 600; text-decoration: none; border-radius: 0.5rem; }
+    .skip-link:focus { left: 1rem; top: 1rem; }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Primary">
     <div class="nav-brand-wrap">
       <div class="nav-icon" aria-hidden="true">
@@ -218,7 +221,7 @@
   </nav>
 
   <div class="page-wrap">
-    <main class="contact-inner">
+    <main id="main-content" class="contact-inner">
       <h1>Contact</h1>
       <p>Reach out to Ranjan Dasgupta for AdTech consulting, <a href="/programmatic-advertising">programmatic strategy</a>, speaking opportunities, or collaboration on exchange and monetization initiatives.</p>
 

@@ -393,9 +393,12 @@
       transition: color 0.3s, background 0.3s;
     }
     .footer-adsgupta-social-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+    .skip-link { position: absolute; left: -9999px; z-index: 9999; padding: 0.75rem 1rem; background: var(--primary); color: #000; font-weight: 600; text-decoration: none; border-radius: 0.5rem; }
+    .skip-link:focus { left: 1rem; top: 1rem; }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Primary">
     <div class="nav-brand-wrap">
       <div class="nav-icon" aria-hidden="true">
@@ -419,7 +422,7 @@
   </nav>
 
   <div class="page-wrap">
-    <main class="about-inner">
+    <main id="main-content" class="about-inner">
       <h1>AdTech Product Leader Building Exchange &amp; Monetization at Scale</h1>
 
       <section aria-labelledby="bio-heading">
