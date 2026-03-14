@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/demo", "destination": "/demo/index.html" },
+    { "source": "/demo/", "destination": "/demo/index.html" }
+  ]
 }
