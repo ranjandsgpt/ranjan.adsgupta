@@ -21,64 +21,51 @@
   <meta name="twitter:description" content="30+ systems, 150+ sub-systems, 3,000+ modules — quantum identity, neural commerce, programmatic advertising.">
   <meta name="twitter:image" content="https://ranjan.adsgupta.com/og-image.png">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ranjan.adsgupta.com"},{"@type":"ListItem","position":2,"name":"Demos & Tools","item":"https://ranjan.adsgupta.com/demo"},{"@type":"ListItem","position":3,"name":"AdsGupta Universe","item":"https://ranjan.adsgupta.com/demo/exchange"}]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ranjan.adsgupta.com"},{"@type":"ListItem","position":2,"name":"Demos","item":"https://ranjan.adsgupta.com/demo"},{"@type":"ListItem","position":3,"name":"AdsGupta Universe","item":"https://ranjan.adsgupta.com/demo/exchange"}]}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     :root{--bg:#050505;--text:#fff;--text-muted:rgba(255,255,255,0.6);--primary:#00f2ff;--border:rgba(255,255,255,0.08);--font-sans:'Space Grotesk',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace;}
     body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased;}
     a{color:var(--primary);text-decoration:none;}a:hover{text-decoration:underline;}
-    .skip-link{position:absolute;left:-9999px;z-index:9999;padding:0.75rem 1rem;background:var(--primary);color:#000;font-weight:600;border-radius:0.5rem;}.skip-link:focus{left:1rem;top:1rem;}
-    .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:rgba(5,5,5,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.05);}
+    .skip-link{position:absolute;left:-9999px;z-index:9999;padding:0.75rem 1rem;background:var(--primary);color:#000;font-weight:600;text-decoration:none;border-radius:0.5rem;}.skip-link:focus{left:1rem;top:1rem;}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:rgba(5,5,5,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.05);}
     .nav-brand-wrap{display:flex;align-items:center;gap:0.75rem;}
     .nav-icon{width:40px;height:40px;background:rgba(0,242,255,0.1);border:1px solid rgba(0,242,255,0.4);border-radius:8px;display:flex;align-items:center;justify-content:center;}.nav-icon svg{width:20px;height:20px;color:var(--primary);}
-    .nav-brand .nav-name{font-weight:700;font-size:0.875rem;letter-spacing:0.05em;color:#fff;text-transform:uppercase;}.nav-brand .nav-tagline{font-family:var(--font-mono);font-size:10px;color:rgba(0,242,255,0.85);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem;}
+    .nav-brand .nav-name{font-weight:700;font-size:0.875rem;letter-spacing:0.05em;color:#fff;text-transform:uppercase;}.nav-brand .nav-tagline{font-size:10px;color:rgba(0,242,255,0.85);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.1rem;}
     .nav-links{display:flex;align-items:center;gap:1.5rem;}.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.8125rem;font-weight:500;}.nav-links a:hover{color:var(--primary);}
-    .nav-cta{display:inline-flex;padding:0.5rem 1rem;background:transparent;color:var(--primary);font-size:0.875rem;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;}.nav-cta:hover{background:rgba(0,242,255,0.08);border-color:var(--primary);}
+    .nav-cta{display:inline-flex;align-items:center;padding:0.5rem 1rem;background:transparent;color:var(--primary);font-size:0.875rem;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;}.nav-cta:hover{background:rgba(0,242,255,0.08);border-color:var(--primary);}
     .page-wrap{padding-top:5rem;}
-    .exchange-inner{max-width:1000px;margin:0 auto;padding:1.5rem 1.5rem 3rem;}
-    .back-link{display:inline-block;margin-bottom:1rem;font-size:0.9rem;color:var(--text-muted);}.back-link:hover{color:var(--primary);}
-    .exchange-intro{margin-bottom:2rem;}.exchange-intro p{color:rgba(255,255,255,0.85);margin-bottom:0.75rem;}
+    .exchange-inner{max-width:900px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+    .back-link{display:inline-block;margin-bottom:1rem;font-size:0.875rem;color:var(--text-muted);}.back-link:hover{color:var(--primary);}
+    .exchange-inner h1{font-size:1.75rem;font-weight:700;margin-bottom:0.75rem;color:#fff;}
+    .exchange-inner .intro{margin-bottom:1.5rem;color:rgba(255,255,255,0.85);}
+    .universe-wrap{border:1px solid var(--border);border-radius:12px;padding:1.25rem;background:rgba(0,0,0,0.3);margin-top:1.5rem;}
     .universe-tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
-    .universe-tabs button{padding:0.5rem 1rem;font-size:0.85rem;font-family:var(--font-mono);background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);border-radius:0.5rem;cursor:pointer;}
-    .universe-tabs button:hover,.universe-tabs button.active{background:rgba(0,242,255,0.1);border-color:var(--primary);color:var(--primary);}
-    .universe-search{width:100%;max-width:320px;padding:0.6rem 1rem;margin-bottom:1rem;font-family:var(--font-mono);font-size:0.9rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:0.5rem;color:#fff;}
+    .universe-tabs button{padding:0.5rem 1rem;font-size:0.8125rem;font-family:var(--font-mono);background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);border-radius:0.5rem;cursor:pointer;}
+    .universe-tabs button:hover,.universe-tabs button.active{background:rgba(0,242,255,0.1);color:var(--primary);border-color:rgba(0,242,255,0.3);}
+    .universe-search{width:100%;padding:0.75rem 1rem;margin-bottom:1rem;font-family:var(--font-mono);font-size:0.875rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:0.5rem;color:#fff;}
     .universe-search::placeholder{color:var(--text-muted);}
-    .universe-pane{display:none;}.universe-pane.active{display:block;}
-    .universe-cards{display:flex;flex-direction:column;gap:0.75rem;}
-    .universe-card{border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,0.02);overflow:hidden;}
-    .universe-card-header{padding:0.75rem 1rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-mono);font-size:0.9rem;}
-    .universe-card-header:hover{background:rgba(255,255,255,0.04);}
-    .universe-card-body{padding:0 1rem 1rem;display:none;border-top:1px solid var(--border);}
-    .universe-card.open .universe-card-body{display:block;}
-    .universe-card-body ul{list-style:none;padding:0;margin:0.5rem 0 0;}
-    .universe-card-body li{padding:0.35rem 0;font-size:0.85rem;color:rgba(255,255,255,0.8);font-family:var(--font-mono);}
-    .pipeline-viz{padding:1rem;background:rgba(0,242,255,0.05);border:1px solid rgba(0,242,255,0.2);border-radius:8px;margin-bottom:1rem;font-family:var(--font-mono);font-size:0.8rem;color:rgba(255,255,255,0.9);}
-    .rates-row{display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;}
-    .rates-row label{min-width:140px;font-family:var(--font-mono);font-size:0.85rem;}
-    .rates-row input[type="range"]{flex:1;max-width:200px;}
-    .footer-adsgupta{position:relative;z-index:2;padding:4rem 0 4rem;background:#0A0A0A;border-top:1px solid rgba(255,255,255,0.05);}
-    .footer-adsgupta-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
+    .sys-card{border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem;overflow:hidden;}
+    .sys-card summary{padding:0.75rem 1rem;cursor:pointer;font-family:var(--font-mono);font-size:0.875rem;color:#fff;}
+    .sys-card summary:hover{background:rgba(255,255,255,0.03);}
+    .sys-card .subs{padding:0 1rem 1rem;margin-left:0.5rem;border-left:2px solid rgba(0,242,255,0.3);}
+    .sys-card .sub{font-size:0.8125rem;color:rgba(255,255,255,0.8);margin-bottom:0.25rem;}
+    .pipeline-pane,.rates-pane,.funnel-pane{display:none;}
+    .pipeline-pane.active,.rates-pane.active,.funnel-pane.active,.universe-pane.active{display:block;}
+    .footer-adsgupta{position:relative;z-index:2;padding:4rem 0 4rem;background:#0A0A0A;border-top:1px solid rgba(255,255,255,0.05);}.footer-adsgupta-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;}
     .footer-adsgupta-top{display:grid;grid-template-columns:1fr;gap:3rem;margin-bottom:4rem;}@media(min-width:1024px){.footer-adsgupta-top{grid-template-columns:1fr 1fr;gap:5rem;}}
-    .footer-adsgupta-heading{font-size:1.875rem;font-weight:700;color:#fff;margin-bottom:1rem;}
-    .footer-adsgupta-desc{font-size:1.125rem;color:#a1a1aa;margin-bottom:2rem;max-width:28rem;}
-    .footer-adsgupta-form{display:flex;gap:0.75rem;}
-    .footer-adsgupta-input{flex:1;padding:1rem 1.25rem;border-radius:9999px;color:#fff;font-size:1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+    .footer-adsgupta-heading{font-size:1.875rem;font-weight:700;color:#fff;margin-bottom:1rem;}.footer-adsgupta-desc{font-size:1.125rem;color:#a1a1aa;margin-bottom:2rem;max-width:28rem;}
+    .footer-adsgupta-form{display:flex;gap:0.75rem;}.footer-adsgupta-input{flex:1;padding:1rem 1.25rem;border-radius:9999px;color:#fff;font-size:1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
     .footer-adsgupta-submit{width:3.5rem;height:3.5rem;border-radius:9999px;background:#22d3ee;color:#000;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
     .footer-adsgupta-links{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;}@media(min-width:768px){.footer-adsgupta-links{grid-template-columns:repeat(4,1fr);}}
-    .footer-adsgupta-col-title{font-size:0.875rem;font-weight:600;color:#fff;margin-bottom:1rem;}
-    .footer-adsgupta-ul{list-style:none;}.footer-adsgupta-ul li{margin-bottom:0.75rem;}
-    .footer-adsgupta-ul a{font-size:0.875rem;color:#71717a;text-decoration:none;}.footer-adsgupta-ul a:hover{color:#fff;}
+    .footer-adsgupta-col-title{font-size:0.875rem;font-weight:600;color:#fff;margin-bottom:1rem;}.footer-adsgupta-ul{list-style:none;}.footer-adsgupta-ul li{margin-bottom:0.75rem;}.footer-adsgupta-ul a{font-size:0.875rem;color:#71717a;text-decoration:none;}.footer-adsgupta-ul a:hover{color:#fff;}
     .footer-adsgupta-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;justify-content:space-between;}
-    .footer-adsgupta-brand-wrap{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
-    .footer-adsgupta-logo{font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none;}.footer-adsgupta-logo-cyan{color:#22d3ee;}
-    .footer-adsgupta-copy{font-size:0.875rem;color:#52525b;}
-    .footer-adsgupta-social{display:flex;gap:1rem;}
-    .footer-adsgupta-social-btn{width:2.5rem;height:2.5rem;border-radius:9999px;background:rgba(255,255,255,0.05);color:#a1a1aa;display:flex;align-items:center;justify-content:center;}
-    .footer-adsgupta-social-btn:hover{color:#fff;background:rgba(255,255,255,0.1);}
+    .footer-adsgupta-brand-wrap{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}.footer-adsgupta-logo{font-size:1.5rem;font-weight:700;color:#fff;text-decoration:none;}.footer-adsgupta-logo-cyan{color:#22d3ee;}.footer-adsgupta-copy{font-size:0.875rem;color:#52525b;}
+    .footer-adsgupta-social{display:flex;gap:1rem;}.footer-adsgupta-social-btn{width:2.5rem;height:2.5rem;border-radius:9999px;background:rgba(255,255,255,0.05);color:#a1a1aa;display:flex;align-items:center;justify-content:center;}.footer-adsgupta-social-btn:hover{color:#fff;background:rgba(255,255,255,0.1);}
   </style>
 </head>
 <body>
@@ -92,32 +79,23 @@
     <a href="https://adsgupta.com" class="nav-cta" target="_blank" rel="noopener">AdsGupta →</a>
   </nav>
   <div class="page-wrap">
-    <div class="exchange-inner" id="main-content">
+    <main id="main-content" class="exchange-inner">
       <a href="/demo" class="back-link">← Back to Demos</a>
-      <p class="exchange-intro">The AdsGupta Universe maps the entire advertising technology ecosystem — from quantum identity resolution to orbital media. Explore 30+ systems, search across 3,000+ modules, and simulate ad pipeline conversion rates. Built by <a href="/ranjan-dasgupta">Ranjan Dasgupta</a>. <a href="/demo">Explore more demos</a>.</p>
-
-      <div class="universe-tabs" role="tablist">
-        <button type="button" class="active" data-tab="universe" aria-selected="true">Universe</button>
-        <button type="button" data-tab="pipeline" aria-selected="false">Pipeline</button>
-        <button type="button" data-tab="rates" aria-selected="false">Rates</button>
-        <button type="button" data-tab="funnel" aria-selected="false">Funnel</button>
+      <p class="intro">The AdsGupta Universe maps the entire advertising technology ecosystem — from quantum identity resolution to orbital media. Explore 30+ systems, search across 3,000+ modules, and simulate ad pipeline conversion rates. Built by <a href="/ranjan-dasgupta">Ranjan Dasgupta</a>. <a href="/demo">Explore more demos</a>.</p>
+      <div class="universe-wrap">
+        <div class="universe-tabs" role="tablist">
+          <button type="button" class="active" data-tab="universe" aria-selected="true">Universe</button>
+          <button type="button" data-tab="pipeline">Pipeline</button>
+          <button type="button" data-tab="rates">Rates</button>
+          <button type="button" data-tab="funnel">Funnel</button>
+        </div>
+        <input type="search" class="universe-search" placeholder="Search systems, sub-systems, modules…" aria-label="Search ecosystem">
+        <div id="universe-pane" class="universe-pane active"></div>
+        <div id="pipeline-pane" class="pipeline-pane"><p style="color:rgba(255,255,255,0.8);">Ad pipeline simulator: configure conversion rates and trace flow from request to conversion. (Controls coming in a future update.)</p></div>
+        <div id="rates-pane" class="rates-pane"><p style="color:rgba(255,255,255,0.8);">Conversion rate controls for pipeline stages. (Coming soon.)</p></div>
+        <div id="funnel-pane" class="funnel-pane"><p style="color:rgba(255,255,255,0.8);">Full-funnel visualization. (Coming soon.)</p></div>
       </div>
-      <input type="search" class="universe-search" id="universeSearch" placeholder="Search systems, sub-systems, modules…" aria-label="Search universe">
-
-      <div id="pane-universe" class="universe-pane active">
-        <div class="universe-cards" id="universeCards"></div>
-      </div>
-      <div id="pane-pipeline" class="universe-pane">
-        <div class="pipeline-viz" id="pipelineViz">Ad Request → Bid Request → DSP Fan-out → Auction → Creative Return. Conversion rate: <span id="pipelineRate">0.042</span></div>
-      </div>
-      <div id="pane-rates" class="universe-pane">
-        <div class="rates-row"><label>Impressions → Clicks</label><input type="range" id="rateImpr" min="0" max="100" value="4"><span id="rateImprVal">4</span>%</div>
-        <div class="rates-row"><label>Clicks → Conversions</label><input type="range" id="rateConv" min="0" max="100" value="2"><span id="rateConvVal">2</span>%</div>
-      </div>
-      <div id="pane-funnel" class="universe-pane">
-        <div class="pipeline-viz">Awareness → Consideration → Conversion → Retention. Full-funnel visualization (simplified).</div>
-      </div>
-    </div>
+    </main>
   </div>
   <footer class="footer-adsgupta" data-testid="footer-section">
     <div class="footer-adsgupta-inner">
@@ -131,65 +109,48 @@
   <script>
   (function(){
     var RAW_ECO = [
-      { id: 'qid', name: 'Quantum Identity Resolution', subs: ['QID Graph', 'Cross-Device Hashing', 'Privacy-Preserving ID', 'Consent Sync'] },
-      { id: 'rtb', name: 'Real-Time Bidding', subs: ['OpenRTB 2.6', 'Bid Request Builder', 'Bid Response Parser', 'First-Price Auction', 'Second-Price Auction'] },
-      { id: 'dsp', name: 'Demand-Side Platform', subs: ['Campaign Manager', 'Audience Segments', 'Bid Strategy', 'Creative Library', 'Reporting'] },
-      { id: 'ssp', name: 'Supply-Side Platform', subs: ['Inventory Management', 'Yield Optimization', 'Header Bidding', 'Direct Deals'] },
-      { id: 'exchange', name: 'Ad Exchange', subs: ['Auction Engine', 'Floor Pricing', 'Demand Fan-Out', 'Creative Validation'] },
-      { id: 'identity', name: 'Identity & Signals', subs: ['ID5', 'LiveRamp', 'Unified ID 2.0', 'Contextual Signals'] },
-      { id: 'measurement', name: 'Measurement & Attribution', subs: ['Viewability', 'Brand Lift', 'Conversion Tracking', 'MMM'] },
-      { id: 'creative', name: 'Creative Optimization', subs: ['Dynamic Creative', 'Creative ID', 'Brand Safety', 'Ad Verification'] },
-      { id: 'data', name: 'Data Management', subs: ['DMP', 'Data Clean Rooms', 'Audience Activation', 'Segment Sync'] },
-      { id: 'ctv', name: 'Connected TV', subs: ['SSAI', 'CSAI', 'Ad Podding', 'OTT Measurement'] },
-      { id: 'neural', name: 'Neural Commerce', subs: ['Predictive Bidding', 'Recommendation Engine', 'Revenue ML'] },
-      { id: 'holo', name: 'Holographic Media', subs: ['Immersive Ad Units', 'AR/VR Inventory', 'Spatial Targeting'] },
-      { id: 'privacy', name: 'Privacy & Compliance', subs: ['GDPR', 'CCPA', 'Consent Management', 'Data Retention'] },
-      { id: 'fraud', name: 'Fraud & Quality', subs: ['Invalid Traffic', 'Bot Detection', 'Supply Path Transparency'] },
-      { id: 'orchestration', name: 'Orchestration', subs: ['Workflow Engine', 'Event Bus', 'API Gateway'] },
-      { id: 'header-bid', name: 'Header Bidding', subs: ['Prebid.js', 'Wrapper', 'Timeout Mgmt', 'Bid Adapter'] },
-      { id: 'floor', name: 'Floor Pricing', subs: ['Dynamic Floors', 'Bid Shading', 'Price Floors API'] },
-      { id: 'spo', name: 'Supply Path Optimization', subs: ['sellers.json', 'ads.txt', 'Path Dedup'] },
-      { id: 'creative-serve', name: 'Creative Serving', subs: ['VAST', 'VPAID', 'MRAID', 'OMSDK'] },
-      { id: 'attribution', name: 'Attribution', subs: ['Last-Touch', 'Multi-Touch', 'Panel-Based'] },
-      { id: 'contextual', name: 'Contextual Targeting', subs: ['Page Taxonomy', 'IAB Categories', 'Keyword'] },
-      { id: 'audience', name: 'Audience Targeting', subs: ['1P Segments', '3P Data', 'Lookalike'] },
-      { id: 'frequency', name: 'Frequency Management', subs: ['Cap by User', 'Cap by Campaign', 'Cross-Device'] },
-      { id: 'brand-safety', name: 'Brand Safety', subs: ['Blocklists', 'Sensitive Categories', 'Context Filters'] },
-      { id: 'viewability', name: 'Viewability', subs: ['MRC', 'IVT', 'Geo Viewability'] },
-      { id: 'wallet', name: 'Neural Commerce Wallet', subs: ['Tokenized Attention', 'Micro-Payments', 'Settlement'] },
-      { id: 'orbital', name: 'Orbital Media', subs: ['Satellite Inventory', 'IoT Signals', 'Edge Caching'] },
-      { id: 'agentic', name: 'Agentic AI', subs: ['Autonomous Bidding', 'Creative Gen', 'Budget pacing'] },
-      { id: 'consent', name: 'Consent Management', subs: ['TCF', 'CCPA Opt-Out', 'Vendor List'] }
+      { id: 'qid', name: 'Quantum Identity Resolution', subs: ['Graph resolution','Privacy-safe linking','Cross-device signals','Deterministic IDs'] },
+      { id: 'neucomm', name: 'Neural Commerce', subs: ['Intent prediction','Basket modeling','Attribution graphs','Conversion APIs'] },
+      { id: 'holo', name: 'Holographic Media', subs: ['Immersive formats','Spatial ad units','AR/VR inventory','Measurement SDKs'] },
+      { id: 'prog', name: 'Programmatic Advertising', subs: ['OpenRTB 2.6','First-price auctions','Demand aggregation','Supply path optimization'] },
+      { id: 'dsp', name: 'Demand-Side Platforms', subs: ['Campaign management','Bid strategies','Creative optimization','Audience segments'] },
+      { id: 'ssp', name: 'Supply-Side Platforms', subs: ['Yield management','Header bidding','Floor pricing','Inventory packaging'] },
+      { id: 'exchange', name: 'Ad Exchanges', subs: ['Auction engine','Bid request/response','Creative validation','Latency optimization'] },
+      { id: 'identity', name: 'Identity & Data', subs: ['ID resolution','Consent management','Data clean rooms','Segmentation'] },
+      { id: 'measurement', name: 'Measurement & Attribution', subs: ['Viewability','Brand lift','Conversion tracking','MMM'] },
+      { id: 'creative', name: 'Creative Tech', subs: ['Dynamic creative','Video transcoding','Format adaptation','Brand safety'] },
+      { id: 'ctv', name: 'CTV & Streaming', subs: ['SSAI/CSAI','Ad podding','FAST channels','OEM partnerships'] },
+      { id: 'mobile', name: 'Mobile In-App', subs: ['SDK integration','Mediation','Rewarded video','Native formats'] },
+      { id: 'web', name: 'Web Monetization', subs: ['Header bidding','GAM integration','Cookie alternatives','Contextual signals'] },
+      { id: 'ai', name: 'AI & ML', subs: ['Bid optimization','Fraud detection','Audience modeling','Creative scoring'] },
+      { id: 'privacy', name: 'Privacy & Compliance', subs: ['GDPR/CCPA','Consent strings','Sellers.json','ads.txt'] },
+      { id: 'infra', name: 'Infrastructure', subs: ['Edge compute','CDN','Log pipelines','Real-time analytics'] },
+      { id: 'orbital', name: 'Orbital Media', subs: ['Satellite inventory','Cross-planetary signals','Future formats'] }
     ];
-    function renderCards(filter){
+    var pane = document.getElementById('universe-pane');
+    var searchEl = document.querySelector('.universe-search');
+    function render(filter){
       var q = (filter || '').toLowerCase();
-      var container = document.getElementById('universeCards');
-      container.innerHTML = '';
-      RAW_ECO.forEach(function(system){
-        var subMatch = q ? system.subs.some(function(s){ return s.toLowerCase().indexOf(q) !== -1; }) : true;
-        var nameMatch = !q || system.name.toLowerCase().indexOf(q) !== -1;
-        if (!nameMatch && !subMatch) return;
-        var card = document.createElement('div');
-        card.className = 'universe-card';
-        card.innerHTML = '<div class="universe-card-header">' + system.name + ' <span aria-hidden="true">+</span></div><div class="universe-card-body"><ul>' + system.subs.map(function(s){ return '<li>' + s + '</li>'; }).join('') + '</ul></div>';
-        card.querySelector('.universe-card-header').addEventListener('click', function(){ card.classList.toggle('open'); });
-        container.appendChild(card);
-      });
+      pane.innerHTML = RAW_ECO.filter(function(s){
+        if(!q) return true;
+        var match = s.name.toLowerCase().indexOf(q) >= 0 || (s.subs && s.subs.some(function(sub){ return sub.toLowerCase().indexOf(q) >= 0; }));
+        return match;
+      }).map(function(s){
+        var subsHtml = (s.subs || []).map(function(sub){ return '<div class="sub">' + sub + '</div>'; }).join('');
+        return '<details class="sys-card"><summary>' + s.name + '</summary><div class="subs">' + subsHtml + '</div></details>';
+      }).join('');
     }
+    render();
+    searchEl.addEventListener('input', function(){ render(this.value); });
     document.querySelectorAll('.universe-tabs button').forEach(function(btn){
       btn.addEventListener('click', function(){
         var t = this.getAttribute('data-tab');
-        document.querySelectorAll('.universe-pane').forEach(function(p){ p.classList.remove('active'); });
         document.querySelectorAll('.universe-tabs button').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-        var pane = document.getElementById('pane-' + t);
-        if(pane){ pane.classList.add('active'); }
         this.classList.add('active'); this.setAttribute('aria-selected','true');
+        document.querySelectorAll('[id$="-pane"]').forEach(function(p){ p.classList.remove('active'); });
+        var p = document.getElementById(t + '-pane'); if(p) p.classList.add('active');
       });
     });
-    document.getElementById('universeSearch').addEventListener('input', function(){ renderCards(this.value); });
-    document.getElementById('rateImpr').addEventListener('input', function(){ document.getElementById('rateImprVal').textContent = this.value; document.getElementById('pipelineRate').textContent = (Number(this.value) * 0.01 * Number(document.getElementById('rateConv').value) * 0.01).toFixed(3); });
-    document.getElementById('rateConv').addEventListener('input', function(){ document.getElementById('rateConvVal').textContent = this.value; document.getElementById('pipelineRate').textContent = (Number(document.getElementById('rateImpr').value) * 0.01 * Number(this.value) * 0.01).toFixed(3); });
-    renderCards();
     var form = document.getElementById('footerNewsletterForm');
     if(form) form.addEventListener('submit', function(e){ e.preventDefault(); });
   })();
