@@ -51,6 +51,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://ranjan.adsgupta.com/demo/exchange</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://ranjan.adsgupta.com/work</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
