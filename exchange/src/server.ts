@@ -5,7 +5,9 @@ import sensible from '@fastify/sensible';
 import rateLimit from '@fastify/rate-limit';
 import { registerAdRequestRoute } from './routes/ad-request';
 import { registerBeaconRoute } from './routes/beacon';
+import { registerApiRoutes } from './routes/api';
 import { TestBidderAdapter } from './integrations/adapters/test-bidder';
+import { getStatusMetrics } from './services/metrics-store';
 
 const PORT = Number(process.env.PORT || 3001);
 
@@ -30,16 +32,18 @@ async function buildServer() {
 
   await registerAdRequestRoute(fastify, [testAdapter]);
   await registerBeaconRoute(fastify);
+  await registerApiRoutes(fastify);
 
   fastify.get('/status', async () => {
+    const metrics = getStatusMetrics();
     return {
       status: 'healthy',
-      version: '0.1.0',
+      version: process.env.npm_package_version || '0.1.0',
       uptime: process.uptime(),
-      auctions_last_hour: 0,
+      auctions_last_hour: metrics.auctions_last_hour,
       active_dsps: 1,
-      avg_latency_ms: 0,
-      fill_rate: 0,
+      avg_latency_ms: metrics.avg_latency_ms,
+      fill_rate: metrics.fill_rate,
     };
   });
 

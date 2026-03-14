@@ -4,6 +4,7 @@ import { AuctionEngine } from '../core/auction-engine';
 import { DSPManager } from '../integrations/dsp-manager';
 import type { DSPAdapter } from '../integrations/dsp-adapter.interface';
 import type { BidResponse } from '../utils/openrtb-types';
+import { recordAuction } from '../services/metrics-store';
 
 /**
  * Very small in-memory publisher config stub.
@@ -126,6 +127,29 @@ export async function registerAdRequestRoute(
     });
 
     const latency = Date.now() - started;
+
+    const fillCount = auctionResult.impressionResults.filter((r) => r.winner).length;
+    const totalRevenue = auctionResult.impressionResults.reduce(
+      (sum, r) => sum + (r.winner?.price ?? 0),
+      0,
+    );
+    const winnerDsp =
+      auctionResult.impressionResults.find((r) => r.winner)?.winner?.dspId ?? null;
+    const bidCount = auctionResult.impressionResults.reduce(
+      (sum, r) => sum + r.bidCount,
+      0,
+    );
+
+    recordAuction({
+      auctionId: auctionResult.auctionId,
+      publisherId,
+      requestCount: auctionResult.impressionResults.length,
+      fillCount,
+      totalRevenue,
+      latencyMs: latency,
+      winnerDsp,
+      bidCount,
+    });
 
     reply
       .header('Access-Control-Allow-Origin', '*')
