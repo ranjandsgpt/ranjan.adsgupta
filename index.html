@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t||'dark');})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#050508">
   <meta name="author" content="Ranjan Dasgupta">
   <meta name="robots" content="index, follow">
   <meta name="description" content="Ranjan Dasgupta is an AdTech product leader with $200M+ scale experience in programmatic advertising, CTV monetization, header bidding, and exchange strategy at InMobi.">
@@ -27,39 +28,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #ffffff;
-      --surface: #f8f8f6;
-      --text-primary: #1a1a1a;
-      --text-secondary: #6b6b6b;
-      --text-tertiary: #9a9a9a;
-      --accent: #0066cc;
-      --border: rgba(0,0,0,0.08);
-      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-    html.dark, html[data-theme="dark"] {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --text-primary: #e8e8e8;
-      --text-secondary: #999999;
-      --text-tertiary: #666666;
-      --accent: #4da3ff;
-      --border: rgba(255,255,255,0.08);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #0a0a0a;
-        --surface: #141414;
-        --text-primary: #e8e8e8;
-        --text-secondary: #999999;
-        --text-tertiary: #666666;
-        --accent: #4da3ff;
-        --border: rgba(255,255,255,0.08);
-      }
-    }
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-sans);
@@ -69,6 +40,10 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.2s, color 0.2s;
+    }
+    html[data-theme="dark"] body {
+      background-image: radial-gradient(circle, rgba(0,212,170,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
     .skip-link {
       position: absolute;
@@ -247,6 +222,9 @@
       color: var(--text-primary);
       font-variant-numeric: tabular-nums;
     }
+    html[data-theme="dark"] .home-metric-value {
+      text-shadow: 0 0 20px var(--metric-glow);
+    }
     .home-metric-value.accent { color: var(--accent); }
     .home-metric-label {
       font-size: 11px;
@@ -279,7 +257,7 @@
       gap: 8px;
     }
     .home-card {
-      background: var(--surface);
+      background: var(--card-bg);
       border: 0.5px solid var(--border);
       border-radius: 8px;
       padding: 14px;
@@ -320,7 +298,7 @@
       min-width: 140px;
       padding: 12px;
       border-radius: 8px;
-      background: var(--surface);
+      background: var(--card-bg);
       border: 0.5px solid var(--border);
     }
     .home-timeline-item.highlight {
@@ -359,33 +337,6 @@
       .home-timeline-item.flex-14, .home-timeline-item.flex-08 { flex: 1; }
     }
 
-    /* Audit CTA */
-    .home-audit-cta {
-      max-width: 1024px;
-      margin: 0 20px 20px;
-      padding: 24px;
-      background: var(--surface);
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .home-audit-cta-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-    .home-audit-cta-desc {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    .home-audit-cta .home-btn-primary { flex-shrink: 0; }
-
     /* Insights */
     .home-insights-header {
       display: flex;
@@ -408,7 +359,7 @@
       flex: 1;
       min-width: 200px;
       padding: 12px;
-      background: var(--surface);
+      background: var(--card-bg);
       border: 0.5px solid var(--border);
       border-radius: 8px;
     }
@@ -432,54 +383,17 @@
       .home-insights-grid { flex-direction: column; }
     }
 
-    /* Contact bar */
-    .home-contact-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-      gap: 12px;
+    /* Theme toggle in nav (site-wide) */
+    .site-theme-toggle { display: flex; align-items: center; gap: 6px; }
+    .site-theme-btn {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: transparent;
+      cursor: pointer; padding: 0;
     }
-    .home-contact-links {
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .home-contact-links a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .home-contact-links a:hover { text-decoration: underline; }
-    .home-theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .home-theme-label {
-      font-size: 10px;
-      color: var(--text-tertiary);
-    }
-    .home-theme-btns {
-      display: flex;
-      gap: 6px;
-    }
-    .home-theme-btn {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: transparent;
-      cursor: pointer;
-      padding: 0;
-    }
-    .home-theme-btn.dark {
-      background: var(--text-primary);
-      border-color: var(--text-primary);
-    }
-    html:not(.dark):not([data-theme="dark"]) .home-theme-btn.light { background: var(--text-primary); border-color: var(--text-primary); }
-    html.dark .home-theme-btn.dark, html[data-theme="dark"] .home-theme-btn.dark { background: var(--text-primary); border-color: var(--text-primary); }
-    html[data-theme="dark"] .home-theme-btn.light { background: transparent; }
+    .site-theme-btn.dark { background: var(--text-primary); border-color: var(--text-primary); }
+    html[data-theme="light"] .site-theme-btn.light { background: var(--text-primary); border-color: var(--text-primary); }
+    html[data-theme="dark"] .site-theme-btn.dark { background: var(--text-primary); border-color: var(--text-primary); }
+    html[data-theme="dark"] .site-theme-btn.light { background: transparent; }
   </style>
   <!-- Footer: keep existing styles unchanged so footer looks the same -->
   <style>
@@ -681,6 +595,10 @@
       </div>
       <a href="/audit" class="home-nav-audit">Audit Tool</a>
       <a href="https://adsgupta.com" class="home-nav-adsgupta" target="_blank" rel="noopener">AdsGupta →</a>
+      <div class="site-theme-toggle" aria-label="Theme">
+        <button type="button" class="site-theme-btn light" id="themeLight" aria-label="Light mode"></button>
+        <button type="button" class="site-theme-btn dark" id="themeDark" aria-label="Dark mode"></button>
+      </div>
       <button type="button" class="home-nav-menu-btn" id="navMenuBtn" aria-label="Menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -779,14 +697,6 @@
       </div>
     </section>
 
-    <section class="home-audit-cta" aria-labelledby="audit-cta-heading">
-      <div>
-        <h2 id="audit-cta-heading" class="home-audit-cta-title">Programmatic monetization audit</h2>
-        <p class="home-audit-cta-desc">Upload GAM exports, validate ads.txt, or inspect OpenRTB bid requests. Client-side — no data leaves your browser.</p>
-      </div>
-      <a href="/audit" class="home-btn-primary">Launch audit tool →</a>
-    </section>
-
     <section class="home-section" aria-labelledby="insights-heading">
       <div class="home-insights-header">
         <h2 id="insights-heading" class="home-section-label">LATEST INSIGHTS</h2>
@@ -811,21 +721,6 @@
       </div>
     </section>
   </main>
-
-  <div class="home-contact-bar">
-    <div class="home-contact-links">
-      <a href="mailto:ranjan@adsgupta.com">ranjan@adsgupta.com</a>
-      · <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener">LinkedIn</a>
-      · <a href="https://adsgupta.com" target="_blank" rel="noopener">AdsGupta</a>
-    </div>
-    <div class="home-theme-toggle">
-      <span class="home-theme-label">Theme</span>
-      <div class="home-theme-btns">
-        <button type="button" class="home-theme-btn light" id="themeLight" aria-label="Light mode"></button>
-        <button type="button" class="home-theme-btn dark" id="themeDark" aria-label="Dark mode"></button>
-      </div>
-    </div>
-  </div>
 
   <footer class="footer-adsgupta" data-testid="footer-section">
     <div class="footer-adsgupta-inner">
@@ -896,37 +791,14 @@
   <script>
     (function () {
       var STORAGE_THEME = 'theme';
-      function getStoredTheme() {
-        try {
-          return localStorage.getItem(STORAGE_THEME);
-        } catch (e) { return null; }
-      }
       function setTheme(val) {
-        var html = document.documentElement;
-        if (val === 'dark') {
-          html.classList.add('dark');
-          html.setAttribute('data-theme', 'dark');
-        } else {
-          html.classList.remove('dark');
-          html.setAttribute('data-theme', 'light');
-        }
-        try { localStorage.setItem(STORAGE_THEME, val || 'light'); } catch (e) {}
+        document.documentElement.setAttribute('data-theme', val === 'light' ? 'light' : 'dark');
+        try { localStorage.setItem(STORAGE_THEME, val === 'light' ? 'light' : 'dark'); } catch (e) {}
       }
-      function initTheme() {
-        var stored = getStoredTheme();
-        if (stored === 'dark' || stored === 'light') {
-          setTheme(stored);
-          return;
-        }
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      }
-      initTheme();
-      document.getElementById('themeLight').addEventListener('click', function () { setTheme('light'); });
-      document.getElementById('themeDark').addEventListener('click', function () { setTheme('dark'); });
+      var lightBtn = document.getElementById('themeLight');
+      var darkBtn = document.getElementById('themeDark');
+      if (lightBtn) lightBtn.addEventListener('click', function () { setTheme('light'); });
+      if (darkBtn) darkBtn.addEventListener('click', function () { setTheme('dark'); });
 
       document.getElementById('navMenuBtn').addEventListener('click', function () {
         document.getElementById('homeNav').classList.toggle('open');
