@@ -7,21 +7,21 @@
   <meta name="theme-color" content="#050508">
   <meta name="author" content="Ranjan Dasgupta">
   <meta name="robots" content="index, follow">
-  <title>Contact Ranjan Dasgupta | AdTech Consulting & Collaboration</title>
-  <meta name="description" content="Reach out to Ranjan Dasgupta for AdTech consulting, programmatic strategy, speaking opportunities, or collaboration.">
+  <title>Contact Ranjan Dasgupta | AdTech Strategy & Collaboration</title>
+  <meta name="description" content="Connect with Ranjan Dasgupta for programmatic advertising strategy, CTV monetization consulting, exchange architecture, speaking engagements, or collaboration.">
   <link rel="canonical" href="https://ranjan.adsgupta.com/contact">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
-  <meta property="og:title" content="Contact Ranjan Dasgupta | AdTech Consulting & Collaboration">
-  <meta property="og:description" content="Reach out to Ranjan Dasgupta for AdTech consulting, programmatic strategy, speaking opportunities, or collaboration.">
+  <meta property="og:title" content="Contact Ranjan Dasgupta | AdTech Strategy & Collaboration">
+  <meta property="og:description" content="Connect with Ranjan Dasgupta for programmatic advertising strategy, CTV monetization consulting, exchange architecture, speaking engagements, or collaboration.">
   <meta property="og:image" content="https://ranjan.adsgupta.com/og-image.png">
   <meta property="og:url" content="https://ranjan.adsgupta.com/contact">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ranjan Dasgupta">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Contact Ranjan Dasgupta | AdTech Consulting & Collaboration">
-  <meta name="twitter:description" content="Reach out for AdTech consulting, programmatic strategy, speaking, or collaboration.">
+  <meta name="twitter:title" content="Contact Ranjan Dasgupta | AdTech Strategy & Collaboration">
+  <meta name="twitter:description" content="Connect for programmatic strategy, CTV monetization, exchange architecture, speaking, or collaboration.">
   <meta name="twitter:image" content="https://ranjan.adsgupta.com/og-image.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +39,24 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Ranjan Dasgupta",
+    "description": "Connect with Ranjan Dasgupta for programmatic advertising strategy, CTV monetization consulting, exchange architecture, speaking engagements, or collaboration.",
+    "url": "https://ranjan.adsgupta.com/contact",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Ranjan Dasgupta",
+      "email": "ranjan@adsgupta.com",
+      "url": "https://ranjan.adsgupta.com",
+      "sameAs": ["https://www.linkedin.com/in/ranjandsgpt/", "https://adsgupta.com"],
+      "jobTitle": "AdTech Product Leader",
+      "worksFor": { "@type": "Organization", "name": "InMobi" }
+    }
+  }
+  </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,69 +70,156 @@
 
     .page-wrap { padding-top: 5rem; }
     .contact-inner {
-      max-width: 640px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 3rem 1.5rem 4rem;
+      padding: 2rem 1.5rem 4rem;
     }
-    .contact-inner h1 {
+    .contact-hero {
+      margin-bottom: 2.5rem;
+    }
+    .contact-hero h1 {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 2.25rem;
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
     }
-    .contact-inner p {
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 1.5rem;
+    .contact-hero .subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 36em;
     }
-    .contact-inner a { color: var(--accent); text-decoration: none; }
-    .contact-inner a:hover { text-decoration: underline; }
-    .contact-list {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
+    .contact-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
     }
-    .contact-list li {
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
+    @media (min-width: 768px) {
+      .contact-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--accent);
+    }
+    .contact-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
     }
-    .contact-list li:last-child { border-bottom: none; }
-    .contact-list .label {
+    .contact-card-icon.teal { background: rgba(0, 212, 170, 0.2); color: var(--accent); }
+    .contact-card-icon.indigo { background: rgba(99, 102, 241, 0.2); color: var(--accent-secondary); }
+    .contact-card-icon.green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+    .contact-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .contact-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .contact-card .cta-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-card .cta-link:hover { text-decoration: underline; }
+    .contact-direct {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .contact-direct-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .contact-direct-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .contact-direct-inner { grid-template-columns: repeat(4, 1fr); }
+    }
+    .contact-direct-item {
+      font-size: 0.9375rem;
+    }
+    .contact-direct-item strong {
+      display: block;
       font-family: var(--font-mono);
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--accent);
+      color: var(--text-tertiary);
+      margin-bottom: 0.2rem;
     }
-    .contact-list .value { font-size: 1.0625rem; }
-    .contact-cta {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.875rem 1.5rem;
-      background: rgba(0, 242, 255, 0.15);
+    .contact-direct-item a {
       color: var(--accent);
-      font-weight: 600;
       text-decoration: none;
-      border: 1px solid rgba(0, 242, 255, 0.4);
-      border-radius: 0.5rem;
-      transition: background 0.2s, border-color 0.2s;
     }
-    .contact-cta:hover {
-      background: rgba(0, 242, 255, 0.25);
-      border-color: var(--accent);
+    .contact-direct-item a:hover { text-decoration: underline; }
+    .contact-tags-section h3 {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.75rem;
     }
-    .contact-inner .related {
+    .contact-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+    .contact-tags .sep { color: var(--text-tertiary); user-select: none; }
+    .contact-tags a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-tags a:hover { text-decoration: underline; }
+    .contact-related {
       margin-top: 2.5rem;
       padding-top: 1.5rem;
       border-top: 1px solid var(--border);
-      font-size: 0.9375rem;
-      color: var(--text-muted);
     }
-    .contact-inner .related a { color: var(--accent); }
+    .contact-related h3 {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-tertiary);
+      margin-bottom: 0.75rem;
+    }
+    .contact-related-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+    }
+    .contact-related-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9375rem;
+    }
+    .contact-related-links a:hover { text-decoration: underline; }
 
     /* Footer – same as adsgupta.com (do not modify) */
     .footer-adsgupta { position: relative; z-index: 2; padding: 4rem 0 4rem; background: #0A0A0A; border-top: 1px solid rgba(255, 255, 255, 0.05); }
@@ -181,24 +286,92 @@
 
   <div class="page-wrap">
     <main id="main-content" class="contact-inner">
-      <h1>Contact</h1>
-      <p>Reach out to Ranjan Dasgupta for AdTech consulting, <a href="/programmatic-advertising">programmatic strategy</a>, speaking opportunities, or collaboration on exchange and monetization initiatives.</p>
+      <section class="contact-hero" aria-labelledby="contact-heading">
+        <h1 id="contact-heading">Let's build something</h1>
+        <p class="subtitle">Whether it's exchange architecture, monetization strategy, or the future of advertising — I'm always up for a conversation.</p>
+      </section>
 
-      <ul class="contact-list">
-        <li>
-          <span class="label">Email</span>
-          <span class="value"><a href="mailto:ranjandsgpt@gmail.com">ranjandsgpt@gmail.com</a></span>
-        </li>
-        <li>
-          <span class="label">LinkedIn</span>
-          <span class="value"><a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">Connect with Ranjan Dasgupta on LinkedIn</a></span>
-        </li>
-      </ul>
+      <section class="contact-cards" aria-label="Contact options">
+        <article class="contact-card">
+          <div class="contact-card-icon teal" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <h3>Strategy &amp; Consulting</h3>
+          <p>Programmatic advertising strategy, CTV monetization, exchange architecture, yield optimization, and header bidding consulting.</p>
+          <a href="mailto:ranjan@adsgupta.com?subject=Consulting%20Inquiry" class="cta-link">Email for consulting →</a>
+        </article>
+        <article class="contact-card">
+          <div class="contact-card-icon indigo" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+          </div>
+          <h3>Speaking &amp; Events</h3>
+          <p>Available for industry conferences, panels, podcasts, and webinars on AdTech, programmatic, and AI in advertising.</p>
+          <a href="mailto:ranjan@adsgupta.com?subject=Speaking%20Inquiry" class="cta-link">Email for speaking →</a>
+        </article>
+        <article class="contact-card">
+          <div class="contact-card-icon green" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Collaboration &amp; Hiring</h3>
+          <p>Open to product leadership roles in AdTech, exchange/SSP, and programmatic monetization. Also open to advisory roles and partnerships.</p>
+          <a href="mailto:ranjan@adsgupta.com?subject=Collaboration" class="cta-link">Email to connect →</a>
+        </article>
+      </section>
 
-      <p>For a focused discussion on programmatic advertising, CTV monetization, or exchange strategy, send a brief note with your context and how you’d like to collaborate.</p>
-      <a href="mailto:ranjandsgpt@gmail.com?subject=Consultation%20%7C%20Ranjan%20Dasgupta%20—%20AdTech" class="contact-cta">Request a consultation</a>
+      <section class="contact-direct" aria-label="Direct contact">
+        <div class="contact-direct-inner">
+          <div class="contact-direct-item">
+            <strong>Email</strong>
+            <a href="mailto:ranjan@adsgupta.com">ranjan@adsgupta.com</a>
+          </div>
+          <div class="contact-direct-item">
+            <strong>LinkedIn</strong>
+            <a href="https://www.linkedin.com/in/ranjandsgpt/" target="_blank" rel="noopener noreferrer">linkedin.com/in/ranjandsgpt</a>
+          </div>
+          <div class="contact-direct-item">
+            <strong>AdsGupta</strong>
+            <a href="https://adsgupta.com" target="_blank" rel="noopener noreferrer">adsgupta.com</a>
+          </div>
+          <div class="contact-direct-item">
+            <strong>Location</strong>
+            Bengaluru, India
+          </div>
+        </div>
+      </section>
 
-      <p class="related">Explore <a href="/work">Work &amp; Projects</a> and <a href="/about">About Ranjan Dasgupta</a> for more context before reaching out.</p>
+      <section class="contact-tags-section" aria-labelledby="help-heading">
+        <h3 id="help-heading">What I Can Help With</h3>
+        <div class="contact-tags">
+          <a href="/programmatic-advertising">Programmatic Advertising</a><span class="sep">·</span>
+          <a href="/ctv-monetization">CTV Monetization</a><span class="sep">·</span>
+          <a href="/header-bidding">Header Bidding</a><span class="sep">·</span>
+          <a href="/prebid-optimization">Prebid.js</a><span class="sep">·</span>
+          <a href="/supply-path-optimization">Supply Path Optimization</a><span class="sep">·</span>
+          <a href="/yield-optimization">Yield Management</a><span class="sep">·</span>
+          <a href="/exchange-architecture">Exchange Architecture</a><span class="sep">·</span>
+          OpenRTB<span class="sep">·</span>
+          <a href="/ai-in-advertising">AI in Advertising</a><span class="sep">·</span>
+          Agentic AI<span class="sep">·</span>
+          <a href="/web-app-monetization">Web &amp; App Monetization</a><span class="sep">·</span>
+          Google Ad Manager<span class="sep">·</span>
+          <a href="/floor-pricing-strategy">Floor Pricing</a><span class="sep">·</span>
+          Demand Stack<span class="sep">·</span>
+          Unified Auctions
+        </div>
+      </section>
+
+      <nav class="contact-related" aria-label="Related pages">
+        <h3>Related Pages</h3>
+        <div class="contact-related-links">
+          <a href="/work">Explore my work →</a>
+          <a href="/insights">Read my insights →</a>
+          <a href="/audit">Try the audit tool →</a>
+          <a href="/about">About me →</a>
+        </div>
+      </nav>
+
+
+
     </main>
   </div>
 
