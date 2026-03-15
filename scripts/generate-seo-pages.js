@@ -122,6 +122,51 @@ const FOOTER = `  <footer class="footer-adsgupta" data-testid="footer-section">
 </body>
 </html>`;
 
+/** Pick one landing page URL based on keywords in content (plain text). */
+function pickLandingFromContent(content) {
+  if (!content) return '/programmatic-advertising';
+  const c = content.toLowerCase();
+  if (/\bexchange(s)?\b|exchange-level|exchange architecture/.test(c)) return '/exchange-architecture';
+  if (/\bctv\b|connected tv|ad pod/.test(c)) return '/ctv-monetization';
+  if (/header bidding|header-bidding|prebid/.test(c)) return '/header-bidding';
+  if (/\byield\b|yield optimization|eCPM/.test(c)) return '/yield-optimization';
+  if (/\bprogrammatic\b|real-time bidding|rtb/.test(c)) return '/programmatic-advertising';
+  if (/supply path|spo\b|supply-path/.test(c)) return '/supply-path-optimization';
+  if (/\bai\b|agentic|machine learning/.test(c)) return '/ai-in-advertising';
+  return '/programmatic-advertising';
+}
+
+/** Normalize master-format entry (slug, title, category, content) to full page shape. */
+function normalizeMasterPage(entry) {
+  const content = entry.content || '';
+  const plain = content.replace(/\n/g, ' ').trim();
+  const description = plain.length > 155 ? plain.slice(0, 152) + '...' : plain;
+  const paragraphs = content.split(/\n/).map(line => line.trim()).filter(Boolean);
+  const bodyHtml = paragraphs.map(p => '<p>' + escapeHtml(p) + '</p>').join('\n      ');
+  const landing = pickLandingFromContent(content);
+  const relatedLinks = [
+    { href: '/about', label: 'About' },
+    { href: '/work', label: 'Work' },
+    { href: landing, label: landing === '/exchange-architecture' ? 'Exchange Architecture' : landing === '/ctv-monetization' ? 'CTV Monetization' : landing === '/header-bidding' ? 'Header Bidding' : landing === '/yield-optimization' ? 'Yield Optimization' : landing === '/programmatic-advertising' ? 'Programmatic' : landing === '/supply-path-optimization' ? 'Supply Path' : 'AI in Advertising' }
+  ];
+  return {
+    slug: entry.slug,
+    title: (entry.title || entry.slug) + ' — Ranjan Dasgupta',
+    description,
+    breadcrumbName: entry.title || entry.slug,
+    category: entry.category || 'SEO',
+    h1: entry.title || entry.slug,
+    content: bodyHtml + '\n      <p>Explore <a href="/about">About</a>, <a href="/work">Work</a>, and <a href="' + landing + '">relevant expertise</a> — or <a href="/contact">get in touch</a>.</p>',
+    relatedLinks
+  };
+}
+
+function isMasterFormat(pages) {
+  if (!Array.isArray(pages) || !pages.length) return false;
+  const first = pages[0];
+  return first && 'number' in first && first.slug && first.title && first.content != null && first.h1 === undefined;
+}
+
 function buildHead(page) {
   const url = `${BASE}/${page.slug}`;
   const breadcrumb = JSON.stringify({
@@ -214,7 +259,10 @@ function buildPage(page) {
 function main() {
   const dataPath = process.argv[2] || path.join(__dirname, 'seo-pages', 'batch1.json');
   const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  const pages = Array.isArray(data) ? data : data.pages;
+  let pages = Array.isArray(data) ? data : data.pages;
+  if (isMasterFormat(pages)) {
+    pages = pages.map(normalizeMasterPage);
+  }
   for (const page of pages) {
     const dir = path.join(ROOT, page.slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
