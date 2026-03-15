@@ -156,8 +156,8 @@ function normalizeMasterPage(entry) {
     breadcrumbName: entry.title || entry.slug,
     category: entry.category || 'SEO',
     h1: entry.title || entry.slug,
-    content: bodyHtml + '\n      <p>Explore <a href="/about">About</a>, <a href="/work">Work</a>, and <a href="' + landing + '">relevant expertise</a> — or <a href="/contact">get in touch</a>.</p>',
-    relatedLinks
+    content: bodyHtml,
+    relatedLinks: []
   };
 }
 
@@ -241,19 +241,7 @@ function escapeHtml(s) {
 }
 
 function buildPage(page) {
-  const related = (page.relatedLinks || []).map(r => `<a href="${r.href}">${r.label}</a>`).join('\n          ');
-  const explore = `
-      <nav class="seo-related" aria-label="Related pages">
-        <h3>Explore more</h3>
-        <div class="seo-related-links">
-          <a href="/about">About Ranjan Dasgupta</a>
-          <a href="/work">Work</a>
-          <a href="/insights">Insights</a>
-          <a href="/contact">Contact</a>
-          ${related}
-        </div>
-      </nav>`;
-  return buildHead(page) + '\n      <p class="seo-category-tag">' + escapeHtml(page.category) + '</p>\n      <h1>' + escapeHtml(page.h1) + '</h1>\n      ' + page.content + '\n' + explore + '\n    </main>\n  </div>\n' + FOOTER;
+  return buildHead(page) + '\n      <p class="seo-category-tag">' + escapeHtml(page.category) + '</p>\n      <h1>' + escapeHtml(page.h1) + '</h1>\n      ' + page.content + '\n    </main>\n  </div>\n' + FOOTER;
 }
 
 function main() {
