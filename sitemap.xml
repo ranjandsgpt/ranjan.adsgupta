@@ -41,6 +41,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://ranjan.adsgupta.com/exchange</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ranjan.adsgupta.com/prebid-optimization</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
