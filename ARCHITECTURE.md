@@ -129,6 +129,18 @@ Define as CSS variables and in Tailwind config. Modern fintech meets ad exchange
 - **Contact block:** Email, LinkedIn, optional contact form or link to /contact.
 - **Badge/tag:** Small pill or tag for categories (e.g. "Programmatic", "CTV").
 
+### Developer Console (Homepage)
+
+- Floating `>_` trigger button fixed bottom-right on the homepage, opening a full-screen overlay "AdTech Control Center".
+- Console uses the global theme tokens (`--bg`, `--surface`, `--card-bg`, `--text-*`, `--accent`, `--border`) and monospace font for a terminal feel.
+- Tabs (all currently static/placeholder, carried over from the legacy console — to be rebuilt later):
+  - **[ AI MONETIZATION ]**: Interactive article-style demo with hyperlinks that change the summary/prompt blocks and a faux ad slot.
+  - **[ PROTOTYPE ]**: Iframe-based prototype viewer with overlay toggles (header sticky, infeed, footer sticky, chatbot, summarizer, prompt) plus a simple event log.
+  - **[ CRAWLER ]**: Placeholder for a future audit/crawler UI (no live backend; static copy today).
+  - **[ AD TAG ]**: Simple GPT/Prebid tag generator that assembles a script string based on form inputs; copy-to-clipboard button included.
+  - **[ PREBID GAM API ]**: Placeholder panel for future Prebid + GAM utilities.
+- The console is wired with open/close behavior (button, overlay click, Escape key) and does **not** change any page layout; it floats above all content.
+
 **Critical:** SEO sections (bio, FAQs, expertise) must be designed as polished components (cards, grids, backgrounds, spacing, typography), not raw paragraphs on a blank page.
 
 ---
