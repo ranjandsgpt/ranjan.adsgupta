@@ -221,6 +221,9 @@ footer[data-testid="footer-section"] ul {
   padding: 0;
   margin: 0;
 }
+footer[data-testid="footer-section"] .space-y-3 > * + * {
+  margin-top: 0.75rem;
+}
 footer[data-testid="footer-section"] li + li {
   margin-top: 0.75rem;
 }
@@ -247,6 +250,9 @@ footer[data-testid="footer-section"] .grid-cols-1 {
 }
 footer[data-testid="footer-section"] .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+footer[data-testid="footer-section"] .flex-1 {
+  flex: 1 1 0%;
 }
 footer[data-testid="footer-section"] .md\\:grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -309,6 +315,9 @@ footer[data-testid="footer-section"] .text-zinc-500 {
 footer[data-testid="footer-section"] .text-zinc-600 {
   color: rgba(82, 82, 91, 1);
 }
+footer[data-testid="footer-section"] .placeholder-zinc-500::placeholder {
+  color: rgba(113, 113, 122, 1);
+}
 footer[data-testid="footer-section"] .text-white {
   color: #ffffff;
 }
@@ -329,6 +338,19 @@ footer[data-testid="footer-section"] .font-bold {
 }
 footer[data-testid="footer-section"] .font-semibold {
   font-weight: 600;
+}
+footer[data-testid="footer-section"] .font-medium {
+  font-weight: 500;
+}
+footer[data-testid="footer-section"] .transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+footer[data-testid="footer-section"] .duration-300 {
+  transition-duration: 300ms;
+}
+footer[data-testid="footer-section"] .hover\\:text-white:hover {
+  color: #ffffff;
 }
 footer[data-testid="footer-section"] .newsletter-input {
   width: 100%;
@@ -361,6 +383,10 @@ footer[data-testid="footer-section"] .glow-button {
   border: none;
   cursor: pointer;
 }
+footer[data-testid="footer-section"] .glow-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.22);
+}
 footer[data-testid="footer-section"] .bg-cyan-500 {
   background: #06b6d4;
 }
@@ -373,7 +399,7 @@ footer[data-testid="footer-section"] .w-10 {
 footer[data-testid="footer-section"] .h-10 {
   height: 2.5rem;
 }
-footer[data-testid="footer-section"] .rounded-full.bg-white\\/5 {
+footer[data-testid="footer-section"] .bg-white\\/5 {
   background: rgba(255, 255, 255, 0.05);
 }
 footer[data-testid="footer-section"] .hover\\:bg-white\\/10:hover {
